@@ -19,13 +19,31 @@ jobs:
       
       # publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
-        run: dotnet publish mohdali.github.io.csproj -c Release -o release --nologo
+        run: dotnet publish mohdali.github.io.csproj -c Release -o Prerender/output --nologo
+      
+      # Use NodeJS react-snap utitility to prerender static website
+      - name: prerender Blazor client
+        working-directory: Prerender
+        run: npx react-snap
+
+      # change base tag in all html files to include subfolder
+      - name: Change base tag
+        working-directory: Prerender/output/wwwroot
+        run: |
+          find . -name "*.html" | while read htmlFile; do
+              sed -i 's/<script>var Module; window.__wasmmodulecallback__(); delete window.__wasmmodulecallback__;</script><script src="_framework/dotnet.6.0.7.8zwu4egow5.js" defer="" integrity="sha256-pvJcJ6jtDSfxgXm03QYRTm4aAi9PSzMSJODReHtvASY=" crossorigin="anonymous"></script>//g' $htmlFile
+          done
+
+      # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+      - name: Add .nojekyll file
+        run: touch Prerender/output/wwwroot/.nojekyll
+        
       
       - name: Commit wwwroot to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: release/wwwroot
+          FOLDER: Prerender/output/wwwroot
         
       
