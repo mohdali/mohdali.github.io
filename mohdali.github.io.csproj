@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="global.json" CopyToOutputDirectory="Never" />
     <Content Remove="Prerender\**" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
