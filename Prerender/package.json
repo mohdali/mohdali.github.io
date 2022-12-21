@@ -1,6 +1,7 @@
 {
     "reactSnap": {
         "source": "output/wwwroot",
+        "skipThirdPartyRequests": true,    
         "minifyHtml": {
             "collapseWhitespace": true,
             "removeComments": true
