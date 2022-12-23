@@ -10,9 +10,12 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/Rolling-Shutter-Simulation" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Rolling Shutter
-            </NavLink>
+            @foreach(var blogPost in BlogPosts) {
+                <NavLink class="nav-link" href=@blogPost.Url Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> @blogPost.Title
+                </NavLink>
+            }
+            
         </div>
     </nav>
 </div>
@@ -21,6 +24,9 @@
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private List<BlogPost> BlogPosts => BlogPostsHelper.GetBlogPosts(typeof(Program).Assembly);
+    
 
     private void ToggleNavMenu()
     {
