@@ -7,13 +7,14 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
+      "Humanizer.dll": "sha256-1oUwdVR9fjA+\/WA1TZEaL\/GO26WCzaL6WdkaLl3Pnpg=",
       "Microsoft.AspNetCore.Components.dll": "sha256-8kPLxcps4jJFNcPE5+g2MnxLjWDnf\/q1QsvQMu+MDqA=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-GnRPGVIo9WgRruZt8tMS+Wn0\/EOrNN2AnmKulTZ2Ghk=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-4GXVf\/gq4MOtZQaeXR3EJjpTc5xHpnf4hLeZJF5hdb8=",
       "Microsoft.Extensions.Configuration.Abstractions.dll": "sha256-yNUivmV4a48Mkbc1Sz+XJ9Y8moJKjWJo6Z0haFMFrKQ=",
       "Microsoft.Extensions.Configuration.dll": "sha256-OWH+xkIa4nRWGQutqm7dxgAY22jFGJlC+P6RzpDPrBE=",
       "Microsoft.Extensions.Configuration.Json.dll": "sha256-boSewHLerYdMMQk1EahIMSbAXSrf7Kgky4CGjZ3uuto=",
-      "Microsoft.Extensions.DependencyInjection.Abstractions.dll": "sha256-NAceT7aKzqRsGogCe8UyBWF01R1Qga83gXtq+v3p9V4=",
+      "Microsoft.Extensions.DependencyInjection.Abstractions.dll": "sha256-WPrkNepjE9bu6IVo76gbZRsjQK6d\/9wEsfKYxKvz6X0=",
       "Microsoft.Extensions.DependencyInjection.dll": "sha256-DG4t8WcZydm0E7u9Jba98S15iYEuwN\/7Lc4ZxhOzolk=",
       "Microsoft.Extensions.Logging.Abstractions.dll": "sha256-cXV5Iwz+aUN2Rq9LvMb+IgVedjMdzVTmd81ooy6E8WY=",
       "Microsoft.Extensions.Logging.dll": "sha256-uvQcmI6XrSMo7BLb8B56Haq\/wjzfQPy1LJw48RmEmDs=",
@@ -21,21 +22,22 @@
       "Microsoft.Extensions.Primitives.dll": "sha256-Kk9trPYi6xuop+bJh7AertZVcNJkEyzyxW3andlyf5U=",
       "Microsoft.JSInterop.dll": "sha256-ebqTQ0e5ErDdRdtITIzib9cEHIZfcAzNKIpHXn2gL1A=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-+kd7x6PNzxzKnxbPFVOIR\/\/c1Y1sgkzOqsT8ytMtu40=",
-      "mohdali.github.io.dll": "sha256-j83pgdSmzLkVwnT4zu+QyabCdXjv\/La2NJuLQSuGMMc=",
-      "System.Collections.Concurrent.dll": "sha256-Xh20fXxhQ4TCe0ntdSOSKGsIaQWRBqrFZtwKs\/Y4OS8=",
-      "System.Collections.dll": "sha256-Iv1vgGwQ59m+eTZP1FAAzul6iYhttn5z+El\/sJ0xLls=",
+      "mohdali.github.io.dll": "sha256-83OaJmOvzdbCbwQtvuRSV17\/3MgBkiZPxFf7JPbTexc=",
+      "System.Collections.Concurrent.dll": "sha256-NSmolL8BHmeNQwBNpb32F2Z6s16rCbKEoCVaDTrbWfc=",
+      "System.Collections.dll": "sha256-8gONzQkg1Ptv2oECc\/ojM1rCIq85daiynYGRMlCmhmc=",
       "System.ComponentModel.dll": "sha256-NaiWEp1Lg4M5ZL\/hhXmDMXF9Q\/wxBF1oOLwFfWEHu0Q=",
-      "System.Linq.dll": "sha256-wAaSVRNY+X37j1FLEw7FiNFBfmtEDdDRFKtTm+GSO80=",
+      "System.Linq.dll": "sha256-OMhenhiFFiWHYxilrPkD4DuXiIeF9KOuzLYskT946\/0=",
       "System.Memory.dll": "sha256-42cSk3df8UfpMVN+YwSLhmRoLrplPjpSdmALx4paTSE=",
       "System.Net.Http.dll": "sha256-b4V4p6mW5Kf8wH5OaefOZ0hspbO1Gz9TxNKDVeSQ4pE=",
       "System.Net.Primitives.dll": "sha256-OhV5voP+\/x\/6GiukfCutuk3OtXG6SL0CabyEAIiGZkM=",
-      "System.Private.CoreLib.dll": "sha256-\/6lETisfct7GxIHDQchIl0Ejagob46rrIOiqGh94JDY=",
+      "System.Private.CoreLib.dll": "sha256-liNT9c7n4d2DsZCaXkfUNrw8cUcybOpmbe3WV6DwrkM=",
       "System.Private.Runtime.InteropServices.JavaScript.dll": "sha256-p\/LcajjgZkQOdZAcwks89PcAJWqkBNaAgER+lLkZIeE=",
       "System.Private.Uri.dll": "sha256-INekZmgsx9eYovbIifzHQPzG5Z1ipW7wFZ27bt8bGP8=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-FtzWlf9RFzbSr38thfTDhS8iAi9MxLQfsliePwJGLFk=",
-      "System.Runtime.dll": "sha256-2RpjKWET+Xqpn9qEpfw2nCbp7wJ3QBQGb6a+KdDbFP4=",
+      "System.Runtime.dll": "sha256-1OtZF11QShY+HYoKzDb8AkqX9GeumdFVgCyfQBSjmy8=",
       "System.Text.Encodings.Web.dll": "sha256-JDe27SsTd9p8OmdFbC7t8CMXSKD0R1jIr9VQ7JrgicI=",
-      "System.Text.Json.dll": "sha256-Dx16Y1dBA2mdjbX2RmpG6RbbuRQIY\/b4v\/QER5rNhrM="
+      "System.Text.Json.dll": "sha256-n23ZjQ4n0EyO3nc0kPOqSFVj0cDzzK5vRVySLNqCqlA=",
+      "System.Text.RegularExpressions.dll": "sha256-sOPec5g24JWZGBFtn96IFZfgAHwKEmXVd22MANCjxBo="
     },
     "extensions": null,
     "lazyAssembly": null,
@@ -56,6 +58,151 @@
         "hash": "sha256-uv9ggGYjOv1l7PZUHHHlIba88MjDiFYvp8OqO2qQGxY="
       }
     },
-    "satelliteResources": null
+    "satelliteResources": {
+      "af": {
+        "af\/Humanizer.resources.dll": "sha256-2KcXZ2SY5voaGe++4AqkucLB2QkZaSwlHIEDgOoq0co="
+      },
+      "ar": {
+        "ar\/Humanizer.resources.dll": "sha256-gtZyjNe6reJw2fzFpvlEBoLFDPQKy2A8cgszOogx+Lg="
+      },
+      "az": {
+        "az\/Humanizer.resources.dll": "sha256-pimp6KJlmEWKA9dkI1ble8chXDp1u297bSuyZYNHttI="
+      },
+      "bg": {
+        "bg\/Humanizer.resources.dll": "sha256-lLSfIsXjg+pQWgeViCSt7FxH+s6TH2neQ8+VAuR7tMM="
+      },
+      "bn-BD": {
+        "bn-BD\/Humanizer.resources.dll": "sha256-Jai+F9TqwC64Q8C77ZWFtzFCy6xXpgr\/VRTUqYOVBiM="
+      },
+      "cs": {
+        "cs\/Humanizer.resources.dll": "sha256-IWiiYxTGWlCX3R6X0K3JtbrahLCo2JugQ0lT6Cei7xQ="
+      },
+      "da": {
+        "da\/Humanizer.resources.dll": "sha256-Pe6x5qV9i3B6GZ1f4HbTyPtfP8R3vvOzyvOyU\/g6kIQ="
+      },
+      "de": {
+        "de\/Humanizer.resources.dll": "sha256-PpdgGLGAfSOq1qfJYGXKw27xvk4zBOyHRBhck84htsY="
+      },
+      "el": {
+        "el\/Humanizer.resources.dll": "sha256-Hm7P8jbOPyGMKGUTj0LZZdRqBEO2k7GebQq9h\/F0U0I="
+      },
+      "es": {
+        "es\/Humanizer.resources.dll": "sha256-UfyIzem2AywbRpJM2YJparsKxG4btmEfUQmCYy12IFc="
+      },
+      "fa": {
+        "fa\/Humanizer.resources.dll": "sha256-0Gfjf4K2diCp+O9PEWRF9M1eRYtb67bsjOWjP0fvWog="
+      },
+      "fi-FI": {
+        "fi-FI\/Humanizer.resources.dll": "sha256-htWLKXzhoXzSA2mQUsE9XXlhkwOeWI03MwIpaUqxqSU="
+      },
+      "fr-BE": {
+        "fr-BE\/Humanizer.resources.dll": "sha256-sfwm9mHUOPMZo1L6Iv7zmIerb4avsfv9sn1\/YNapbsk="
+      },
+      "fr": {
+        "fr\/Humanizer.resources.dll": "sha256-hUL3N\/AM2vnLKwyvGFTeRAdfRY5GkBCRckipYXSyByc="
+      },
+      "he": {
+        "he\/Humanizer.resources.dll": "sha256-L2SU5hwi\/SCmCudK\/vuGECdnjitTJK0S1Akzrcocfms="
+      },
+      "hr": {
+        "hr\/Humanizer.resources.dll": "sha256-rfPpBYFrXQ9GX0f\/D1duUfULcMXS94cfbCFHuWbYF2M="
+      },
+      "hu": {
+        "hu\/Humanizer.resources.dll": "sha256-NQs\/qhUa16NwV5m+b577sT0YtcuSpdXo7yz\/x9NSP1k="
+      },
+      "hy": {
+        "hy\/Humanizer.resources.dll": "sha256-B\/ONoCTE6m3VO95AxKSiXDGX3OT2VLZk6W1wqHQoA54="
+      },
+      "id": {
+        "id\/Humanizer.resources.dll": "sha256-87kv17Z+hvlnsboTMlhtzkBsOYIerRMBiiGESsDN8kE="
+      },
+      "is": {
+        "is\/Humanizer.resources.dll": "sha256-j\/+c8mM5kOGPlOBb\/gb6gOx30D5\/nYEdcFfKD+u1N2A="
+      },
+      "it": {
+        "it\/Humanizer.resources.dll": "sha256-niS7mU8Y2dF2Tz3IvVD\/BgI+GJbmdlOWSEyD5G78+zc="
+      },
+      "ja": {
+        "ja\/Humanizer.resources.dll": "sha256-bHayansiKn3z06\/IVo0sKlJ9wffa+67iewyh5aes3mc="
+      },
+      "ko-KR": {
+        "ko-KR\/Humanizer.resources.dll": "sha256-SD3RfhLXqJFrRn2bF37jTIfxEiZ+6f+OMoo1hMueJ\/w="
+      },
+      "ku": {
+        "ku\/Humanizer.resources.dll": "sha256-YmTm4unc\/oPapKfNAyQbYsR\/cHJpoj63TDIgCPSuhCs="
+      },
+      "lv": {
+        "lv\/Humanizer.resources.dll": "sha256-i3ghaXXF0IkCfmbQM5LurYCEZMvfI8kvW13Dk\/VpGKw="
+      },
+      "ms-MY": {
+        "ms-MY\/Humanizer.resources.dll": "sha256-d29Ei4fen9FD23m3fUvJRiTG5fvVENEUOX4nCCd7pj0="
+      },
+      "mt": {
+        "mt\/Humanizer.resources.dll": "sha256-G\/S37kpmNXm9SyfQHoKPprEeHyQ566Swr6oP1oQVinA="
+      },
+      "nb-NO": {
+        "nb-NO\/Humanizer.resources.dll": "sha256-vuN23Lu0BXYyHvDMnVOul2Q8s1OPznBDZ3nkf9994fU="
+      },
+      "nb": {
+        "nb\/Humanizer.resources.dll": "sha256-idJ\/rxgjpInRIW1IIh0uQvsU0TztN+Kn9ziIDLIlyCw="
+      },
+      "nl": {
+        "nl\/Humanizer.resources.dll": "sha256-kiJzWcDlKuc7GIcRhRIJJTAKtGn3ph7FfuWK0vZ4img="
+      },
+      "pl": {
+        "pl\/Humanizer.resources.dll": "sha256-0kzSaNPI+HyTRzy6\/cvZWrEK\/LIanT8ywknTjToaXxE="
+      },
+      "pt": {
+        "pt\/Humanizer.resources.dll": "sha256-LTq0syd27tqdqX7pl5mtkOJj+Qv\/\/hd7pvaVZBsviY8="
+      },
+      "ro": {
+        "ro\/Humanizer.resources.dll": "sha256-zKs0KmztLC7ydqrk1rSs8Gm0Cwt65eYtGbPK4M0ZZ7I="
+      },
+      "ru": {
+        "ru\/Humanizer.resources.dll": "sha256-SKohVWJUWSWKcqkK+cbMUZpCHAT3QEA0dDXN3CLfYNM="
+      },
+      "sk": {
+        "sk\/Humanizer.resources.dll": "sha256-D902AtCSYAeEmPCb5SFMT7cYiVhu3DA7YA\/GNBDgwWI="
+      },
+      "sl": {
+        "sl\/Humanizer.resources.dll": "sha256-ZsiAtXZ8VEe0uqUdn5GAGsKygPfBkY2W+DDpQ+GBgp8="
+      },
+      "sr-Latn": {
+        "sr-Latn\/Humanizer.resources.dll": "sha256-VosLAgEzbx42Idb349ZCqg6TG3csUsYDi4HDFubuKOQ="
+      },
+      "sr": {
+        "sr\/Humanizer.resources.dll": "sha256-gpK9NOjoa9KIIfCB2NIfM0WLdEfarqZBBg6R\/eeUCzQ="
+      },
+      "sv": {
+        "sv\/Humanizer.resources.dll": "sha256-eiuPuM2VV0dwY3CSNuWyGkrh4wNweigcXp6LXbmRG98="
+      },
+      "th-TH": {
+        "th-TH\/Humanizer.resources.dll": "sha256-7ocMlTU0WdPvRwpFV4oMVKILQposPjrwuPmm6rwMvlM="
+      },
+      "tr": {
+        "tr\/Humanizer.resources.dll": "sha256-rr9TDttwh5VJfLWl9IdDGClBid9Qobxs+wOiGzGFXv4="
+      },
+      "uk": {
+        "uk\/Humanizer.resources.dll": "sha256-h8H1U7+FifHOqk2X1plRUlPoGfLsCLouX35nn\/VkZAM="
+      },
+      "uz-Cyrl-UZ": {
+        "uz-Cyrl-UZ\/Humanizer.resources.dll": "sha256-4yTJP5hHNK2rDEnNq64e+XRqCwmgGIXmxa+uDeiUEmg="
+      },
+      "uz-Latn-UZ": {
+        "uz-Latn-UZ\/Humanizer.resources.dll": "sha256-tE3doB6L72EHZQIOxGO3tYg9mlKG5yB9OZq7OnbHqoQ="
+      },
+      "vi": {
+        "vi\/Humanizer.resources.dll": "sha256-Anfnltvb8Q1wDLqRLpQFmi1qdlJ0SdYAOhXti\/auFg4="
+      },
+      "zh-CN": {
+        "zh-CN\/Humanizer.resources.dll": "sha256-RjV6XdZwuRpSTePX\/lHocm0wDCPFIljIlOP++dnXC+I="
+      },
+      "zh-Hans": {
+        "zh-Hans\/Humanizer.resources.dll": "sha256-MhkGt3e1XwO3reIRjJMd3kcYZeJkTJow7jOyx7tZcgo="
+      },
+      "zh-Hant": {
+        "zh-Hant\/Humanizer.resources.dll": "sha256-WDz\/xxOOmmBuscygpQxa+FDeQteQN4O7hPUq7\/ZIwaQ="
+      }
+    }
   }
 }
