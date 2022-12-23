@@ -1,5 +1,7 @@
-using System.Reflection;
 using Microsoft.AspNetCore.Components;
+using System.Reflection;
+using System.Text.RegularExpressions;
+
 using Humanizer;
 
 namespace mohdali.github.io;
@@ -8,6 +10,8 @@ public record BlogPost(string Title, string Url, DateTime Timestamp);
 
 public static class BlogPostsHelper
 {
+    const string pattern = @"[0-9]{4}_[0-9]{2}_[0-9]{2}_";
+
     public static List<BlogPost> GetBlogPosts(Assembly assembly)
     {
         var components = assembly
@@ -22,7 +26,7 @@ public static class BlogPostsHelper
         return blogPosts;
     }
 
-    private static BlogPost GetBlogPost(Type component)
+    public static BlogPost GetBlogPost(Type component)
     {
         var attributes = component.GetCustomAttributes(inherit: true);
 
@@ -33,7 +37,15 @@ public static class BlogPostsHelper
             var route = routeAttribute.Template;
             if (!string.IsNullOrEmpty(route) && route.StartsWith("/posts/"))
             {
-                return new BlogPost(component.Name.Humanize(), route, DateTime.Now);
+                var name = Regex.Replace(component.Name, pattern, "");
+
+                var match = Regex.Match(component.Name, pattern);
+                var date = DateTime.MinValue;
+                Console.WriteLine(match.Value);
+                if(match.Success) {
+                    DateTime.TryParseExact(match.Value,"yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out date);
+                }
+                return new BlogPost(name.Humanize(), route, date);
             }
         }
 

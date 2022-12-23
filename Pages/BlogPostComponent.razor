@@ -1,0 +1,11 @@
+hhh
+
+@code {
+    [CascadingParameter]
+    public PostLayout Layout { get; set;}
+
+    protected override void OnInitialized()
+    {
+        Layout.SetBlogPost(BlogPostsHelper.GetBlogPost(this.GetType()));
+    }
+}

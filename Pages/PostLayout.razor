@@ -1,0 +1,20 @@
+@inherits LayoutComponentBase
+@layout MainLayout
+
+<CascadingValue Value="this">
+    <small class="text-muted">
+        Published: @BlogPost?.Timestamp
+    </small>
+    @Body
+</CascadingValue>
+
+@code
+{
+    public BlogPost BlogPost { get; private set; }
+
+    public void SetBlogPost(BlogPost blogPost)
+    {
+        BlogPost = blogPost;
+        StateHasChanged();
+    }
+}
