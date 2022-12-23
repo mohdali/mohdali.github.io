@@ -39,7 +39,7 @@ main {
 }
 
 .footer {
-    position: absolute;
+    position: sticky;
     width: 100%;
     bottom: 0;
     background-color: #f5f5f5;
