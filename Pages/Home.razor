@@ -1,1 +1,19 @@
 @page "/"
+
+<h1 class="mt-5"> Latest Posts </h1>
+<ul class="nav flex-column">
+    @foreach(var blogPost in BlogPosts)
+    {
+        <NavLink class="nav-link" href=@blogPost.Url Match="NavLinkMatch.All">
+            @blogPost.Title
+        </NavLink>
+    }
+</ul>
+
+@code {
+    private List<BlogPost> BlogPosts => BlogPostsHelper
+        .GetBlogPosts(typeof(Program).Assembly)        
+        .OrderByDescending(p => p.Timestamp)
+        .Take(5)
+        .ToList();    
+}
