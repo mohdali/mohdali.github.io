@@ -41,7 +41,6 @@ public static class BlogPostsHelper
 
                 var match = Regex.Match(component.Name, pattern);
                 var date = DateTime.MinValue;
-                Console.WriteLine(match.Value);
                 if(match.Success) {
                     DateTime.TryParseExact(match.Value,"yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out date);
                 }
