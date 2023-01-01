@@ -1,14 +1,24 @@
 @page "/"
-
-<h1 class="mt-5"> Latest Posts </h1>
-<ul class="nav flex-column">
-    @foreach(var blogPost in BlogPosts)
-    {
-        <NavLink class="nav-link" href=@blogPost.Url Match="NavLinkMatch.All">
-            @blogPost.Title
-        </NavLink>
-    }
-</ul>
+<div class="row">
+    <div class="col-6">
+        <h1 class="mt-5"> Latest Posts </h1>
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-row justify-content-between">
+                @foreach(var blogPost in BlogPosts)
+                {
+                    <h5>
+                        <NavLink href=@blogPost.Url Match="NavLinkMatch.All">
+                        @blogPost.Title           
+                        </NavLink>                    
+                    </h5>
+                    <small class="text-muted">
+                            Published: @blogPost.Timestamp.ToString("dd MMM yyyy")
+                    </small>                      
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
     private List<BlogPost> BlogPosts => BlogPostsHelper

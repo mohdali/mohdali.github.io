@@ -3,7 +3,7 @@
 
 <CascadingValue Value="this">
     <small class="text-muted">
-        Published: @BlogPost?.Timestamp
+        Published: @BlogPost?.Timestamp.ToString("dd MMMM yyyy")
     </small>
     @Body
 </CascadingValue>
