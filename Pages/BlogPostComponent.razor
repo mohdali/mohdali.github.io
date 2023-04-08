@@ -2,8 +2,11 @@
     [CascadingParameter]
     public PostLayout Layout { get; set;}
 
+    [Parameter]
+    public bool Summary {get; set;} = false;
+
     protected override void OnInitialized()
     {
-        Layout.SetBlogPost(BlogPostsHelper.GetBlogPost(this.GetType()));
+        Layout?.SetBlogPost(BlogPostsHelper.GetBlogPost(this.GetType()));
     }
 }

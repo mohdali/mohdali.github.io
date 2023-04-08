@@ -6,7 +6,7 @@ using Humanizer;
 
 namespace mohdali.github.io;
 
-public record BlogPost(string Title, string Url, DateTime Timestamp);
+public record BlogPost(string Title, string Url, DateTime Timestamp, Type Type);
 
 public static class BlogPostsHelper
 {
@@ -44,7 +44,7 @@ public static class BlogPostsHelper
                 if(match.Success) {
                     DateTime.TryParseExact(match.Value,"yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out date);
                 }
-                return new BlogPost(name.Humanize(), route, date);
+                return new BlogPost(name.Humanize(), route, date, component);
             }
         }
 

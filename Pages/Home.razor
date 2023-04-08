@@ -1,29 +1,33 @@
 @page "/"
 <div class="row">
-    <div class="col-lg-6">
-        <h1 class="mt-5"> Latest Posts </h1>
-        <div class="d-flex flex-column">
+    <h1 class="mt-5"> Latest Posts </h1>
+    <div class="d-flex flex-column">
+
+        @foreach (var blogPost in BlogPosts)
+        {
             <div class="d-flex flex-row justify-content-between">
-                @foreach(var blogPost in BlogPosts)
-                {
-                    <h5>
-                        <NavLink href=@blogPost.Url Match="NavLinkMatch.All">
-                        @blogPost.Title           
-                        </NavLink>                    
-                    </h5>
-                    <small class="text-muted">
-                            Published: @blogPost.Timestamp.ToString("dd MMM yyyy")
-                    </small>                      
-                }
+                <h1>
+                    <NavLink href=@blogPost.Url Match="NavLinkMatch.All">
+                        @blogPost.Title
+                    </NavLink>
+                </h1>
+                <small class="text-muted">
+                    Published: @blogPost.Timestamp.ToString("dd MMM yyyy")
+                </small>
             </div>
-        </div>
+
+            <DynamicComponent Type="@blogPost.Type" Parameters="@p"/>
+        }
+
     </div>
 </div>
 
 @code {
     private List<BlogPost> BlogPosts => BlogPostsHelper
-        .GetBlogPosts(typeof(Program).Assembly)        
-        .OrderByDescending(p => p.Timestamp)
-        .Take(5)
-        .ToList();    
+    .GetBlogPosts(typeof(Program).Assembly)
+    .OrderByDescending(p => p.Timestamp)
+    .Take(5)
+    .ToList();
+
+    private Dictionary<string, Object> p = new() { { "Summary", true } };
 }
