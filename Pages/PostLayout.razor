@@ -7,12 +7,16 @@
     </small>
     <h1>@BlogPost?.Title</h1>
     <PageTitle>@BlogPost?.Title - mohdali.dev</PageTitle>
-    @Body
+    <CascadingValue Value="@summary">
+        @Body
+    </CascadingValue>
 </CascadingValue>
 
 @code
 {
     public BlogPost BlogPost { get; private set; }
+
+    private bool summary = false;
 
     public void SetBlogPost(BlogPost blogPost)
     {

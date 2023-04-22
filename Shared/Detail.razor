@@ -1,0 +1,12 @@
+@if(!Summary.Value) {
+    @ChildContent 
+}
+
+@code {    
+    [Parameter]
+    public RenderFragment ChildContent { get; set;}
+
+    [CascadingParameter]
+    public bool? Summary { get; set;} = false;
+
+}

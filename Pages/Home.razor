@@ -15,8 +15,9 @@
                     Published: @blogPost.Timestamp.ToString("dd MMM yyyy")
                 </small>
             </div>
-
-            <DynamicComponent Type="@blogPost.Type" Parameters="@p"/>
+            <CascadingValue Value="@summary">
+                <DynamicComponent Type="@blogPost.Type" />
+            </CascadingValue>
         }
 
     </div>
@@ -29,5 +30,5 @@
     .Take(5)
     .ToList();
 
-    private Dictionary<string, Object> p = new() { { "Summary", true } };
+    private bool summary = true;
 }
