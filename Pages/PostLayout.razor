@@ -1,26 +1,37 @@
 @inherits LayoutComponentBase
 @layout MainLayout
 
-<CascadingValue Value="this">
-    <small class="text-muted">
-        Published: @BlogPost?.Timestamp.ToString("dd MMMM yyyy")
-    </small>
-    <h1>@BlogPost?.Title</h1>
-    <PageTitle>@BlogPost?.Title - mohdali.dev</PageTitle>
-    <CascadingValue Value="@summary">
-        @Body
+<div class="row">
+    <CascadingValue Value="this">
+        <small class="text-muted">
+            Published: @BlogPost?.Timestamp.ToString("dd MMMM yyyy")
+        </small>
+        <h1>@BlogPost?.Title</h1>
+        <PageTitle>@BlogPost?.Title - mohdali.dev</PageTitle>
+        <CascadingValue Value="@summary">
+            @Body
+        </CascadingValue>
     </CascadingValue>
-</CascadingValue>
+</div>
 
 @code
+
 {
     public BlogPost BlogPost { get; private set; }
 
+
+
     private bool summary = false;
 
+
+
     public void SetBlogPost(BlogPost blogPost)
+
     {
+
         BlogPost = blogPost;
+
         StateHasChanged();
+
     }
 }
