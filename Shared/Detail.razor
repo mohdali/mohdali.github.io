@@ -1,12 +1,15 @@
-@if(!Summary.Value) {
-    @ChildContent 
+@if (!Summary.Value)
+{
+    <div id="detail">
+        @ChildContent
+    </div>
 }
 
-@code {    
+@code {
     [Parameter]
-    public RenderFragment ChildContent { get; set;}
+    public RenderFragment ChildContent { get; set; }
 
     [CascadingParameter]
-    public bool? Summary { get; set;} = false;
+    public bool? Summary { get; set; } = false;
 
 }
