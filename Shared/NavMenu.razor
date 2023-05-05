@@ -1,17 +1,17 @@
 ﻿<nav class="navbar navbar-expand-md bg-body-secondary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">mohdali.dev</a>
-        
+
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <div class="@NavMenuCssClass navbar-collapse" @onclick="ToggleNavMenu">
+
+        <div class="@NavMenuCssClass navbar-collapse" @onclick="HideNavMenu">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item px-3">
-                        <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
-                            Home
-                        </NavLink>            
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                        Home
+                    </NavLink>
                 </li>
             </ul>
         </div>
@@ -21,10 +21,15 @@
 @code {
     private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;     
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void HideNavMenu()
+    {
+        collapseNavMenu = true;
     }
 }
