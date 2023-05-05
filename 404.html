@@ -3,16 +3,26 @@
                 hljs.highlightBlock(el);
             });
         }</script><script>(() => {
-            'use strict'
-            
-            const setTheme = function () {
-                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.setAttribute('data-bs-theme', 'dark')
+                'use strict'
+
+                const setTheme = function () {
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.setAttribute('data-bs-theme', 'dark')
+                    }
+                }
+
+                setTheme()
+            })()</script><script>window.blazorHelpers = {
+            scrollToFragment: (elementId) => {
+                var element = document.getElementById(elementId);
+
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 }
             }
-
-            setTheme()
-        })()</script><script src="_framework/blazor.webassembly.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BWGNCP62MT"></script><script>window.dataLayer = window.dataLayer || [];
+        };</script><script src="_framework/blazor.webassembly.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BWGNCP62MT"></script><script>window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
