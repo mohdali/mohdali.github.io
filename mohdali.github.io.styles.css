@@ -1,19 +1,1 @@
-/* /Shared/MainLayout.razor.rz.scp.css */
-main > .container[b-7n64pgnfxg] {
-    padding: 60px 15px 0;
-    padding-top: 60px;
-    padding-right: 15px;
-    padding-bottom: 0px;
-    padding-left: 15px;
-}
 /* /Shared/NavMenu.razor.rz.scp.css */
-@media (min-width: 641px) {
-    .navbar-toggler[b-b1xrc0rx83] {
-        display: none;
-    }
-
-    .collapse[b-b1xrc0rx83] {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
-    }
-}
