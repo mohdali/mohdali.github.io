@@ -2,6 +2,9 @@
     color-scheme: dark;
 }
 
+h1:focus {
+    outline: none;
+}
 
 .post a {
     text-decoration: underline;
