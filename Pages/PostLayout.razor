@@ -1,15 +1,17 @@
 @inherits LayoutComponentBase
 @layout MainLayout
 
-<div class="row">
+<div>
     <CascadingValue Value="this">
-        <small class="text-muted">
+        <MudText Typo="Typo.subtitle2">
             Published: @BlogPost?.Timestamp.ToString("dd MMMM yyyy")
-        </small>
-        <h1>@BlogPost?.Title</h1>
+        </MudText>
+        <MudText Typo="Typo.h1">@BlogPost?.Title</MudText>
         <PageTitle>@BlogPost?.Title - mohdali.dev</PageTitle>
         <CascadingValue Value="@summary">
+            <div class="my-3 post">
             @Body
+            </div>
         </CascadingValue>
     </CascadingValue>
 </div>
@@ -19,19 +21,12 @@
 {
     public BlogPost BlogPost { get; private set; }
 
-
-
     private bool summary = false;
 
-
-
     public void SetBlogPost(BlogPost blogPost)
-
     {
-
         BlogPost = blogPost;
 
         StateHasChanged();
-
     }
 }

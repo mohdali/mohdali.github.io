@@ -1,27 +1,26 @@
 @page "/"
-<div class="row mb-5">
-    <h3> Latest Posts </h3>
 
-        @foreach (var blogPost in BlogPosts)
-        {
-            <div class="row">
-                <small class="text-muted">
-                    Published: @blogPost?.Timestamp.ToString("dd MMMM yyyy")
-                </small>
-                <h1>@blogPost?.Title</h1>
-                
-                <CascadingValue Value="@summary">
-                    <DynamicComponent Type="@blogPost.Type" />
-                </CascadingValue>
+<MudText Typo="Typo.h1">Latest Posts </MudText>
 
-                <p>
-                    <MudButton href=@(blogPost.Url+"#detail") Match="NavLinkMatch.All" class="btn btn-primary">
-                        Continue Reading
-                    </MudButton>
-                </p>
+@foreach (var blogPost in BlogPosts)
+{
+    <div class="mb-3">
+        <MudText Typo="Typo.subtitle2">
+            Published: @blogPost?.Timestamp.ToString("dd MMMM yyyy")
+        </MudText>
+        <MudText Typo="Typo.h2">@blogPost?.Title</MudText>
+
+        <CascadingValue Value="@summary">
+            <div class="my-3 post">
+                <DynamicComponent Type="@blogPost.Type" />
             </div>
-        }
-</div>
+        </CascadingValue>
+
+        <MudButton href=@(blogPost.Url+"#detail") Variant="Variant.Filled" Color="Color.Primary" class="my-3">
+            Continue Reading
+        </MudButton>
+    </div>
+}
 
 @code {
     private List<BlogPost> BlogPosts => BlogPostsHelper

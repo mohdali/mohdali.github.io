@@ -1,42 +1,49 @@
 ﻿@page "/posts/Rolling-Shutter-Simulation"
 
-<div class="row">
-  <div class='col-md-4 order-md-2'>
-    <figure>
-      <img src="images/Propellor_with_rolling-shutter_artifact.jpg" class="figure-img img-fluid rounded"
+
+<div class="d-flex">
+  <div class="mx-3">
+    <p>
+      <MudImage Fluid="true" Width="350" src="images/Propellor_with_rolling-shutter_artifact.jpg" class="rounded-lg"
         alt="Propellor with rolling-shutter artifact" />
-      <figcaption class="figure-caption text-end">
-        <small>
-          <a href="https://commons.wikimedia.org/wiki/File:Propellor_with_rolling-shutter_artifact.jpg">Dicklyon</a>, <a
-            href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
-        </small>
-      </figcaption>
-    </figure>
+    </p>
+    <MudText Typo="Typo.caption">
+      <a href="https://commons.wikimedia.org/wiki/File:Propellor_with_rolling-shutter_artifact.jpg">Dicklyon</a>, <a
+        href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+    </MudText>
   </div>
-  <div class="col-md-8 order-md-1">
-    <p>In 2017 there was some interst in explaining the <a href="https://en.wikipedia.org/wiki/Rolling_shutter"
+  <div>
+    <MudText Typo="Typo.body1">
+      In 2017 there was some interst in explaining the <a href="https://en.wikipedia.org/wiki/Rolling_shutter"
         target="_blank">Rolling Shutter</a> Effect in cameras including videos by Destin's <a
         href="https://www.youtube.com/watch?v=dNVtMmLlnoE" target="_blank">Smarter Everyday Channel</a> and Matt
       Parker's
       <a href="https://www.youtube.com/watch?v=nP1elMR5qjc" target="_blank">Stand-up Maths</a>.
-    </p>
-    <p>I wanted to explore if I can simulate the effect using <a href="https://d3js.org/" target="_blank">D3.js</a> and
+    </MudText>
+
+    <MudText Typo="Typo.body1">
+      I wanted to explore if I can simulate the effect using <a href="https://d3js.org/" target="_blank">D3.js</a>
+      and
       found a neat way to do it using Canvas <a
         href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clip"
         target="_blank">clip()</a>.
-      function.</p>
+      function.
+    </MudText>
 
-    <p>Originally published on <a href="https://bl.ocks.org/mohdali/36f427bc905f11f0271977c53eb8bbf6"
+    <MudText Typo="Typo.body1">
+      Originally published on <a href="https://bl.ocks.org/mohdali/36f427bc905f11f0271977c53eb8bbf6"
         target="_blank">bl.ocks.org</a> and later imported to <a
         href="https://observablehq.com/@@mohdali/rolling-shutter-simulation" target="_blank">Observable</a> with help
       from
       <a href="https://observablehq.com/@@mbostock" target="_blank">Mike Bostock</a> himself.
-    </p>
+    </MudText>
   </div>
 </div>
-<Detail>
-  <p><em>Use the sliders to change the simulation parameters.</em></p>
-  <iframe loading="lazy" width="100%" height="604" frameborder="0"
-    src="https://observablehq.com/embed/@@mohdali/rolling-shutter-simulation?cells=code%2Cviewof+numOfBlades%2Cviewof+rotationSpeed%2Cviewof+angle"></iframe>
+    <Detail>
+      <MudText Typo="Typo.body1"><em>Use the sliders to change the simulation parameters.</em></MudText>
+      <div style="height:604px;">
+        <iframe loading="lazy" width="100%" height="604" frameborder="0"
+          src="https://observablehq.com/embed/@@mohdali/rolling-shutter-simulation?cells=code%2Cviewof+numOfBlades%2Cviewof+rotationSpeed%2Cviewof+angle"></iframe>
+      </div>
+    </Detail>
 
-</Detail>
