@@ -8,12 +8,11 @@ public class BlogPostComponent : ComponentBase {
     [CascadingParameter]
     public PostLayoutBase Layout { get; set; }
 
-    [Inject] NavigationManager NavManager { get; set; }
-    [Inject] IJSRuntime JsRuntime { get; set; }
+    [Inject] NavigationHelper navigationHelper { get ;set;}
 
     [Inject] BlogPostService blogPostService { get; set; }
 
-
+    
     protected override void OnInitialized()
     {
         Layout?.SetBlogPost(blogPostService.GetBlogPost(this.GetType()));
@@ -23,17 +22,8 @@ public class BlogPostComponent : ComponentBase {
     {
         if (firstRender)
         {
-            await NavManager.NavigateToFragmentAsync(JsRuntime);
+            await navigationHelper.NavigateToFragmentAsync();
         }
     }
 
-    private async void TryFragmentNavigation(object sender, LocationChangedEventArgs args)
-    {
-        await NavManager.NavigateToFragmentAsync(JsRuntime);
-    }
-
-    public void Dispose()
-    {
-        NavManager.LocationChanged -= TryFragmentNavigation;
-    }
 }

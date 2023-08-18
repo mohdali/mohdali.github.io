@@ -12,6 +12,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddMudServices();
 
-builder.Services.AddScoped<BlogPostService>();
+builder.Services.AddBlogEngineServices();
 
 await builder.Build().RunAsync();
