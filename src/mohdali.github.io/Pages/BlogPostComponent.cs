@@ -1,4 +1,10 @@
-@code {
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.JSInterop;
+
+namespace mohdali.github.io.Pages;
+
+public class BlogPostComponent : ComponentBase {
     [CascadingParameter]
     public PostLayout Layout { get; set; }
 
