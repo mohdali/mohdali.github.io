@@ -32,9 +32,9 @@
      protected override void OnInitialized()
     {
         BlogPosts = blogPostService.GetBlogPosts(typeof(Program).Assembly)
-    .OrderByDescending(p => p.Timestamp)
-    .Take(5)
-    .ToList();
+                        .OrderByDescending(p => p.Timestamp)
+                        .Take(5)
+                        .ToList();
     }
 
    

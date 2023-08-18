@@ -1,15 +1,12 @@
-@if (!Summary.Value)
-{
-    <div id="detail">
-        @ChildContent
-    </div>
-}
+using Microsoft.AspNetCore.Components;
 
-@code {
+namespace BlogEngine;
+
+public partial class Detail : ComponentBase
+{
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
     [CascadingParameter]
     public bool? Summary { get; set; } = false;
-
 }
