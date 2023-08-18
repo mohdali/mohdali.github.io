@@ -19,7 +19,7 @@ jobs:
       
       # publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
-        run: dotnet publish mohdali.github.io.csproj -c Release -o Prerender/output --nologo
+        run: dotnet publish src/mohdali.github.io/mohdali.github.io.csproj -c Release -o Prerender/output --nologo
       
       # Use NodeJS react-snap utitility to prerender static website
       - name: prerender Blazor client

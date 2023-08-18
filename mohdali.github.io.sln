@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mohdali.github.io", "mohdali.github.io.csproj", "{19D3E7E3-241A-4FDD-8183-C46CF56E8004}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mohdali.github.io", "src\mohdali.github.io\mohdali.github.io.csproj", "{19D3E7E3-241A-4FDD-8183-C46CF56E8004}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{67707D24-AF0F-4095-9D53-0ECA7055C543}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C3FBBB3-E99E-4530-923C-BFA49183AF89}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19D3E7E3-241A-4FDD-8183-C46CF56E8004} = {67707D24-AF0F-4095-9D53-0ECA7055C543}
 	EndGlobalSection
 EndGlobal
