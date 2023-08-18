@@ -1,3 +1,4 @@
+using BlogEngine;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using mohdali.github.io;
@@ -10,5 +11,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddMudServices();
+
+builder.Services.AddScoped<BlogPostService>();
 
 await builder.Build().RunAsync();

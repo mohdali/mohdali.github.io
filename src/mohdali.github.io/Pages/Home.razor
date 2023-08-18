@@ -23,11 +23,19 @@
 }
 
 @code {
-    private List<BlogPost> BlogPosts => BlogPostsHelper
-    .GetBlogPosts(typeof(Program).Assembly)
+
+    [Inject] BlogPostService blogPostService {get;set;}
+
+    private List<BlogPost> BlogPosts;
+    private bool summary = true;
+    
+     protected override void OnInitialized()
+    {
+        BlogPosts = blogPostService.GetBlogPosts(typeof(Program).Assembly)
     .OrderByDescending(p => p.Timestamp)
     .Take(5)
     .ToList();
+    }
 
-    private bool summary = true;
+   
 }

@@ -1,20 +1,22 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.JSInterop;
 
-namespace mohdali.github.io.Pages;
+namespace BlogEngine;
 
 public class BlogPostComponent : ComponentBase {
     [CascadingParameter]
-    public PostLayout Layout { get; set; }
+    public PostLayoutBase Layout { get; set; }
 
     [Inject] NavigationManager NavManager { get; set; }
     [Inject] IJSRuntime JsRuntime { get; set; }
 
+    [Inject] BlogPostService blogPostService { get; set; }
+
 
     protected override void OnInitialized()
     {
-        Layout?.SetBlogPost(BlogPostsHelper.GetBlogPost(this.GetType()));
+        Layout?.SetBlogPost(blogPostService.GetBlogPost(this.GetType()));
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

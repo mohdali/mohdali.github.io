@@ -1,4 +1,4 @@
-@inherits LayoutComponentBase
+@inherits PostLayoutBase
 @layout MainLayout
 
 <div>
@@ -15,18 +15,3 @@
         </CascadingValue>
     </CascadingValue>
 </div>
-
-@code
-
-{
-    public BlogPost BlogPost { get; private set; }
-
-    private bool summary = false;
-
-    public void SetBlogPost(BlogPost blogPost)
-    {
-        BlogPost = blogPost;
-
-        StateHasChanged();
-    }
-}

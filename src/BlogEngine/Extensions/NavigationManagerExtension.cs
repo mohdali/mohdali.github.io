@@ -1,10 +1,9 @@
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace mohdali.github.io;
+namespace BlogEngine;
 
-public static class NavigationManagerHelper
+public static class NavigationManagerExtension
 {
     public static ValueTask NavigateToFragmentAsync(this NavigationManager navigationManager, IJSRuntime jSRuntime)
     {

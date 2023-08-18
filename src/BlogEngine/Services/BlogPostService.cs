@@ -1,22 +1,19 @@
-using Microsoft.AspNetCore.Components;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text.RegularExpressions;
-
+using Microsoft.AspNetCore.Components;
 using Humanizer;
 
-namespace mohdali.github.io;
+namespace BlogEngine;
 
-public record BlogPost(string Title, string Url, DateTime Timestamp, Type Type);
-
-public static class BlogPostsHelper
+public class BlogPostService
 {
     const string pattern = @"[0-9]{4}_[0-9]{2}_[0-9]{2}_";
 
-    public static List<BlogPost> GetBlogPosts(Assembly assembly)
+    public List<BlogPost> GetBlogPosts(Assembly assembly)
     {
         var components = assembly
             .ExportedTypes
-            .Where(t => t.IsSubclassOf(typeof(ComponentBase)));
+            .Where(t => t.IsSubclassOf(typeof(BlogPostComponent)));
 
         var blogPosts = components
             .Select(component => GetBlogPost(component))
@@ -26,7 +23,7 @@ public static class BlogPostsHelper
         return blogPosts;
     }
 
-    public static BlogPost GetBlogPost(Type component)
+    public BlogPost GetBlogPost(Type component)
     {
         var attributes = component.GetCustomAttributes(inherit: true);
 
