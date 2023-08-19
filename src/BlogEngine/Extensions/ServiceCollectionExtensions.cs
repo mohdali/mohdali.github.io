@@ -9,6 +9,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<BlogPostService>();
 
         services.AddScoped<NavigationJsInterop>();
+        services.AddScoped<CodeSnippetJsInterop>();
 
         services.AddScoped<NavigationHelper>();
 
