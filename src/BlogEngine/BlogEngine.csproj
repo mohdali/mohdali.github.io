@@ -16,13 +16,15 @@
     <PackageReference Include="Humanizer" Version="2.14.1" />
   </ItemGroup>
 
-  <ItemGroup>
-        <Folder Include="wwwroot\" />
-  </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="npm install" WorkingDirectory="$(ProjectDir)ClientLib" />
     <Exec Command="npm run build" WorkingDirectory="$(ProjectDir)ClientLib" />
+  </Target>
+
+  <Target Name="AddGeneratedContentItems" BeforeTargets="AssignTargetPaths" DependsOnTargets="PrepareForPublish">
+    <ItemGroup>
+      <Content Include="wwwroot/**" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);@(Content)" />
+    </ItemGroup>
   </Target>
 
 </Project>
