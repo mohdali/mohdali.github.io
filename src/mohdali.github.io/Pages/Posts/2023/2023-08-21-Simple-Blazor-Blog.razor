@@ -1,0 +1,184 @@
+﻿@page "/posts/Simple-Blazor-Blog"
+
+<MudText Typo="Typo.body1">
+    I recently started exploring <a href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor"
+        target="_blank">Blazor</a>.
+    It's very intersting to be able to build interactive client applications using C# for the front end and use C# as
+    full-stack technology.
+    Something that Microsoft tried to achieve before with SilverLight but this time around we have more mature and
+    standard web technologies to work with. Namely, WebAssembly and WebSockets.
+</MudText>
+
+<MudText Typo="Typo.body1">
+    To get more familiarized with Blazor, I decided to try to build a simple blogging platform. I wanted to host it on
+    GitHub Pages, therefore Blazor WASM was the obvious choice as it can be hosted in a static site.
+    I also wanted to be able create my posts as individual pages (Ideally in Markdown), and let Blazor generate the
+    navigation during build process.
+</MudText>
+
+<MudText Typo="Typo.body1">
+    First thing that I immediatley noticed is the delayed rendering of the website while the WebAssembly assets are
+    downloaded. That also meant that web crawlers wouldn't be able to render my website if they couldn't load
+    WebAssembly assets properly.
+    And while .NET 8 is going to introduce Server Side Rendering (SSR), that wouldn't work for a static host like GitHub
+    Pages. Luckily I found a solution quickly!
+</MudText>
+
+<Detail>
+    <MudText Typo="Typo.h2">Server Side Rendering</MudText>
+    <MudText Typo="Typo.body1">
+        Thanks to Niels Swimberghe's detailed <a
+            href="https://swimburger.net/blog/dotnet/pre-render-blazor-webassembly-at-build-time-to-optimize-for-search-engines"
+            target="_blank">Blog Post</a>, I learned about using <code>react-snap</code>, which works well with Blazor
+        WASM apps despite the name suggesting it works for React apps only.
+        All you have to do is follow the instructions in the blog and finally run the below command:
+    </MudText>
+    <CodeSnippet Language="bash">
+npx react-snap
+    </CodeSnippet>
+    <MudText Typo="Typo.body1">
+        Since I had some external libraries in my app, which interefered with the site generation. I had to make a small modification to the configuration by adding <code>"skipThirdPartyRequests": true</code>.
+        That's all for SSR!
+    </MudText>
+    <CodeSnippet Language="json">
+{
+    "reactSnap": {
+        "source": "output/wwwroot",
+        "skipThirdPartyRequests": true,
+        "minifyHtml": {
+            "collapseWhitespace": true,
+            "removeComments": true
+        },
+        "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
+}
+    </CodeSnippet>
+    <MudText Typo="Typo.h2">Blog Navigation</MudText>
+    <MudText Typo="Typo.body1">
+        Next I wanted to have a way that allows me to navigate the blog posts without having to manually update the navigation each time.
+        Ideally, whenever I want to add a new post I should add a new file that contains my blog post and thats it! Luckily I found an interesting way to do it using reflections. 
+    </MudText>
+
+    <MudText Typo="Typo.body1">
+        Blazor components can support Routing by using the <code><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-7.0" target="_blank">@@page</a></code> directive which assigns a <code>RouteAttribute</code> to the component.
+        Therefore it is possible to create a simple service that scans the assembly and find the components that have a <code>RouteAttribute</code>.
+    </MudText>
+
+    <MudText Typo="Typo.body1">
+        To make things more organized we can structure the posts as below:
+    </MudText>
+
+    <CodeSnippet Language="shell">
+Pages/
+    Posts/
+        2023/
+            2023-08-21-Post-Title.razor
+        2022/
+            ...
+    _Imports.razor
+    </CodeSnippet>
+
+    <MudText Typo="Typo.body1">
+        Inside <code>_Imports.razor</code>, we define the layout for the posts and the default base class.
+    </MudText>
+
+    <CodeSnippet Language="razor">
+@@layout PostLayout
+@@inherits BlogPostComponent
+    </CodeSnippet>
+
+    <MudText Typo="Typo.body1">
+        Each post name follows a pattern that defines the post date in the format <code>yyyy-mm-dd</code>. Followed by the post title.
+        We can then use a library like <code><a href="https://github.com/Humanizr/Humanizer" target="_blank">Humanizer</a></code> to generate the post title from the URL.
+        Each post can be assigned a route that starts with a common prefix, e.g. <code>/posts/</code>.
+    </MudText>
+
+    <CodeSnippet Language="razor">
+@@page '/posts/Post-Title'
+    </CodeSnippet>
+
+    <MudText Typo="Typo.body1">
+        Finally, we create a service that provides us the list of available blog posts.
+    </MudText>
+
+    <CodeSnippet>
+using System.Reflection;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Components;
+using Humanizer;
+
+namespace BlogEngine;
+
+public record BlogPost(string Title, string Url, DateTime Timestamp, Type Type);
+
+public class BlogPostService
+{
+    const string pattern = @@"[0-9]{4}_[0-9]{2}_[0-9]{2}_";
+
+    public List&lt;BlogPost&gt; GetBlogPosts(Assembly assembly)
+    {
+        var components = assembly
+            .ExportedTypes
+            .Where(t => t.IsSubclassOf(typeof(BlogPostComponent)));
+
+        var blogPosts = components
+            .Select(component => GetBlogPost(component))
+            .Where(post => post is not null)
+            .ToList();
+
+        return blogPosts;
+    }
+
+    public BlogPost GetBlogPost(Type component)
+    {
+        var attributes = component.GetCustomAttributes(inherit: true);
+
+        var routeAttribute = attributes.OfType&lt;RouteAttribute&gt;().FirstOrDefault();
+
+        if (routeAttribute != null)
+        {
+            var route = routeAttribute.Template;
+            if (!string.IsNullOrEmpty(route) && route.StartsWith("/posts/"))
+            {
+                var name = Regex.Replace(component.Name, pattern, "");
+
+                var match = Regex.Match(component.Name, pattern);
+                var date = DateTime.MinValue;
+                if(match.Success) {
+                    DateTime.TryParseExact(match.Value,"yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out date);
+                }
+                return new BlogPost(name.Humanize(), route, date, component);
+            }
+        }
+
+        return null;
+    }
+}
+    </CodeSnippet>
+
+    <MudText Typo="Typo.body1">
+        And that's it! Now we can have a list of the blog posts which we can display the way we want.
+        We can add the list to the navigation menu or create a blog archive.
+    </MudText>
+
+    <MudText Typo="Typo.body1">
+        If we wanted to display the post content, we can user Blazor's <code><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/dynamiccomponent?view=aspnetcore-7.0" target="_blank">DynamicComponent</a></code>. By Simply passing the type.
+    </MudText>
+
+<CodeSnippet Language="razor">
+@@foreach (var blogPost in BlogPosts)
+{
+    
+   &lt;DynamicComponent Type="@@blogPost.Type" /&gt;
+           
+}
+</CodeSnippet>
+
+<MudText Typo="Typo.h2">Next Steps</MudText>
+
+<MudText Typo="Typo.body1">
+    The source code is available at <a href="https://github.com/mohdali/mohdali.github.io">GitHub.</a>
+    Next I will be looking for a way to use Markdown for authoring the blog posts which could be more convenient. I'm excited to keep learning about Blazor and believe it has good potential to be a contender client side library.
+</MudText>
+
+</Detail>
