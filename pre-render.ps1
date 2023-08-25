@@ -1,3 +1,4 @@
+#!/usr/bin/pwsh
 If(Test-Path .\Prerender\output)
 {
     Remove-Item -Path .\Prerender\output -Recurse

@@ -2,28 +2,16 @@
 
 namespace BlogEngine;
 
-public class NavigationJsInterop : IAsyncDisposable
+public class NavigationJsInterop
 {
-    private readonly Lazy<Task<IJSObjectReference>> moduleTask;
-
+    private readonly IJSRuntime jSRuntime;
     public NavigationJsInterop(IJSRuntime jsRuntime)
     {
-        moduleTask = new (() => jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./_content/BlogEngine/navigation.js").AsTask());
+        this.jSRuntime = jsRuntime;
     }
 
     public async ValueTask ScrollToFragment(string elementID)
     {
-        var module = await moduleTask.Value;
-        await module.InvokeVoidAsync("scrollToFragment", elementID);
-    }
-    
-    public async ValueTask DisposeAsync()
-    {
-        if (moduleTask.IsValueCreated)
-        {
-            var module = await moduleTask.Value;
-            await module.DisposeAsync();
-        }
-    }
+        await jSRuntime.InvokeVoidAsync("window.BlogEngine.scrollToFragment", elementID);
+    }    
 }

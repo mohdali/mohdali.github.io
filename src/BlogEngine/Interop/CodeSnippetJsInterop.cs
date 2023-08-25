@@ -2,28 +2,18 @@
 
 namespace BlogEngine;
 
-public class CodeSnippetJsInterop : IAsyncDisposable
+public class CodeSnippetJsInterop
 {
-    private readonly Lazy<Task<IJSObjectReference>> moduleTask;
+    private readonly IJSRuntime jSRuntime;
     
     public CodeSnippetJsInterop(IJSRuntime jsRuntime)
     {
-        moduleTask = new (() => jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./_content/BlogEngine/highlight-code.js").AsTask());
+        this.jSRuntime = jsRuntime;
     }
 
     public async ValueTask HighlightCode()
     {
-        var module = await moduleTask.Value;
-        await module.InvokeVoidAsync("highlightCode");
+        await jSRuntime.InvokeVoidAsync("window.BlogEngine.highlightCode");
     }
 
-    public async ValueTask DisposeAsync()
-    {
-        if (moduleTask.IsValueCreated)
-        {
-            var module = await moduleTask.Value;
-            await module.DisposeAsync();
-        }
-    }
 }

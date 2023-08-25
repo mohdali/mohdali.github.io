@@ -1,15 +1,15 @@
 const path = require('path');
 
 module.exports = {
-    entry: {
-        navigation: './src/navigation.ts',
-        "highlight-code" : './src/highlight-code.ts'
+    entry: {        
+        "BlogEngine.min": './src/index.ts',
     },
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, '..', 'wwwroot'),
         library: {
-            type: "module",
+            name: 'BlogEngine',
+            type: "window",
         },
         module: true, // Enable outputting ES6 modules.
         environment: {
@@ -20,7 +20,7 @@ module.exports = {
         outputModule: true, // This enables the experimental support for outputting ES6 modules
     },
     devtool: 'source-map',
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [
             {
