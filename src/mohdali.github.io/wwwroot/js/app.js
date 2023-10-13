@@ -34,6 +34,8 @@ window.setTheme = () => {
     }
 }
 
+setTheme();
+
 window.addEventListener("DOMContentLoaded", () => {
     setTheme();
 });
