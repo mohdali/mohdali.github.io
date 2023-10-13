@@ -34,6 +34,10 @@ window.setTheme = () => {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", () => {
     setTheme();
 });
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    setTheme();
+})
