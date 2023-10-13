@@ -14,3 +14,12 @@ h1:focus {
     margin-top: 1em;
     margin-bottom: 1em;
 }
+
+.logo {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.logo:hover {
+    text-decoration: none !important; 
+}

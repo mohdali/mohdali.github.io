@@ -1,14 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider @ref="@_mudThemeProvider" IsDarkMode="true" />
+<MudThemeProvider />
+<ThemeProvider IsDarkMode="true" Theme="@_darkTheme"/>
+
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 
 <MudLayout>
     <MudAppBar Color="Color.Primary">
-        <MudIconButton Icon="@Icons.Material.Filled.Home" href="/" />
-        <MudText Typo="Typo.h5" class="ml-3">mohdali.dev</MudText>
+        <MudTooltip Text="Home">
+            <MudIconButton Icon="@Icons.Material.Filled.Home" href="/" />
+        </MudTooltip>
+        <MudLink Typo="Typo.h5" class="ml-3 logo" Href="/" Color="Color.Default">mohdali.dev</MudLink>
+        <MudSpacer />
+        <ThemeSwitcher />
 
     </MudAppBar>
     <MudMainContent class="main-content mb-16">
@@ -20,16 +26,27 @@
     <MudAppBar Bottom="true" Fixed="true" Color="Color.Dark" Elevation="1">
         <p>&copy; Mohamed Ali</p>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Target="_blank" href="https://github.com/mohdali/" />
-        <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Target="_blank" href="https://twitter.com/mohdali" />
-        <MudIconButton Icon="fab fa-mastodon" Target="_blank" Href="https://mastodon.online/&#64;mohdali" />
-        <MudIconButton Icon="@observableIcon" Target="_blank" href="https://observablehq.com/&#64;mohdali" />
+        <MudTooltip Text="Github Profile">
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Target="_blank" href="https://github.com/mohdali/" />
+        </MudTooltip>
+        <MudTooltip Text="Twitter Profile">
+            <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Target="_blank" href="https://twitter.com/mohdali" />
+        </MudTooltip>
+        <MudTooltip Text="Mastodon Profile">
+            <MudIconButton Icon="fab fa-mastodon" Target="_blank" Href="https://mastodon.online/&#64;mohdali" />
+        </MudTooltip>
+        <MudTooltip Text="Observalbe Profile">
+            <MudIconButton Icon="@observableIcon" Target="_blank" href="https://observablehq.com/&#64;mohdali" />
+        </MudTooltip>
     </MudAppBar>
 </MudLayout>
 
 @code {
-    private bool _isDarkMode;
-    private MudThemeProvider _mudThemeProvider;
+    private MudTheme _darkTheme = new () {
+        PseudoCss = new() {
+            Scope = "is(.dark-theme)"
+        }
+    };
 
     private string observableIcon = @"
 <svg viewBox='0 0 25 28' fill='currentColor' class='bi' width='24' height='24'>
@@ -46,19 +63,5 @@
 17.25 12.5 17.25C13.3885 17.25 14.124 16.9315 14.7063 16.2945ZM12.5 27C19.4031 27 25 21.1792 25 14C25 6.82075 19.4031 1
 12.5 1C5.59687 1 0 6.82075 0 14C0 21.1792 5.59687 27 12.5 27Z'></path></svg>
 ";
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
-            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
-            StateHasChanged();
-        }
-    }
 
-    private async Task OnSystemPreferenceChanged(bool newValue)
-    {
-        _isDarkMode = newValue;
-        StateHasChanged();
-    }
 }

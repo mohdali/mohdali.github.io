@@ -1,0 +1,54 @@
+﻿<MudTooltip Text="Switch Theme">
+    <MudIconButton @ref="@_iconButton" Icon="@(_selectedTheme == ThemeOption.System? @Icons.Material.Filled.AutoMode :
+        _selectedTheme == ThemeOption.Dark? @Icons.Material.Outlined.DarkMode :
+        @Icons.Material.Outlined.LightMode)" OnClick="@ToggleMode" />
+</MudTooltip>
+
+@code {
+
+    public enum ThemeOption
+    {
+        System,
+        Dark,
+        Light,
+    }
+
+    [Inject]
+    private IJSRuntime JsRuntime { get; set; } = null!;
+
+    private MudIconButton _iconButton;
+    private ThemeOption _selectedTheme;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var theme = await JsRuntime.InvokeAsync<string>("getTheme");
+
+        if (Enum.TryParse<ThemeOption>(theme, out _selectedTheme))
+        {
+            await JsRuntime.InvokeVoidAsync("setTheme");
+        }
+    }
+
+    private async Task ToggleMode()
+    {
+        switch (_selectedTheme)
+        {
+            case ThemeOption.Dark:
+                _selectedTheme = ThemeOption.Light;
+                break;
+            case ThemeOption.Light:
+                _selectedTheme = ThemeOption.System;
+                break;
+            default:
+                _selectedTheme = ThemeOption.Dark;
+                break;
+
+        }
+
+        await JsRuntime.InvokeVoidAsync("storeTheme", _selectedTheme.ToString());
+
+        await JsRuntime.InvokeVoidAsync("setTheme");
+    }
+}
