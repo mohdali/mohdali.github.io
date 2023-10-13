@@ -34,7 +34,6 @@ window.setTheme = () => {
     }
 }
 
-window.onload = (event) => {
-    console.log("Hello World!");
+document.addEventListener("DOMContentLoaded", () => {
     setTheme();
-};
+});
