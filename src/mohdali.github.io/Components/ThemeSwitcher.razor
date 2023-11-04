@@ -1,5 +1,5 @@
 ﻿<MudTooltip Text="Switch Theme">
-    <MudIconButton @ref="@_iconButton" Icon="@(_selectedTheme == ThemeOption.System? @Icons.Material.Filled.AutoMode :
+    <MudIconButton Icon="@(_selectedTheme == ThemeOption.System? @Icons.Material.Filled.AutoMode :
         _selectedTheme == ThemeOption.Dark? @Icons.Material.Outlined.DarkMode :
         @Icons.Material.Outlined.LightMode)" OnClick="@ToggleMode" />
 </MudTooltip>
@@ -16,7 +16,6 @@
     [Inject]
     private IJSRuntime JsRuntime { get; set; } = null!;
 
-    private MudIconButton _iconButton;
     private ThemeOption _selectedTheme;
 
     protected override async Task OnInitializedAsync()

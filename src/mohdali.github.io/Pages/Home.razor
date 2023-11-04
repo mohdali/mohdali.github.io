@@ -24,9 +24,9 @@
 
 @code {
 
-    [Inject] BlogPostService blogPostService {get;set;}
+    [Inject] BlogPostService blogPostService {get;set;} = default!;
 
-    private List<BlogPost> BlogPosts;
+    private List<BlogPost> BlogPosts = new();
     private bool summary = true;
     
      protected override void OnInitialized()
