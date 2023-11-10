@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <ItemGroup>    
@@ -19,5 +20,19 @@
   <ItemGroup>
     <ProjectReference Include="..\BlogEngine\BlogEngine.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlogEngine.Markdown\BlogEngine.Markdown.csproj" OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"/>
+  </ItemGroup>
+
+	<PropertyGroup>
+		<!-- Update the property to include all EmbeddedResource files -->
+		<AdditionalFileItemNames>$(AdditionalFileItemNames);EmbeddedResource</AdditionalFileItemNames>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource  Include="Pages\**\*.md" Visible="false" />
+	</ItemGroup>
 
 </Project>
