@@ -14,7 +14,8 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "highlight.js": "^11.8.0"
+    "highlight.js": "^11.8.0",
+    "highlightjs-copy": "^1.0.5"
   },
   "scripts": {
     "build": "webpack"
