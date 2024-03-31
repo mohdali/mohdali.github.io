@@ -1,7 +1,7 @@
 ﻿<MudTooltip Text="Switch Theme">
     <MudIconButton Icon="@(_selectedTheme == ThemeOption.System? @Icons.Material.Filled.AutoMode :
         _selectedTheme == ThemeOption.Dark? @Icons.Material.Outlined.DarkMode :
-        @Icons.Material.Outlined.LightMode)" OnClick="@ToggleMode" />
+        @Icons.Material.Outlined.LightMode)" OnClick="@ToggleMode" Color="Color.Inherit"/>
 </MudTooltip>
 
 @code {
