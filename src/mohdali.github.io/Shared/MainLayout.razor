@@ -1,10 +1,10 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
-<ThemeProvider IsDarkMode="true" Theme="@_darkTheme"/>
+<MudThemeProvider Theme="@_darkTheme" IsDarkMode="true"/>
 
 <MudDialogProvider />
 <MudSnackbarProvider />
+<MudPopoverProvider />
 
 
 <MudLayout>
@@ -42,9 +42,28 @@
 </MudLayout>
 
 @code {
-    private MudTheme _darkTheme = new () {
-        PseudoCss = new() {
-            Scope = "is(.dark-theme)"
+    private MudTheme _darkTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Black = "#272c34"
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Black = "#27272f",
+            Background = "#32333d",
+            BackgroundGray = "#27272f",
+            Surface = "#373740",
+            DrawerBackground = "#27272f",
+            DrawerText = "rgba(255,255,255, 0.50)",
+            DrawerIcon = "rgba(255,255,255, 0.50)",
+            AppbarBackground = "#27272f",
+            AppbarText = "rgba(255,255,255, 0.70)",
+            TextPrimary = "rgba(255,255,255, 0.70)",
+            TextSecondary = "rgba(255,255,255, 0.50)",
+            ActionDefault = "#adadb1",
+            ActionDisabled = "rgba(255,255,255, 0.26)",
+            ActionDisabledBackground = "rgba(255,255,255, 0.12)"
         }
     };
 
