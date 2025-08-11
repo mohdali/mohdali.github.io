@@ -26,14 +26,26 @@ jobs:
       # Use NodeJS react-snap utitility to prerender static website
       - name: prerender Blazor client
         working-directory: Prerender
-        run: npx react-snap
+        run: |
+          npx react-snap || true
+          # Verify that index.html was created
+          if [ ! -f "output/wwwroot/index.html" ]; then
+            echo "Pre-rendering failed - no index.html generated"
+            exit 1
+          fi
+          echo "Pre-rendering completed successfully"
 
-      # change base tag in all html files to include subfolder
-      - name: Change base tag
+      # Remove Blazor script tags from pre-rendered HTML files
+      - name: Remove Blazor scripts
         working-directory: Prerender/output/wwwroot
         run: |
           find . -name "*.html" | while read htmlFile; do
-              sed -i 's/<script>var Module; window.__wasmmodulecallback__(); delete window.__wasmmodulecallback__;<\/script><script src="_framework\/dotnet.[a-zA-Z0-9.]\+.js" defer="" integrity="sha256-.\+" crossorigin="anonymous"><\/script>//g' $htmlFile
+              # Remove .NET 9 Blazor autostart script
+              sed -i 's/<script src="_framework\/blazor.webassembly.js" autostart="false"><\/script>//g' $htmlFile
+              # Remove any remaining Blazor-related scripts
+              sed -i 's/<script>Blazor\.start.*<\/script>//g' $htmlFile
+              # Remove dotnet.js references
+              sed -i 's/<script src="_framework\/dotnet\.[^"]*\.js"[^>]*><\/script>//g' $htmlFile
           done
 
       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)

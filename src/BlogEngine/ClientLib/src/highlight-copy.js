@@ -21,6 +21,11 @@ class CopyButtonPlugin {
       self.lang = options.lang || document.documentElement.lang || "en";
     }
     "after:highlightElement"({ el, text }) {
+      // Check if button already exists
+      if (el.parentElement.querySelector(".hljs-copy-button")) {
+        return;
+      }
+      
       // Create the copy button and append it to the codeblock.
       let button = Object.assign(document.createElement("button"), {
         innerHTML: "Copy",

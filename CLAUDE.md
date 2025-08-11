@@ -8,8 +8,8 @@ Personal blog website built with Blazor WebAssembly, hosted on GitHub Pages with
 
 ## Tech Stack
 
-- **Blazor WebAssembly** (.NET 7) - Main framework
-- **MudBlazor** - UI component library
+- **Blazor WebAssembly** (.NET 9) - Main framework
+- **MudBlazor v7** - Modern Material Design component library
 - **TypeScript/Webpack** - Client-side assets (syntax highlighting)
 - **react-snap** - Static pre-rendering
 - **GitHub Actions** - CI/CD deployment
