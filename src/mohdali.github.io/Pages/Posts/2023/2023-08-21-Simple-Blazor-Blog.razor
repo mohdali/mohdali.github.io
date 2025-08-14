@@ -33,15 +33,12 @@
         WASM apps despite the name suggesting it works for React apps only.
         All you have to do is follow the instructions in the blog and finally run the below command:
     </MudText>
-    <CodeSnippet Language="bash">
-npx react-snap
-    </CodeSnippet>
+    <CodeSnippet Language="bash">npx react-snap</CodeSnippet>
     <MudText Typo="Typo.body1">
         Since I had some external libraries in my app, which interefered with the site generation. I had to make a small modification to the configuration by adding <code>"skipThirdPartyRequests": true</code>.
         That's all for SSR!
     </MudText>
-    <CodeSnippet Language="json">
-{
+    <CodeSnippet Language="json">{
     "reactSnap": {
         "source": "output/wwwroot",
         "skipThirdPartyRequests": true,
@@ -51,8 +48,7 @@ npx react-snap
         },
         "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
     }
-}
-    </CodeSnippet>
+}    </CodeSnippet>
     <MudText Typo="Typo.h2">Blog Navigation</MudText>
     <MudText Typo="Typo.body1">
         Next I wanted to have a way that allows me to navigate the blog posts without having to manually update the navigation each time.
@@ -68,24 +64,20 @@ npx react-snap
         To make things more organized we can structure the posts as below:
     </MudText>
 
-    <CodeSnippet Language="shell">
-Pages/
+    <CodeSnippet Language="shell">Pages/
     Posts/
         2023/
             2023-08-21-Post-Title.razor
         2022/
             ...
-    _Imports.razor
-    </CodeSnippet>
+    _Imports.razor</CodeSnippet>
 
     <MudText Typo="Typo.body1">
         Inside <code>_Imports.razor</code>, we define the layout for the posts and the default base class.
     </MudText>
 
-    <CodeSnippet Language="razor">
-@@layout PostLayout
-@@inherits BlogPostComponent
-    </CodeSnippet>
+    <CodeSnippet Language="razor">@@layout PostLayout
+@@inherits BlogPostComponent</CodeSnippet>
 
     <MudText Typo="Typo.body1">
         Each post name follows a pattern that defines the post date in the format <code>yyyy-mm-dd</code>. Followed by the post title.
@@ -93,16 +85,13 @@ Pages/
         Each post can be assigned a route that starts with a common prefix, e.g. <code>/posts/</code>.
     </MudText>
 
-    <CodeSnippet Language="razor">
-@@page '/posts/Post-Title'
-    </CodeSnippet>
+    <CodeSnippet Language="razor">@@page '/posts/Post-Title'</CodeSnippet>
 
     <MudText Typo="Typo.body1">
         Finally, we create a service that provides us the list of available blog posts.
     </MudText>
 
-    <CodeSnippet>
-using System.Reflection;
+    <CodeSnippet>using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Humanizer;
@@ -153,8 +142,7 @@ public class BlogPostService
 
         return null;
     }
-}
-    </CodeSnippet>
+}    </CodeSnippet>
 
     <MudText Typo="Typo.body1">
         And that's it! Now we can have a list of the blog posts which we can display the way we want.
@@ -165,14 +153,12 @@ public class BlogPostService
         If we wanted to display the post content, we can user Blazor's <code><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/dynamiccomponent?view=aspnetcore-7.0" target="_blank">DynamicComponent</a></code>. By Simply passing the type.
     </MudText>
 
-<CodeSnippet Language="razor">
-@@foreach (var blogPost in BlogPosts)
+<CodeSnippet Language="razor">@@foreach (var blogPost in BlogPosts)
 {
     
    &lt;DynamicComponent Type="@@blogPost.Type" /&gt;
            
-}
-</CodeSnippet>
+}</CodeSnippet>
 
 <MudText Typo="Typo.h2">Next Steps</MudText>
 

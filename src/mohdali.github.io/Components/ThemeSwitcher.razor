@@ -1,7 +1,7 @@
 ﻿<MudTooltip Text="Switch Theme">
     <MudIconButton Icon="@(_selectedTheme == ThemeOption.System? @Icons.Material.Filled.AutoMode :
         _selectedTheme == ThemeOption.Dark? @Icons.Material.Outlined.DarkMode :
-        @Icons.Material.Outlined.LightMode)" OnClick="@ToggleMode" />
+        @Icons.Material.Outlined.LightMode)" OnClick="@ToggleMode" Color="Color.Inherit"/>
 </MudTooltip>
 
 @code {
@@ -13,10 +13,13 @@
         Light,
     }
 
+    [Parameter]
+    public EventCallback<bool> OnThemeChanged { get; set; }
+
     [Inject]
     private IJSRuntime JsRuntime { get; set; } = null!;
 
-    private ThemeOption _selectedTheme;
+    private ThemeOption _selectedTheme = ThemeOption.Dark;
 
     protected override async Task OnInitializedAsync()
     {
@@ -27,6 +30,7 @@
         if (Enum.TryParse<ThemeOption>(theme, out _selectedTheme))
         {
             await JsRuntime.InvokeVoidAsync("setTheme");
+            await NotifyThemeChanged();
         }
     }
 
@@ -43,11 +47,30 @@
             default:
                 _selectedTheme = ThemeOption.Dark;
                 break;
-
         }
 
         await JsRuntime.InvokeVoidAsync("storeTheme", _selectedTheme.ToString());
-
         await JsRuntime.InvokeVoidAsync("setTheme");
+        await NotifyThemeChanged();
+    }
+
+    private async Task NotifyThemeChanged()
+    {
+        bool isDark = _selectedTheme == ThemeOption.Dark || 
+                     (_selectedTheme == ThemeOption.System && await IsSystemDarkMode());
+        await OnThemeChanged.InvokeAsync(isDark);
+    }
+
+    private async Task<bool> IsSystemDarkMode()
+    {
+        try
+        {
+            return await JsRuntime.InvokeAsync<bool>("isSystemDarkMode");
+        }
+        catch
+        {
+            // Default to dark mode if we can't detect system preference
+            return true;
+        }
     }
 }

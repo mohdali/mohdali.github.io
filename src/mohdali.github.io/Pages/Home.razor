@@ -1,41 +1,87 @@
 @page "/"
 
-<MudText Typo="Typo.h1">Latest Posts </MudText>
-
-@foreach (var blogPost in BlogPosts)
-{
-    <div class="mb-3">
-        <MudText Typo="Typo.subtitle2">
-            Published: @blogPost?.Timestamp.ToString("dd MMMM yyyy")
+<div class="hero-section">
+    <div class="hero-content">
+        <MudText Typo="Typo.h1" Class="hero-title">
+            Welcome to my <span class="gradient-text">Digital Garden</span>
         </MudText>
-        <MudText Typo="Typo.h2">@blogPost?.Title</MudText>
-
-        <CascadingValue Value="@summary">
-            <div class="my-3 post">
-                <DynamicComponent Type="@blogPost.Type" />
-            </div>
-        </CascadingValue>
-
-        <MudButton href=@(blogPost.Url+"#detail") Variant="Variant.Filled" Color="Color.Primary" class="my-3">
-            Continue Reading
-        </MudButton>
+        <MudText Typo="Typo.h5" Class="hero-subtitle">
+            Thoughts on software development, technology, and innovation
+        </MudText>
+        <div class="hero-actions">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Class="hero-button" Href="#latest-posts">
+                Explore Posts
+            </MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" Class="hero-button" Href="https://github.com/mohdali" Target="_blank">
+                <MudIcon Icon="@Icons.Custom.Brands.GitHub" Class="mr-2"/> GitHub
+            </MudButton>
+        </div>
     </div>
-}
+    <div class="hero-background"></div>
+</div>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-16" id="latest-posts">
+    <MudText Typo="Typo.h3" Class="section-title mb-8">
+        <MudIcon Icon="@Icons.Material.Filled.Article" Class="mr-2"/> Latest Posts
+    </MudText>
+    
+    <MudGrid Spacing="4">
+        @foreach (var blogPost in BlogPosts)
+        {
+            <MudItem xs="12" md="6" lg="6">
+                <MudCard Class="blog-card" Elevation="0">
+                    <div class="card-gradient"></div>
+                    <MudCardContent Class="blog-card-content">
+                        <div class="card-header">
+                            <MudChip T="string" Color="Color.Primary" Size="Size.Small" Class="mb-3">
+                                @blogPost?.Timestamp.ToString("dd MMM yyyy")
+                            </MudChip>
+                        </div>
+                        <MudText Typo="Typo.h5" Class="blog-title mb-3">
+                            @blogPost?.Title
+                        </MudText>
+                        
+                        <div class="blog-excerpt post">
+                            <CascadingValue Value="@summary">
+                                <DynamicComponent Type="@blogPost.Type" />
+                            </CascadingValue>
+                        </div>
+                    </MudCardContent>
+                    <MudCardActions Class="blog-card-actions">
+                        <MudButton Href=@(blogPost.Url+"#detail") 
+                                   Variant="Variant.Text" 
+                                   Color="Color.Primary" 
+                                   EndIcon="@Icons.Material.Filled.ArrowForward"
+                                   Class="read-more-btn">
+                            Read More
+                        </MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+    
+    @if (BlogPosts.Count == 0)
+    {
+        <MudPaper Class="pa-8 text-center" Elevation="0">
+            <MudIcon Icon="@Icons.Material.Filled.Article" Size="Size.Large" Color="Color.Primary" Class="mb-4"/>
+            <MudText Typo="Typo.h5">No posts yet</MudText>
+            <MudText Typo="Typo.body1" Class="mud-text-secondary">Check back soon for new content!</MudText>
+        </MudPaper>
+    }
+</MudContainer>
 
 @code {
-
     [Inject] BlogPostService blogPostService {get;set;} = default!;
 
     private List<BlogPost> BlogPosts = new();
     private bool summary = true;
     
-     protected override void OnInitialized()
+    protected override void OnInitialized()
     {
         BlogPosts = blogPostService.GetBlogPosts(typeof(Program).Assembly)
                         .OrderByDescending(p => p.Timestamp)
-                        .Take(5)
+                        .Take(6)
                         .ToList();
     }
-
-   
 }

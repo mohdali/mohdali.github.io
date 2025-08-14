@@ -1,11 +1,11 @@
 {
-    "reactSnap": {
-        "source": "output/wwwroot",
-        "skipThirdPartyRequests": true,    
-        "minifyHtml": {
-            "collapseWhitespace": true,
-            "removeComments": true
-        },
-        "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
-    }
+  "name": "blazor-prerender",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "prerender": "node prerender.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
 }

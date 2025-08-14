@@ -19,18 +19,20 @@ window.getThemePreference = () => {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark' : 'Light'
 }
 
+window.isSystemDarkMode = () => {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
 window.setTheme = () => {
     const theme = getThemePreference();
 
     if (theme == ThemeOption.Dark) {
-        document.body.classList.add(
-            'dark-theme'
-        );
+        document.body.classList.add('mud-theme-dark');
+        document.body.classList.remove('mud-theme-light');
     }
     else {
-        document.body.classList.remove(
-            'dark-theme'
-        );
+        document.body.classList.add('mud-theme-light');
+        document.body.classList.remove('mud-theme-dark');
     }
 }
 

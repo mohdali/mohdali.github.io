@@ -1,17 +1,66 @@
 @inherits PostLayoutBase
 @layout MainLayout
 
-<div>
-    <CascadingValue Value="this">
-        <MudText Typo="Typo.subtitle2">
-            Published: @BlogPost?.Timestamp.ToString("dd MMMM yyyy")
-        </MudText>
-        <MudText Typo="Typo.h1">@BlogPost?.Title</MudText>
-        <PageTitle>@BlogPost?.Title - mohdali.dev</PageTitle>
-        <CascadingValue Value="@summary">
-            <div class="my-3 post">
-            @Body
+<div class="post-detail-container">
+    <MudContainer MaxWidth="MaxWidth.Large" Class="py-8">
+        <CascadingValue Value="this">
+            <div class="post-header mb-6">
+                <MudText Typo="Typo.subtitle2" Class="post-date mb-2">
+                    <MudIcon Icon="@Icons.Material.Filled.CalendarToday" Size="Size.Small" Class="mr-1"/>
+                    Published: @BlogPost?.Timestamp.ToString("dd MMMM yyyy")
+                </MudText>
+                <MudText Typo="Typo.h1" Class="post-detail-title">@BlogPost?.Title</MudText>
+            </div>
+            
+            <PageTitle>@BlogPost?.Title - mohdali.dev</PageTitle>
+            
+            <MudPaper Elevation="0" Class="post-content-wrapper">
+                <CascadingValue Value="@summary">
+                    <article class="post-content post">
+                        @Body
+                    </article>
+                </CascadingValue>
+            </MudPaper>
+            
+            <div class="post-footer mt-6">
+                <MudDivider Class="mb-4"/>
+                <div class="d-flex justify-space-between align-center">
+                    <MudButton Variant="Variant.Text" 
+                               StartIcon="@Icons.Material.Filled.ArrowBack" 
+                               Color="Color.Primary"
+                               Href="/">
+                        Back to Posts
+                    </MudButton>
+                    <div class="post-share">
+                        <MudText Typo="Typo.body2" Class="mr-2 d-inline">Share:</MudText>
+                        <MudIconButton Icon="@Icons.Custom.Brands.Twitter" 
+                                      Size="Size.Small"
+                                      Color="Color.Primary"
+                                      Target="_blank"
+                                      Href="@GetTwitterShareUrl()" />
+                        <MudIconButton Icon="@Icons.Custom.Brands.LinkedIn" 
+                                      Size="Size.Small"
+                                      Color="Color.Primary"
+                                      Target="_blank"
+                                      Href="@GetLinkedInShareUrl()" />
+                    </div>
+                </div>
             </div>
         </CascadingValue>
-    </CascadingValue>
+    </MudContainer>
 </div>
+
+@code {
+    private string GetTwitterShareUrl()
+    {
+        var title = Uri.EscapeDataString(BlogPost?.Title ?? "");
+        var url = $"https://mohdali.dev{BlogPost?.Url}";
+        return $"https://twitter.com/intent/tweet?text={title}&url={Uri.EscapeDataString(url)}";
+    }
+    
+    private string GetLinkedInShareUrl()
+    {
+        var url = $"https://mohdali.dev{BlogPost?.Url}";
+        return $"https://www.linkedin.com/sharing/share-offsite/?url={Uri.EscapeDataString(url)}";
+    }
+}

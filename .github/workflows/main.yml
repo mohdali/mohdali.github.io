@@ -11,27 +11,58 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # uses GitHub's checkout action to checkout code form the master branch
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
-      # sets up .NET Core SDK 3.1
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1
+      # sets up .NET 9 SDK
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
       
       # publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
         run: dotnet publish src/mohdali.github.io/mohdali.github.io.csproj -c Release -o Prerender/output --nologo
       
-      # Use NodeJS react-snap utitility to prerender static website
-      - name: prerender Blazor client
+      # Setup Node.js for Puppeteer
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      # Pre-render pages with Puppeteer
+      - name: Pre-render Blazor pages
         working-directory: Prerender
-        run: npx react-snap
+        run: |
+          # Decompress index.html if compressed
+          if [ -f "output/wwwroot/index.html.gz" ] && [ ! -f "output/wwwroot/index.html" ]; then
+            echo "Decompressing index.html.gz..."
+            gunzip -c output/wwwroot/index.html.gz > output/wwwroot/index.html
+          fi
+          
+          # Install Playwright
+          echo "Installing dependencies..."
+          npm install
+          
+          # Install Playwright browsers
+          npx playwright install chromium
+          
+          # Run pre-rendering
+          echo "Pre-rendering pages..."
+          npm run prerender
+          
+          echo "✅ Pre-rendering completed"
 
-      # change base tag in all html files to include subfolder
-      - name: Change base tag
+      # Remove Blazor script tags from pre-rendered HTML files
+      - name: Remove Blazor scripts
         working-directory: Prerender/output/wwwroot
         run: |
           find . -name "*.html" | while read htmlFile; do
-              sed -i 's/<script>var Module; window.__wasmmodulecallback__(); delete window.__wasmmodulecallback__;<\/script><script src="_framework\/dotnet.[a-zA-Z0-9.]\+.js" defer="" integrity="sha256-.\+" crossorigin="anonymous"><\/script>//g' $htmlFile
+              # Remove .NET 9 Blazor autostart script
+              sed -i 's/<script src="_framework\/blazor.webassembly.js" autostart="false"><\/script>//g' $htmlFile
+              # Remove any remaining Blazor-related scripts
+              sed -i 's/<script>Blazor\.start.*<\/script>//g' $htmlFile
+              # Remove dotnet.js references
+              sed -i 's/<script src="_framework\/dotnet\.[^"]*\.js"[^>]*><\/script>//g' $htmlFile
           done
 
       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
@@ -40,7 +71,7 @@ jobs:
         
       
       - name: Commit wwwroot to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
