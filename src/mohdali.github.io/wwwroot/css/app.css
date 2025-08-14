@@ -227,6 +227,10 @@ h1:focus {
     border-top: 1px solid rgba(129, 140, 248, 0.1);
 }
 
+.mud-theme-light .blog-card-actions {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 .read-more-btn {
     font-weight: 600;
     transition: all 0.3s ease;
@@ -321,6 +325,10 @@ h1:focus {
     align-items: center;
 }
 
+.mud-theme-light .post-date {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
 .post-content-wrapper {
     background: transparent !important;
     padding: 2rem;
@@ -400,21 +408,36 @@ h1:focus {
     font-size: 0.9em;
 }
 
+.mud-theme-light .post-content code {
+    background: rgba(99, 102, 241, 0.15);
+    color: #2d3748;
+}
+
 .post-content pre,
 pre.code {
     background: rgba(26, 27, 58, 0.5);
     padding: 1.5rem;
     border-radius: 8px;
-    overflow-x: auto;
     margin: 2rem 0;
     max-width: 100%;
     box-sizing: border-box;
     position: relative;
+    /* Let wrapper handle overflow */
+    overflow: visible;
+}
+
+.mud-theme-light .post-content pre,
+.mud-theme-light pre.code {
+    background: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    color: #2d3748;
 }
 
 /* Fix copy button positioning */
 .hljs-copy-wrapper {
     position: relative;
+    /* Ensure wrapper handles the button positioning */
+    overflow: visible !important;
 }
 
 .hljs-copy-button {
@@ -424,6 +447,9 @@ pre.code {
     z-index: 10;
     opacity: 0;
     transition: opacity 0.3s ease;
+    cursor: pointer !important;
+    /* Move button slightly outside to prevent scrollbar */
+    transform: translateX(0);
 }
 
 /* Show button on hover */
@@ -432,20 +458,72 @@ pre.code {
     opacity: 1;
 }
 
-/* Hide overflow from copy button */
+/* Handle pre overflow properly */
 .hljs-copy-wrapper pre {
     overflow-x: auto;
     overflow-y: hidden;
+    /* Add padding-right to accommodate button without causing scrollbar */
+    padding-right: 3.5rem !important;
 }
 
-/* Only show scrollbar for actual code overflow, not button */
+/* Ensure code block doesn't cause unnecessary overflow */
 pre code.hljs {
     display: block;
     overflow-x: visible !important;
+    /* Reset any padding that might interfere */
+    padding-right: 1.5rem !important;
 }
 
-.mud-theme-light .post-content pre {
-    background: rgba(0, 0, 0, 0.05);
+.mud-theme-light .post-content pre code,
+.mud-theme-light pre.code code {
+    background: transparent;
+    color: #2d3748;
+}
+
+/* Highlight.js light theme overrides */
+.mud-theme-light .hljs {
+    background: #f8f9fa !important;
+    color: #2d3748 !important;
+}
+
+.mud-theme-light .hljs-keyword,
+.mud-theme-light .hljs-selector-tag,
+.mud-theme-light .hljs-type {
+    color: #d73a49 !important;
+}
+
+.mud-theme-light .hljs-string,
+.mud-theme-light .hljs-selector-attr,
+.mud-theme-light .hljs-selector-pseudo,
+.mud-theme-light .hljs-meta {
+    color: #032f62 !important;
+}
+
+.mud-theme-light .hljs-comment,
+.mud-theme-light .hljs-quote {
+    color: #6a737d !important;
+}
+
+.mud-theme-light .hljs-literal,
+.mud-theme-light .hljs-number {
+    color: #005cc5 !important;
+}
+
+.mud-theme-light .hljs-built_in,
+.mud-theme-light .hljs-builtin-name {
+    color: #6f42c1 !important;
+}
+
+.mud-theme-light .hljs-title,
+.mud-theme-light .hljs-section {
+    color: #22863a !important;
+}
+
+.mud-theme-light .hljs-attr,
+.mud-theme-light .hljs-attribute,
+.mud-theme-light .hljs-variable,
+.mud-theme-light .hljs-template-variable {
+    color: #e36209 !important;
 }
 
 .post-content img {
@@ -589,6 +667,12 @@ pre code.hljs {
     background: rgba(129, 140, 248, 0.1) !important;
     border: 1px solid rgba(129, 140, 248, 0.2);
     backdrop-filter: blur(10px);
+}
+
+.mud-theme-light .mud-chip {
+    background: rgba(99, 102, 241, 0.12) !important;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #4c51bf !important;
 }
 
 /* Button Hover Effects */
