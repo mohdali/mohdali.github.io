@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "mohdali.github.io",
   "resources": {
-    "hash": "sha256-TW2k1GBJPUK1g/fNG2q/q89fn8fwSZcimpDl0vzHIls=",
+    "hash": "sha256-iCy0dJHsSnwfnagr+njQaWVrl0uKvV9gAFNdwSI5ul0=",
     "fingerprinting": {
       "Humanizer.oqup3v7t3k.wasm": "Humanizer.wasm",
       "Microsoft.AspNetCore.Components.9neg1pe5wv.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -34,13 +34,13 @@
       "System.Net.Primitives.xpspmtm8v8.wasm": "System.Net.Primitives.wasm",
       "System.Private.Uri.dt1wei6e57.wasm": "System.Private.Uri.wasm",
       "System.Runtime.InteropServices.JavaScript.q2qvulo9k9.wasm": "System.Runtime.InteropServices.JavaScript.wasm",
-      "System.Runtime.o4qpdxbo5j.wasm": "System.Runtime.wasm",
+      "System.Runtime.a0hscvxwrj.wasm": "System.Runtime.wasm",
       "System.Text.Encodings.Web.az6magofqp.wasm": "System.Text.Encodings.Web.wasm",
       "System.Text.Json.joopzwgm76.wasm": "System.Text.Json.wasm",
       "System.Text.RegularExpressions.7eicgv6i8t.wasm": "System.Text.RegularExpressions.wasm",
-      "System.Private.CoreLib.a23oe9ez8e.wasm": "System.Private.CoreLib.wasm",
-      "BlogEngine.jgdsk87wyi.wasm": "BlogEngine.wasm",
-      "mohdali.github.io.34g3cio713.wasm": "mohdali.github.io.wasm",
+      "System.Private.CoreLib.mksizkhoj3.wasm": "System.Private.CoreLib.wasm",
+      "BlogEngine.n8sci4qzd3.wasm": "BlogEngine.wasm",
+      "mohdali.github.io.xfd0ca0x2l.wasm": "mohdali.github.io.wasm",
       "Humanizer.resources.ywrwvesg23.wasm": "Humanizer.resources.wasm",
       "Humanizer.resources.08lwhm08x4.wasm": "Humanizer.resources.wasm",
       "Humanizer.resources.5zb07tir5k.wasm": "Humanizer.resources.wasm",
@@ -113,7 +113,7 @@
     },
     "coreAssembly": {
       "System.Runtime.InteropServices.JavaScript.q2qvulo9k9.wasm": "sha256-wqfILadLLKdooVusvPcbEZBkeJ+9Yu23S7S8YQQEyLY=",
-      "System.Private.CoreLib.a23oe9ez8e.wasm": "sha256-fqgSbdIQD8+1Vl1sRBWlc9rSDaHsVnJV6fry+hC4OGg="
+      "System.Private.CoreLib.mksizkhoj3.wasm": "sha256-2rs3A/JaL6mB3rIC8zkkKHa9daVcJ7RVswYfTujdVGA="
     },
     "assembly": {
       "Humanizer.oqup3v7t3k.wasm": "sha256-4NbSboZzzP9nikRtXapUZNzOyITt7ht9TNqCIQHr5OE=",
@@ -146,12 +146,12 @@
       "System.Net.Http.qdes2txg95.wasm": "sha256-MuIBShdkd3uBiCmENmDEXcV3gM9ETKBrgfOBbG7pucw=",
       "System.Net.Primitives.xpspmtm8v8.wasm": "sha256-pSdnjYgJc+hNq1q/ZNeofRaYvOCBNL1mHFHoF/j+a8Y=",
       "System.Private.Uri.dt1wei6e57.wasm": "sha256-MQdQxlgJo1AX4azkJk4/bC9SMFL6VSiPE5ABubsk9sY=",
-      "System.Runtime.o4qpdxbo5j.wasm": "sha256-iFHroBTftalPRIzTADQT/g0GaGuPuN+/U9nUBfG7xrc=",
+      "System.Runtime.a0hscvxwrj.wasm": "sha256-Gr3xP6in92gUA/mz1ylZQdQ3jFo0JKZOweevFSZDDIQ=",
       "System.Text.Encodings.Web.az6magofqp.wasm": "sha256-1pYnog+hAQYG5AmoN8yPu2sN7VE8tXMsT6EUst0eUEo=",
       "System.Text.Json.joopzwgm76.wasm": "sha256-zbO+G9/zHFCURW6wwb4BalZc3nihUefgGR9q0y7Lqdg=",
       "System.Text.RegularExpressions.7eicgv6i8t.wasm": "sha256-4Uv8RQA9fa7nKqPllQCTNZtl6hA4jD8ajr3av8Qg08M=",
-      "BlogEngine.jgdsk87wyi.wasm": "sha256-I1fVFtaK0JZi9hTMLLquwCmcM2KMilOIzU1X6oE1oLU=",
-      "mohdali.github.io.34g3cio713.wasm": "sha256-U8j/BnjFXF4GF/na0taerzoFx8EIo+yJ9kTQU2rmj/Q="
+      "BlogEngine.n8sci4qzd3.wasm": "sha256-CaQ7BBBXI9/IbrBClFAFIZLwvZqPbS0gyexHyTraKNg=",
+      "mohdali.github.io.xfd0ca0x2l.wasm": "sha256-84cVH4ZjyWj+IfiX3eV0S7FDVVLa+cFlFKt+ItZGbJU="
     },
     "satelliteResources": {
       "af": {
