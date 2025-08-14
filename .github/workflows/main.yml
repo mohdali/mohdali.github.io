@@ -23,17 +23,34 @@ jobs:
       - name: Publish .NET Core Project
         run: dotnet publish src/mohdali.github.io/mohdali.github.io.csproj -c Release -o Prerender/output --nologo
       
-      # Use NodeJS react-snap utitility to prerender static website
-      - name: prerender Blazor client
+      # Setup Node.js for Puppeteer
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      # Pre-render pages with Puppeteer
+      - name: Pre-render Blazor pages
         working-directory: Prerender
         run: |
-          npx react-snap || true
-          # Verify that index.html was created
-          if [ ! -f "output/wwwroot/index.html" ]; then
-            echo "Pre-rendering failed - no index.html generated"
-            exit 1
+          # Decompress index.html if compressed
+          if [ -f "output/wwwroot/index.html.gz" ] && [ ! -f "output/wwwroot/index.html" ]; then
+            echo "Decompressing index.html.gz..."
+            gunzip -c output/wwwroot/index.html.gz > output/wwwroot/index.html
           fi
-          echo "Pre-rendering completed successfully"
+          
+          # Install Playwright
+          echo "Installing dependencies..."
+          npm install
+          
+          # Install Playwright browsers
+          npx playwright install chromium
+          
+          # Run pre-rendering
+          echo "Pre-rendering pages..."
+          npm run prerender
+          
+          echo "✅ Pre-rendering completed"
 
       # Remove Blazor script tags from pre-rendered HTML files
       - name: Remove Blazor scripts
