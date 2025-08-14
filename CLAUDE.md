@@ -13,6 +13,8 @@ Personal blog website built with Blazor WebAssembly, hosted on GitHub Pages with
 - **TypeScript/Webpack** - Client-side assets (syntax highlighting)
 - **react-snap** - Static pre-rendering
 - **GitHub Actions** - CI/CD deployment
+- **C# Source Generators** - Compile-time markdown to Blazor conversion
+- **Markdig** - Markdown parsing with advanced features
 
 ## Common Commands
 
@@ -43,20 +45,61 @@ npx react-snap
 ## Architecture
 
 ### Blog Post System
-- Blog posts are Blazor components in `src/mohdali.github.io/Pages/Posts/YYYY/`
-- Naming pattern: `YYYY-MM-DD-Title.razor`
-- Posts are discovered automatically via reflection from filename patterns
-- Each post must have `@page "/posts/Title"` directive
-- Posts inherit from `BlogPostComponent` and use `PostLayout`
+
+#### Creating Posts
+Blog posts can be created in two ways:
+
+1. **Razor Components** (Traditional method):
+   - Create `.razor` files in `src/mohdali.github.io/Pages/Posts/YYYY/`
+   - Must inherit from `BlogPostComponent`
+   - Must include `@page "/posts/url-slug"` directive
+   - Example: `2025-01-14-My-Post.razor`
+
+2. **Markdown Files** (New feature!):
+   - Create `.md` files in `src/mohdali.github.io/Pages/Posts/YYYY/`
+   - Automatically converted to Blazor components at compile time
+   - Support YAML frontmatter for metadata
+   - Example: `2025-01-14-My-Post.md`
+
+#### Markdown Post Format
+```markdown
+---
+title: Post Title Here
+date: 2025-01-14
+page: /posts/url-slug
+tags: tag1, tag2, tag3
+---
+
+# Your Markdown Content
+
+Write your post using **standard markdown** syntax.
+
+## Code blocks are automatically syntax highlighted
+
+\`\`\`csharp
+public class Example
+{
+    public string Name { get; set; }
+}
+\`\`\`
+```
+
+#### Features
+- Posts are discovered automatically via reflection
+- Markdown posts use C# source generators for compile-time conversion
+- Code blocks in markdown are converted to `CodeSnippet` components
+- Supports all Markdig features (tables, footnotes, task lists, etc.)
+- Both post types work identically once compiled
 
 ### Project Structure
 ```
 ├── src/
 │   ├── mohdali.github.io/        # Main Blazor WASM app
-│   │   ├── Pages/Posts/          # Blog posts organized by year
+│   │   ├── Pages/Posts/          # Blog posts organized by year (.razor and .md)
 │   │   └── wwwroot/              # Static assets
-│   └── BlogEngine/                # Reusable blog engine library
-│       └── ClientLib/             # TypeScript/webpack assets
+│   ├── BlogEngine/                # Reusable blog engine library
+│   │   └── ClientLib/             # TypeScript/webpack assets
+│   └── BlogEngine.Markdown/       # Source generator for markdown posts
 └── Prerender/                     # Pre-rendering configuration
 ```
 
