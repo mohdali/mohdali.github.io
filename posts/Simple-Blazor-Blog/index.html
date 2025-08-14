@@ -1,0 +1,481 @@
+<!DOCTYPE html><html lang="en" style="--blazor-load-percentage: 100%; --blazor-load-percentage-text: &quot;100%&quot;;"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <base href="/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" rel="stylesheet">
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet">
+    
+    <link href="css/app.css" rel="stylesheet">
+<style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#ddd;background:#303030}.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{color:#fff}.hljs-addition,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type,.hljs-variable{color:#d88}.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{color:#979797}.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{font-weight:700}.hljs-emphasis{font-style:italic}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL25vZGVfbW9kdWxlcy9oaWdobGlnaHQuanMvc3R5bGVzL2RhcmsuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQWMsYUFBYSxDQUFDLGVBQWUsQ0FBQyxXQUFXLENBQUMsVUFBVSxlQUFlLENBQUMsTUFBTSxVQUFVLENBQUMsa0JBQWtCLENBQUMsd0VBQXdFLFVBQVUsQ0FBQyxpTEFBaUwsVUFBVSxDQUFDLG9EQUFvRCxhQUFhLENBQUMseUhBQXlILGVBQWUsQ0FBQyxlQUFlLGlCQUFpQiIsInNvdXJjZXNDb250ZW50IjpbInByZSBjb2RlLmhsanN7ZGlzcGxheTpibG9jaztvdmVyZmxvdy14OmF1dG87cGFkZGluZzoxZW19Y29kZS5obGpze3BhZGRpbmc6M3B4IDVweH0uaGxqc3tjb2xvcjojZGRkO2JhY2tncm91bmQ6IzMwMzAzMH0uaGxqcy1rZXl3b3JkLC5obGpzLWxpbmssLmhsanMtbGl0ZXJhbCwuaGxqcy1zZWN0aW9uLC5obGpzLXNlbGVjdG9yLXRhZ3tjb2xvcjojZmZmfS5obGpzLWFkZGl0aW9uLC5obGpzLWF0dHJpYnV0ZSwuaGxqcy1idWlsdF9pbiwuaGxqcy1idWxsZXQsLmhsanMtbmFtZSwuaGxqcy1zdHJpbmcsLmhsanMtc3ltYm9sLC5obGpzLXRlbXBsYXRlLXRhZywuaGxqcy10ZW1wbGF0ZS12YXJpYWJsZSwuaGxqcy10aXRsZSwuaGxqcy10eXBlLC5obGpzLXZhcmlhYmxle2NvbG9yOiNkODh9LmhsanMtY29tbWVudCwuaGxqcy1kZWxldGlvbiwuaGxqcy1tZXRhLC5obGpzLXF1b3Rle2NvbG9yOiM5Nzk3OTd9LmhsanMtZG9jdGFnLC5obGpzLWtleXdvcmQsLmhsanMtbGl0ZXJhbCwuaGxqcy1uYW1lLC5obGpzLXNlY3Rpb24sLmhsanMtc2VsZWN0b3ItdGFnLC5obGpzLXN0cm9uZywuaGxqcy10aXRsZSwuaGxqcy10eXBle2ZvbnQtd2VpZ2h0OjcwMH0uaGxqcy1lbXBoYXNpc3tmb250LXN0eWxlOml0YWxpY30iXSwic291cmNlUm9vdCI6IiJ9 */</style><style>.hljs-copy-wrapper{position:relative;overflow:hidden}.hljs-copy-wrapper:hover .hljs-copy-button,.hljs-copy-button:focus{transform:translateX(0)}.hljs-copy-button{position:absolute;transform:translateX(calc(100% + 1.125em));top:1em;right:1em;width:2rem;height:2rem;text-indent:-9999px;color:#fff;border-radius:.25rem;border:1px solid #ffffff22;background-color:#2d2b57;background-color:var(--hljs-theme-background);background-image:url("data:image/svg+xml;utf-8,<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6 5C5.73478 5 5.48043 5.10536 5.29289 5.29289C5.10536 5.48043 5 5.73478 5 6V20C5 20.2652 5.10536 20.5196 5.29289 20.7071C5.48043 20.8946 5.73478 21 6 21H18C18.2652 21 18.5196 20.8946 18.7071 20.7071C18.8946 20.5196 19 20.2652 19 20V6C19 5.73478 18.8946 5.48043 18.7071 5.29289C18.5196 5.10536 18.2652 5 18 5H16C15.4477 5 15 4.55228 15 4C15 3.44772 15.4477 3 16 3H18C18.7956 3 19.5587 3.31607 20.1213 3.87868C20.6839 4.44129 21 5.20435 21 6V20C21 20.7957 20.6839 21.5587 20.1213 22.1213C19.5587 22.6839 18.7957 23 18 23H6C5.20435 23 4.44129 22.6839 3.87868 22.1213C3.31607 21.5587 3 20.7957 3 20V6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3H8C8.55228 3 9 3.44772 9 4C9 4.55228 8.55228 5 8 5H6Z\" fill=\"white\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7 3C7 1.89543 7.89543 1 9 1H15C16.1046 1 17 1.89543 17 3V5C17 6.10457 16.1046 7 15 7H9C7.89543 7 7 6.10457 7 5V3ZM15 3H9V5H15V3Z\" fill=\"white\"/></svg>");background-repeat:no-repeat;background-position:center;transition:background-color 200ms ease,transform 200ms ease-out}.hljs-copy-button:hover{border-color:#ffffff44}.hljs-copy-button:active{border-color:#ffffff66}.hljs-copy-button[data-copied="true"]{text-indent:0;width:auto;background-image:none}@media(prefers-reduced-motion){.hljs-copy-button{transition:none}}.hljs-copy-alert{clip:rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL25vZGVfbW9kdWxlcy9oaWdobGlnaHRqcy1jb3B5L2Rpc3QvaGlnaGxpZ2h0anMtY29weS5taW4uY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLG1CQUFtQixpQkFBaUIsQ0FBQyxlQUFlLENBQUMsbUVBQW1FLHVCQUF1QixDQUFDLGtCQUFrQixpQkFBaUIsQ0FBQywwQ0FBMEMsQ0FBQyxPQUFPLENBQUMsU0FBUyxDQUFDLFVBQVUsQ0FBQyxXQUFXLENBQUMsbUJBQW1CLENBQUMsVUFBVSxDQUFDLG9CQUFvQixDQUFDLDBCQUEwQixDQUFDLHdCQUF3QixDQUFDLDZDQUE2QyxDQUFDLHdEQUEybUMsQ0FBQywyQkFBMkIsQ0FBQywwQkFBMEIsQ0FBQywrREFBK0QsQ0FBQyx3QkFBd0Isc0JBQXNCLENBQUMseUJBQXlCLHNCQUFzQixDQUFDLHNDQUFzQyxhQUFhLENBQUMsVUFBVSxDQUFDLHFCQUFxQixDQUFDLCtCQUErQixrQkFBa0IsZUFBZSxDQUFDLENBQUMsaUJBQWlCLGtCQUFrQixDQUFDLG9CQUFvQixDQUFDLFVBQVUsQ0FBQyxlQUFlLENBQUMsaUJBQWlCLENBQUMsa0JBQWtCLENBQUMsU0FBUyIsInNvdXJjZXNDb250ZW50IjpbIi5obGpzLWNvcHktd3JhcHBlcntwb3NpdGlvbjpyZWxhdGl2ZTtvdmVyZmxvdzpoaWRkZW59LmhsanMtY29weS13cmFwcGVyOmhvdmVyIC5obGpzLWNvcHktYnV0dG9uLC5obGpzLWNvcHktYnV0dG9uOmZvY3Vze3RyYW5zZm9ybTp0cmFuc2xhdGVYKDApfS5obGpzLWNvcHktYnV0dG9ue3Bvc2l0aW9uOmFic29sdXRlO3RyYW5zZm9ybTp0cmFuc2xhdGVYKGNhbGMoMTAwJSArIDEuMTI1ZW0pKTt0b3A6MWVtO3JpZ2h0OjFlbTt3aWR0aDoycmVtO2hlaWdodDoycmVtO3RleHQtaW5kZW50Oi05OTk5cHg7Y29sb3I6I2ZmZjtib3JkZXItcmFkaXVzOi4yNXJlbTtib3JkZXI6MXB4IHNvbGlkICNmZmZmZmYyMjtiYWNrZ3JvdW5kLWNvbG9yOiMyZDJiNTc7YmFja2dyb3VuZC1jb2xvcjp2YXIoLS1obGpzLXRoZW1lLWJhY2tncm91bmQpO2JhY2tncm91bmQtaW1hZ2U6dXJsKCdkYXRhOmltYWdlL3N2Zyt4bWw7dXRmLTgsPHN2ZyB3aWR0aD1cIjE2XCIgaGVpZ2h0PVwiMTZcIiB2aWV3Qm94PVwiMCAwIDI0IDI0XCIgZmlsbD1cIm5vbmVcIiB4bWxucz1cImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnXCI+PHBhdGggZmlsbC1ydWxlPVwiZXZlbm9kZFwiIGNsaXAtcnVsZT1cImV2ZW5vZGRcIiBkPVwiTTYgNUM1LjczNDc4IDUgNS40ODA0MyA1LjEwNTM2IDUuMjkyODkgNS4yOTI4OUM1LjEwNTM2IDUuNDgwNDMgNSA1LjczNDc4IDUgNlYyMEM1IDIwLjI2NTIgNS4xMDUzNiAyMC41MTk2IDUuMjkyODkgMjAuNzA3MUM1LjQ4MDQzIDIwLjg5NDYgNS43MzQ3OCAyMSA2IDIxSDE4QzE4LjI2NTIgMjEgMTguNTE5NiAyMC44OTQ2IDE4LjcwNzEgMjAuNzA3MUMxOC44OTQ2IDIwLjUxOTYgMTkgMjAuMjY1MiAxOSAyMFY2QzE5IDUuNzM0NzggMTguODk0NiA1LjQ4MDQzIDE4LjcwNzEgNS4yOTI4OUMxOC41MTk2IDUuMTA1MzYgMTguMjY1MiA1IDE4IDVIMTZDMTUuNDQ3NyA1IDE1IDQuNTUyMjggMTUgNEMxNSAzLjQ0NzcyIDE1LjQ0NzcgMyAxNiAzSDE4QzE4Ljc5NTYgMyAxOS41NTg3IDMuMzE2MDcgMjAuMTIxMyAzLjg3ODY4QzIwLjY4MzkgNC40NDEyOSAyMSA1LjIwNDM1IDIxIDZWMjBDMjEgMjAuNzk1NyAyMC42ODM5IDIxLjU1ODcgMjAuMTIxMyAyMi4xMjEzQzE5LjU1ODcgMjIuNjgzOSAxOC43OTU3IDIzIDE4IDIzSDZDNS4yMDQzNSAyMyA0LjQ0MTI5IDIyLjY4MzkgMy44Nzg2OCAyMi4xMjEzQzMuMzE2MDcgMjEuNTU4NyAzIDIwLjc5NTcgMyAyMFY2QzMgNS4yMDQzNSAzLjMxNjA3IDQuNDQxMjkgMy44Nzg2OCAzLjg3ODY4QzQuNDQxMjkgMy4zMTYwNyA1LjIwNDM1IDMgNiAzSDhDOC41NTIyOCAzIDkgMy40NDc3MiA5IDRDOSA0LjU1MjI4IDguNTUyMjggNSA4IDVINlpcIiBmaWxsPVwid2hpdGVcIi8+PHBhdGggZmlsbC1ydWxlPVwiZXZlbm9kZFwiIGNsaXAtcnVsZT1cImV2ZW5vZGRcIiBkPVwiTTcgM0M3IDEuODk1NDMgNy44OTU0MyAxIDkgMUgxNUMxNi4xMDQ2IDEgMTcgMS44OTU0MyAxNyAzVjVDMTcgNi4xMDQ1NyAxNi4xMDQ2IDcgMTUgN0g5QzcuODk1NDMgNyA3IDYuMTA0NTcgNyA1VjNaTTE1IDNIOVY1SDE1VjNaXCIgZmlsbD1cIndoaXRlXCIvPjwvc3ZnPicpO2JhY2tncm91bmQtcmVwZWF0Om5vLXJlcGVhdDtiYWNrZ3JvdW5kLXBvc2l0aW9uOmNlbnRlcjt0cmFuc2l0aW9uOmJhY2tncm91bmQtY29sb3IgMjAwbXMgZWFzZSx0cmFuc2Zvcm0gMjAwbXMgZWFzZS1vdXR9LmhsanMtY29weS1idXR0b246aG92ZXJ7Ym9yZGVyLWNvbG9yOiNmZmZmZmY0NH0uaGxqcy1jb3B5LWJ1dHRvbjphY3RpdmV7Ym9yZGVyLWNvbG9yOiNmZmZmZmY2Nn0uaGxqcy1jb3B5LWJ1dHRvbltkYXRhLWNvcGllZD1cInRydWVcIl17dGV4dC1pbmRlbnQ6MDt3aWR0aDphdXRvO2JhY2tncm91bmQtaW1hZ2U6bm9uZX1AbWVkaWEocHJlZmVycy1yZWR1Y2VkLW1vdGlvbil7LmhsanMtY29weS1idXR0b257dHJhbnNpdGlvbjpub25lfX0uaGxqcy1jb3B5LWFsZXJ0e2NsaXA6cmVjdCgwIDAgMCAwKTtjbGlwLXBhdGg6aW5zZXQoNTAlKTtoZWlnaHQ6MXB4O292ZXJmbG93OmhpZGRlbjtwb3NpdGlvbjphYnNvbHV0ZTt3aGl0ZS1zcGFjZTpub3dyYXA7d2lkdGg6MXB4fVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */</style><!--!--><!--!--><!--!--><title> Simple Blazor Blog - mohdali.dev</title><!--!--><!--!--><!--!--></head>
+
+<body class="mud-theme-light">
+    <div id="app"><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><style>
+::-webkit-scrollbar {width: 8px;height: 8px;z-index: 1;}
+::-webkit-scrollbar-track {background: transparent;}
+::-webkit-scrollbar-thumb {background: #c4c4c4;border-radius: 1px;}
+::-webkit-scrollbar-thumb:hover {background: #a6a6a6;}
+html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
+</style>
+<!--!--><style>
+    .mud-chart-serie:hover {
+        filter: url(#lighten);
+    }
+</style>
+
+<!--!--><style>
+:root{
+--mud-palette-black: rgba(0,0,0,1);
+--mud-palette-white: rgba(255,255,255,1);
+--mud-palette-primary: rgba(129,140,248,1);
+--mud-palette-primary-rgb: 129,140,248;
+--mud-palette-primary-text: rgba(255,255,255,1);
+--mud-palette-primary-darken: rgb(99,102,241);
+--mud-palette-primary-lighten: rgb(165,180,252);
+--mud-palette-primary-hover: rgba(129,140,248,0.058823529411764705);
+--mud-palette-secondary: rgba(244,114,182,1);
+--mud-palette-secondary-rgb: 244,114,182;
+--mud-palette-secondary-text: rgba(255,255,255,1);
+--mud-palette-secondary-darken: rgb(236,72,153);
+--mud-palette-secondary-lighten: rgb(249,168,212);
+--mud-palette-secondary-hover: rgba(244,114,182,0.058823529411764705);
+--mud-palette-tertiary: rgba(52,211,153,1);
+--mud-palette-tertiary-rgb: 52,211,153;
+--mud-palette-tertiary-text: rgba(255,255,255,1);
+--mud-palette-tertiary-darken: rgb(40,184,131);
+--mud-palette-tertiary-lighten: rgb(88,218,170);
+--mud-palette-tertiary-hover: rgba(52,211,153,0.058823529411764705);
+--mud-palette-info: rgba(96,165,250,1);
+--mud-palette-info-rgb: 96,165,250;
+--mud-palette-info-text: rgba(255,255,255,1);
+--mud-palette-info-darken: rgb(62,146,249);
+--mud-palette-info-lighten: rgb(136,188,251);
+--mud-palette-info-hover: rgba(96,165,250,0.058823529411764705);
+--mud-palette-success: rgba(52,211,153,1);
+--mud-palette-success-rgb: 52,211,153;
+--mud-palette-success-text: rgba(255,255,255,1);
+--mud-palette-success-darken: rgb(40,184,131);
+--mud-palette-success-lighten: rgb(88,218,170);
+--mud-palette-success-hover: rgba(52,211,153,0.058823529411764705);
+--mud-palette-warning: rgba(251,191,36,1);
+--mud-palette-warning-rgb: 251,191,36;
+--mud-palette-warning-text: rgba(255,255,255,1);
+--mud-palette-warning-darken: rgb(245,177,5);
+--mud-palette-warning-lighten: rgb(251,201,75);
+--mud-palette-warning-hover: rgba(251,191,36,0.058823529411764705);
+--mud-palette-error: rgba(248,113,113,1);
+--mud-palette-error-rgb: 248,113,113;
+--mud-palette-error-text: rgba(255,255,255,1);
+--mud-palette-error-darken: rgb(247,80,80);
+--mud-palette-error-lighten: rgb(250,148,148);
+--mud-palette-error-hover: rgba(248,113,113,0.058823529411764705);
+--mud-palette-dark: rgba(17,24,39,1);
+--mud-palette-dark-rgb: 17,24,39;
+--mud-palette-dark-text: rgba(255,255,255,1);
+--mud-palette-dark-darken: rgb(6,9,14);
+--mud-palette-dark-lighten: rgb(28,39,64);
+--mud-palette-dark-hover: rgba(17,24,39,0.058823529411764705);
+--mud-palette-text-primary: rgba(243,244,246,1);
+--mud-palette-text-secondary: rgba(156,163,175,1);
+--mud-palette-text-disabled: rgba(255,255,255,0.2);
+--mud-palette-action-default: rgba(156,163,175,1);
+--mud-palette-action-default-hover: rgba(156,163,175,0.058823529411764705);
+--mud-palette-action-disabled: rgba(255,255,255,0.25882352941176473);
+--mud-palette-action-disabled-background: rgba(255,255,255,0.11764705882352941);
+--mud-palette-surface: rgba(26,27,58,1);
+--mud-palette-background: rgba(15,15,35,1);
+--mud-palette-background-gray: rgba(26,27,58,1);
+--mud-palette-drawer-background: rgba(26,27,58,1);
+--mud-palette-drawer-text: rgba(243,244,246,1);
+--mud-palette-drawer-icon: rgba(156,163,175,1);
+--mud-palette-appbar-background: rgba(15,15,35,0.8);
+--mud-palette-appbar-text: rgba(243,244,246,1);
+--mud-palette-lines-default: rgba(255,255,255,0.11764705882352941);
+--mud-palette-lines-inputs: rgba(255,255,255,0.2980392156862745);
+--mud-palette-table-lines: rgba(255,255,255,0.11764705882352941);
+--mud-palette-table-striped: rgba(255,255,255,0.2);
+--mud-palette-table-hover: rgba(0,0,0,0.0392156862745098);
+--mud-palette-divider: rgba(255,255,255,0.0784313725490196);
+--mud-palette-divider-light: rgba(255,255,255,0.0392156862745098);
+--mud-palette-skeleton: rgba(255,255,255,0.10980392156862745);
+--mud-palette-gray-default: #9E9E9E;
+--mud-palette-gray-light: #BDBDBD;
+--mud-palette-gray-lighter: #E0E0E0;
+--mud-palette-gray-dark: #757575;
+--mud-palette-gray-darker: #616161;
+--mud-palette-overlay-dark: rgba(33,33,33,0.4980392156862745);
+--mud-palette-overlay-light: rgba(255,255,255,0.4980392156862745);
+--mud-ripple-color: var(--mud-palette-text-primary);
+--mud-ripple-opacity: 0.1;
+--mud-ripple-opacity-secondary: 0.2;
+--mud-elevation-0: none;
+--mud-elevation-1: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+--mud-elevation-2: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+--mud-elevation-3: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);
+--mud-elevation-4: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+--mud-elevation-5: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12);
+--mud-elevation-6: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+--mud-elevation-7: 0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12);
+--mud-elevation-8: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+--mud-elevation-9: 0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12);
+--mud-elevation-10: 0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12);
+--mud-elevation-11: 0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12);
+--mud-elevation-12: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12);
+--mud-elevation-13: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12);
+--mud-elevation-14: 0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12);
+--mud-elevation-15: 0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12);
+--mud-elevation-16: 0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12);
+--mud-elevation-17: 0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12);
+--mud-elevation-18: 0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12);
+--mud-elevation-19: 0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12);
+--mud-elevation-20: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12);
+--mud-elevation-21: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12);
+--mud-elevation-22: 0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12);
+--mud-elevation-23: 0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12);
+--mud-elevation-24: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);
+--mud-elevation-25: 0 5px 5px -3px rgba(0,0,0,.06), 0 8px 10px 1px rgba(0,0,0,.042), 0 3px 14px 2px rgba(0,0,0,.036);
+--mud-default-borderradius: 12px;
+--mud-drawer-width-left: 260px;
+--mud-drawer-width-right: 320px;
+--mud-drawer-width-mini-left: 56px;
+--mud-drawer-width-mini-right: 56px;
+--mud-appbar-height: 64px;
+--mud-typography-default-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-default-size: 0.875rem;
+--mud-typography-default-weight: 400;
+--mud-typography-default-lineheight: 1.5;
+--mud-typography-default-letterspacing: 0.01071em;
+--mud-typography-default-text-transform: none;
+--mud-typography-h1-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-h1-size: 4rem;
+--mud-typography-h1-weight: 800;
+--mud-typography-h1-lineheight: 1.2;
+--mud-typography-h1-letterspacing: -0.02em;
+--mud-typography-h1-text-transform: none;
+--mud-typography-h2-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-h2-size: 2.5rem;
+--mud-typography-h2-weight: 700;
+--mud-typography-h2-lineheight: 1.3;
+--mud-typography-h2-letterspacing: -0.01em;
+--mud-typography-h2-text-transform: none;
+--mud-typography-h3-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-h3-size: 2rem;
+--mud-typography-h3-weight: 600;
+--mud-typography-h3-lineheight: 1.4;
+--mud-typography-h3-letterspacing: 0;
+--mud-typography-h3-text-transform: none;
+--mud-typography-h4-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-h4-size: 1.5rem;
+--mud-typography-h4-weight: 600;
+--mud-typography-h4-lineheight: 1.4;
+--mud-typography-h4-letterspacing: .00735em;
+--mud-typography-h4-text-transform: none;
+--mud-typography-h5-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-h5-size: 1.25rem;
+--mud-typography-h5-weight: 600;
+--mud-typography-h5-lineheight: 1.5;
+--mud-typography-h5-letterspacing: 0;
+--mud-typography-h5-text-transform: none;
+--mud-typography-h6-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-h6-size: 1.125rem;
+--mud-typography-h6-weight: 600;
+--mud-typography-h6-lineheight: 1.5;
+--mud-typography-h6-letterspacing: .0075em;
+--mud-typography-h6-text-transform: none;
+--mud-typography-subtitle1-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-subtitle1-size: 1rem;
+--mud-typography-subtitle1-weight: 400;
+--mud-typography-subtitle1-lineheight: 1.75;
+--mud-typography-subtitle1-letterspacing: .00938em;
+--mud-typography-subtitle1-text-transform: none;
+--mud-typography-subtitle2-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-subtitle2-size: .875rem;
+--mud-typography-subtitle2-weight: 500;
+--mud-typography-subtitle2-lineheight: 1.57;
+--mud-typography-subtitle2-letterspacing: .00714em;
+--mud-typography-subtitle2-text-transform: none;
+--mud-typography-body1-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-body1-size: 1rem;
+--mud-typography-body1-weight: 400;
+--mud-typography-body1-lineheight: 1.5;
+--mud-typography-body1-letterspacing: .00938em;
+--mud-typography-body1-text-transform: none;
+--mud-typography-body2-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-body2-size: .875rem;
+--mud-typography-body2-weight: 400;
+--mud-typography-body2-lineheight: 1.43;
+--mud-typography-body2-letterspacing: .01071em;
+--mud-typography-body2-text-transform: none;
+--mud-typography-input-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-input-size: 1rem;
+--mud-typography-input-weight: 400;
+--mud-typography-input-lineheight: 1.1876;
+--mud-typography-input-letterspacing: .00938em;
+--mud-typography-input-text-transform: none;
+--mud-typography-button-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-button-size: 0.875rem;
+--mud-typography-button-weight: 600;
+--mud-typography-button-lineheight: 1.75;
+--mud-typography-button-letterspacing: 0.02857em;
+--mud-typography-button-text-transform: none;
+--mud-typography-caption-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-caption-size: .75rem;
+--mud-typography-caption-weight: 400;
+--mud-typography-caption-lineheight: 1.66;
+--mud-typography-caption-letterspacing: .03333em;
+--mud-typography-caption-text-transform: none;
+--mud-typography-overline-family: 'Inter','-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial','sans-serif';
+--mud-typography-overline-size: .75rem;
+--mud-typography-overline-weight: 400;
+--mud-typography-overline-lineheight: 2.66;
+--mud-typography-overline-letterspacing: .08333em;
+--mud-typography-overline-text-transform: none;
+--mud-zindex-drawer: 1100;
+--mud-zindex-appbar: 1300;
+--mud-zindex-dialog: 1400;
+--mud-zindex-popover: 1200;
+--mud-zindex-snackbar: 1500;
+--mud-zindex-tooltip: 1600;
+--mud-native-html-color-scheme: dark;
+}
+</style>
+<!--!-->
+
+<!--!--><!--!--><!--!--><!--!-->
+<!--!--><div id="mud-snackbar-container" class="mud-snackbar-location-top-right"></div><!--!-->
+<!--!--><div class="mud-popover-provider"><!--!--><div id="popovercontent-2c7d73b0-c3a0-484a-81ed-4657a33565a6" data-ticks="0" class="mud-popover mud-popover-top-left mud-popover-anchor-top-left mud-popover-overflow-flip-onopen mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-b9813f0c-69b2-4c68-8c3c-255160701bf8" data-ticks="0" class="mud-popover mud-popover-top-center mud-popover-anchor-bottom-center mud-popover-overflow-flip-onopen mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-0c9a805e-e332-4dce-8b5f-e85af4df500a" data-ticks="0" class="mud-popover mud-popover-top-left mud-popover-anchor-top-left mud-popover-overflow-flip-onopen mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-b9373bd7-2312-4e72-ade5-177bbd97e9b8" data-ticks="0" class="mud-popover mud-popover-top-left mud-popover-anchor-top-left mud-popover-overflow-flip-onopen mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-fb7561b7-f7e3-4452-bc5e-e71129561eee" data-ticks="0" class="mud-popover mud-popover-top-left mud-popover-anchor-top-left mud-popover-overflow-flip-onopen mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-778e5e8d-d0d7-4e16-a386-df4d5fe1a63f" data-ticks="0" class="mud-popover mud-popover-top-left mud-popover-anchor-top-left mud-popover-overflow-flip-onopen mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div></div><!--!-->
+
+
+<!--!--><div class="mud-layout" style=""><!--!--><!--!--><header class="mud-appbar mud-appbar-fixed-top mud-elevation-4"><!--!--><div role="toolbar" class="mud-toolbar mud-toolbar-gutters mud-toolbar-appbar"><!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><a type="button" href="/" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon" _bl_2=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></span></a><!--!--><div id="popover-2c7d73b0-c3a0-484a-81ed-4657a33565a6" class="mud-popover-cascading-value"></div></div><!--!-->
+        <!--!--><a href="/" class="mud-typography mud-link mud-inherit-text mud-link-underline-hover mud-typography-h5 ml-3 logo">mohdali.dev</a><!--!-->
+        <!--!--><!--!--><div aria-hidden="true" class="flex-grow-1"></div><!--!-->
+        <!--!--><!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><button type="button" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon" _bl_3=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><g><rect fill="none" height="24" width="24"></rect></g><g><g><path d="M19.03,3.56c-1.67-1.39-3.74-2.3-6.03-2.51v2.01c1.73,0.19,3.31,0.88,4.61,1.92L19.03,3.56z"></path><path d="M11,3.06V1.05C8.71,1.25,6.64,2.17,4.97,3.56l1.42,1.42C7.69,3.94,9.27,3.25,11,3.06z"></path><path d="M4.98,6.39L3.56,4.97C2.17,6.64,1.26,8.71,1.05,11h2.01C3.25,9.27,3.94,7.69,4.98,6.39z"></path><path d="M20.94,11h2.01c-0.21-2.29-1.12-4.36-2.51-6.03l-1.42,1.42C20.06,7.69,20.75,9.27,20.94,11z"></path><polygon points="7,12 10.44,13.56 12,17 13.56,13.56 17,12 13.56,10.44 12,7 10.44,10.44"></polygon><path d="M12,21c-3.11,0-5.85-1.59-7.46-4H7v-2H1v6h2v-2.7c1.99,2.84,5.27,4.7,9,4.7c4.87,0,9-3.17,10.44-7.56l-1.96-0.45 C19.25,18.48,15.92,21,12,21z"></path></g></g></svg></span></button><!--!--><div id="popover-b9813f0c-69b2-4c68-8c3c-255160701bf8" class="mud-popover-cascading-value"></div></div></div></header><!--!-->
+    <!--!--><div class="mud-main-content main-content"><!--!--><div class="post-detail-container"><!--!--><div class="mud-container mud-container-maxwidth-lg mud-container--gutters py-8"><!--!--><div class="post-header mb-6"><!--!--><!--!--><p class="mud-typography mud-typography-subtitle2 post-date mb-2"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-small mr-1" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"></path></svg><!--!-->
+                    Published: 21 August 2023</p><!--!-->
+                <!--!--><!--!--><h1 class="mud-typography mud-typography-h1 post-detail-title" tabindex="-1"> Simple Blazor Blog</h1></div><!--!-->
+            
+            <!--!--><!--!--><!--!-->
+            
+            <!--!--><div class="mud-paper mud-elevation-0 post-content-wrapper" style=""><!--!--><article class="post-content post"><!--!--><!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+    I recently started exploring <!--!--><a href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor" target="_blank">Blazor</a>.
+    It's very intersting to be able to build interactive client applications using C# for the front end and use C# as
+    full-stack technology.
+    Something that Microsoft tried to achieve before with SilverLight but this time around we have more mature and
+    standard web technologies to work with. Namely, WebAssembly and WebSockets.
+</p><!--!-->
+
+<!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+    To get more familiarized with Blazor, I decided to try to build a simple blogging platform. I wanted to host it on
+    GitHub Pages, therefore Blazor WASM was the obvious choice as it can be hosted in a static site.
+    I also wanted to be able create my posts as individual pages (Ideally in Markdown), and let Blazor generate the
+    navigation during build process.
+</p><!--!-->
+
+<!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+    First thing that I immediatley noticed is the delayed rendering of the website while the WebAssembly assets are
+    downloaded. That also meant that web crawlers wouldn't be able to render my website if they couldn't load
+    WebAssembly assets properly.
+    And while .NET 8 is going to introduce Server Side Rendering (SSR), that wouldn't work for a static host like GitHub
+    Pages. Luckily I found a solution quickly!
+</p><!--!-->
+
+<!--!--><div id="detail"><!--!--><!--!--><h2 class="mud-typography mud-typography-h2">Server Side Rendering</h2><!--!-->
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        Thanks to Niels Swimberghe's detailed <!--!--><a href="https://swimburger.net/blog/dotnet/pre-render-blazor-webassembly-at-build-time-to-optimize-for-search-engines" target="_blank">Blog Post</a>, I learned about using <!--!--><code>react-snap</code>, which works well with Blazor
+        WASM apps despite the name suggesting it works for React apps only.
+        All you have to do is follow the instructions in the blog and finally run the below command:
+    </p><!--!-->
+    <!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(129, 140, 248, 0.1);"><code class="bash hljs language-bash">npx react-snap</code><button class="hljs-copy-button" data-copied="false">Copy</button></pre><!--!-->
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        Since I had some external libraries in my app, which interefered with the site generation. I had to make a small modification to the configuration by adding <!--!--><code>"skipThirdPartyRequests": true</code>.
+        That's all for SSR!
+    </p><!--!-->
+    <!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(129, 140, 248, 0.1);"><code class="json hljs language-json"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"reactSnap"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"source"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"output/wwwroot"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"skipThirdPartyRequests"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"minifyHtml"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"collapseWhitespace"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"removeComments"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"puppeteerArgs"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"--no-sandbox"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"--disable-setuid-sandbox"</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>    </code><button class="hljs-copy-button" data-copied="false">Copy</button></pre><!--!-->
+    <!--!--><!--!--><h2 class="mud-typography mud-typography-h2">Blog Navigation</h2><!--!-->
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        Next I wanted to have a way that allows me to navigate the blog posts without having to manually update the navigation each time.
+        Ideally, whenever I want to add a new post I should add a new file that contains my blog post and thats it! Luckily I found an interesting way to do it using reflections. 
+    </p><!--!-->
+
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        Blazor components can support Routing by using the <!--!--><code><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-7.0" target="_blank">@page</a></code> directive which assigns a <!--!--><code>RouteAttribute</code> to the component.
+        Therefore it is possible to create a simple service that scans the assembly and find the components that have a <!--!--><code>RouteAttribute</code>.
+    </p><!--!-->
+
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        To make things more organized we can structure the posts as below:
+    </p><!--!-->
+
+    <!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(129, 140, 248, 0.1);"><code class="shell hljs language-shell">Pages/
+    Posts/
+        2023/
+            2023-08-21-Post-Title.razor
+        2022/
+            ...
+    _Imports.razor</code><button class="hljs-copy-button" data-copied="false">Copy</button></pre><!--!-->
+
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        Inside <!--!--><code>_Imports.razor</code>, we define the layout for the posts and the default base class.
+    </p><!--!-->
+
+    <!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(129, 140, 248, 0.1);"><code class="razor hljs language-less"><span class="hljs-variable">@layout</span> PostLayout
+<span class="hljs-variable">@inherits</span> BlogPostComponent</code><button class="hljs-copy-button" data-copied="false">Copy</button></pre><!--!-->
+
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        Each post name follows a pattern that defines the post date in the format <!--!--><code>yyyy-mm-dd</code>. Followed by the post title.
+        We can then use a library like <!--!--><code><a href="https://github.com/Humanizr/Humanizer" target="_blank">Humanizer</a></code> to generate the post title from the URL.
+        Each post can be assigned a route that starts with a common prefix, e.g. <!--!--><code>/posts/</code>.
+    </p><!--!-->
+
+    <!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(129, 140, 248, 0.1);"><code class="razor hljs language-aspectj"><span class="hljs-meta">@page</span> <span class="hljs-string">'/posts/Post-Title'</span></code><button class="hljs-copy-button" data-copied="false">Copy</button></pre><!--!-->
+
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        Finally, we create a service that provides us the list of available blog posts.
+    </p><!--!-->
+
+    <!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(129, 140, 248, 0.1);"><code class="csharp hljs language-csharp"><span class="hljs-keyword">using</span> System.Reflection;
+<span class="hljs-keyword">using</span> System.Text.RegularExpressions;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components;
+<span class="hljs-keyword">using</span> Humanizer;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlogEngine</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">record</span> <span class="hljs-title">BlogPost</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> Title, <span class="hljs-built_in">string</span> Url, DateTime Timestamp, Type Type</span>)</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogPostService</span>
+{
+    <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> pattern = <span class="hljs-string">@"[0-9]{4}_[0-9]{2}_[0-9]{2}_"</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;BlogPost&gt; <span class="hljs-title">GetBlogPosts</span>(<span class="hljs-params">Assembly assembly</span>)</span>
+    {
+        <span class="hljs-keyword">var</span> components = assembly
+            .ExportedTypes
+            .Where(t =&gt; t.IsSubclassOf(<span class="hljs-keyword">typeof</span>(BlogPostComponent)));
+
+        <span class="hljs-keyword">var</span> blogPosts = components
+            .Select(component =&gt; GetBlogPost(component))
+            .Where(post =&gt; post <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>)
+            .ToList();
+
+        <span class="hljs-keyword">return</span> blogPosts;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> BlogPost <span class="hljs-title">GetBlogPost</span>(<span class="hljs-params">Type component</span>)</span>
+    {
+        <span class="hljs-keyword">var</span> attributes = component.GetCustomAttributes(inherit: <span class="hljs-literal">true</span>);
+
+        <span class="hljs-keyword">var</span> routeAttribute = attributes.OfType&lt;RouteAttribute&gt;().FirstOrDefault();
+
+        <span class="hljs-keyword">if</span> (routeAttribute != <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">var</span> route = routeAttribute.Template;
+            <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">string</span>.IsNullOrEmpty(route) &amp;&amp; route.StartsWith(<span class="hljs-string">"/posts/"</span>))
+            {
+                <span class="hljs-keyword">var</span> name = Regex.Replace(component.Name, pattern, <span class="hljs-string">""</span>);
+
+                <span class="hljs-keyword">var</span> match = Regex.Match(component.Name, pattern);
+                <span class="hljs-keyword">var</span> date = DateTime.MinValue;
+                <span class="hljs-keyword">if</span>(match.Success) {
+                    DateTime.TryParseExact(match.Value,<span class="hljs-string">"yyyy_MM_dd_"</span>, <span class="hljs-literal">null</span>, System.Globalization.DateTimeStyles.None, <span class="hljs-keyword">out</span> date);
+                }
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BlogPost(name.Humanize(), route, date, component);
+            }
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    }
+}    </code><button class="hljs-copy-button" data-copied="false">Copy</button></pre><!--!-->
+
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        And that's it! Now we can have a list of the blog posts which we can display the way we want.
+        We can add the list to the navigation menu or create a blog archive.
+    </p><!--!-->
+
+    <!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+        If we wanted to display the post content, we can user Blazor's <!--!--><code><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/dynamiccomponent?view=aspnetcore-7.0" target="_blank">DynamicComponent</a></code>. By Simply passing the type.
+    </p><!--!-->
+
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(129, 140, 248, 0.1);"><code class="razor hljs language-dart"><span class="hljs-meta">@foreach</span> (<span class="hljs-keyword">var</span> blogPost <span class="hljs-keyword">in</span> BlogPosts)
+{
+    
+   &lt;DynamicComponent <span class="hljs-built_in">Type</span>=<span class="hljs-string">"@blogPost.Type"</span> /&gt;
+           
+}</code><button class="hljs-copy-button" data-copied="false">Copy</button></pre><!--!-->
+
+<!--!--><!--!--><h2 class="mud-typography mud-typography-h2">Next Steps</h2><!--!-->
+
+<!--!--><!--!--><p class="mud-typography mud-typography-body1"><!--!-->
+    The source code is available at <!--!--><a href="https://github.com/mohdali/mohdali.github.io">GitHub.</a>
+    Next I will be looking for a way to use Markdown for authoring the blog posts which could be more convenient. I'm excited to keep learning about Blazor and believe it has good potential to be a contender client side library.
+</p></div></article></div><!--!-->
+            
+            <div class="post-footer mt-6"><!--!--><hr class="mud-divider mud-divider-fullwidth mb-4"><!--!-->
+                <div class="d-flex justify-space-between align-center"><!--!--><!--!--><a type="button" href="/" class="mud-button-root mud-button mud-button-text mud-button-text-primary mud-button-text-size-medium mud-ripple" _bl_4=""><span class="mud-button-label"><span class="mud-button-icon-start mud-button-icon-size-medium"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg></span><!--!-->
+                        Back to Posts
+                    </span></a><!--!-->
+                    <div class="post-share"><!--!--><!--!--><p class="mud-typography mud-typography-body2 mr-2 d-inline">Share:</p><!--!-->
+                        <!--!--><!--!--><a type="button" href="https://twitter.com/intent/tweet?text=%20Simple%20Blazor%20Blog&amp;url=https%3A%2F%2Fmohdali.dev%2Fposts%2FSimple-Blazor-Blog" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-primary-text hover:mud-primary-hover mud-ripple mud-ripple-icon mud-icon-button-size-small" _bl_5=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-small" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path></svg></span></a><!--!-->
+                        <!--!--><!--!--><a type="button" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmohdali.dev%2Fposts%2FSimple-Blazor-Blog" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-primary-text hover:mud-primary-hover mud-ripple mud-ripple-icon mud-icon-button-size-small" _bl_6=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-small" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg></span></a></div></div></div></div></div></div><!--!-->
+    <!--!--><footer class="mud-appbar mud-appbar-fixed-bottom mud-elevation-0 mud-theme-transparent footer-bar"><!--!--><div role="toolbar" class="mud-toolbar mud-toolbar-gutters mud-toolbar-appbar"><!--!--><div class="mud-container mud-container-maxwidth-lg mud-container--gutters"><div class="footer-content"><div class="footer-text"><!--!--><!--!--><p class="mud-typography mud-typography-body2">© 2025 Mohamed Ali</p><!--!-->
+                    <!--!--><!--!--><span class="mud-typography mud-typography-caption mud-secondary-text"><!--!-->Built with Blazor &amp; MudBlazor</span></div><!--!-->
+                <!--!--><!--!--><div aria-hidden="true" class="flex-grow-1"></div><!--!-->
+                <div class="footer-social"><!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><a type="button" href="https://github.com/mohdali/" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_7=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"></path></svg></span></a><!--!--><div id="popover-0c9a805e-e332-4dce-8b5f-e85af4df500a" class="mud-popover-cascading-value"></div></div><!--!-->
+                    <!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><a type="button" href="https://twitter.com/mohdali" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_8=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path></svg></span></a><!--!--><div id="popover-b9373bd7-2312-4e72-ade5-177bbd97e9b8" class="mud-popover-cascading-value"></div></div><!--!-->
+                    <!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><a type="button" href="https://mastodon.online/@mohdali" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_9=""><span class="mud-icon-button-label"><!--!--><span class="mud-icon-root mud-icon-size-medium fab fa-mastodon" aria-hidden="true" role="img"></span></span></a><!--!--><div id="popover-fb7561b7-f7e3-4452-bc5e-e71129561eee" class="mud-popover-cascading-value"></div></div><!--!-->
+                    <!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><a type="button" href="https://observablehq.com/@mohdali" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_10=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!-->
+<svg viewBox="0 0 25 28" fill="currentColor" class="bi" width="24" height="24">
+<path d="M12.5 22.6667C11.3458 22.6667 10.3458 22.4153 9.5 21.9127C8.65721 21.412 7.98339 20.7027 7.55521
+19.8654C7.09997 18.9942 6.76672 18.0729 6.56354 17.1239C6.34796 16.0947 6.24294 15.0483 6.25 14C6.25 13.1699 6.30417
+12.3764 6.41354 11.6176C6.52188 10.8598 6.72292 10.0894 7.01563 9.30748C7.30833 8.52555 7.68542 7.84763 8.14479
+7.27274C8.62304 6.68378 9.24141 6.20438 9.95208 5.87163C10.6979 5.51244 11.5458 5.33333 12.5 5.33333C13.6542 5.33333
+14.6542 5.58467 15.5 6.08733C16.3428 6.588 17.0166 7.29733 17.4448 8.13459C17.8969 8.99644 18.2271 9.9103 18.4365
+10.8761C18.6448 11.841 18.75 12.883 18.75 14C18.75 14.8301 18.6958 15.6236 18.5865 16.3824C18.4699 17.1702 18.2639
+17.9446 17.9719 18.6925C17.6698 19.4744 17.2948 20.1524 16.8427 20.7273C16.3906 21.3021 15.7927 21.7692 15.0479
+22.1284C14.3031 22.4876 13.4542 22.6667 12.5 22.6667ZM14.7063 16.2945C15.304 15.6944 15.6365 14.864 15.625 14C15.625
+13.1073 15.326 12.3425 14.7292 11.7055C14.1313 11.0685 13.3885 10.75 12.5 10.75C11.6115 10.75 10.8688 11.0685 10.2708
+11.7055C9.68532 12.3123 9.36198 13.1405 9.375 14C9.375 14.8927 9.67396 15.6575 10.2708 16.2945C10.8688 16.9315 11.6115
+17.25 12.5 17.25C13.3885 17.25 14.124 16.9315 14.7063 16.2945ZM12.5 27C19.4031 27 25 21.1792 25 14C25 6.82075 19.4031 1
+12.5 1C5.59687 1 0 6.82075 0 14C0 21.1792 5.59687 27 12.5 27Z"></path></svg>
+</svg></span></a><!--!--><div id="popover-778e5e8d-d0d7-4e16-a386-df4d5fe1a63f" class="mud-popover-cascading-value"></div></div></div></div></div></div></footer></div><!--!-->
+        <!--!--></div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    
+    <script src="js/app.js"></script>    
+
+    <script src="_content/BlogEngine/BlogEngine.min.js"></script>
+    
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    
+    <script src="_framework/blazor.webassembly.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BWGNCP62MT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BWGNCP62MT');
+    </script>
+
+
+</body></html>
