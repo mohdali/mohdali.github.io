@@ -1,6 +1,6 @@
 ---
 title: Markdown Posts Are Now Live!
-date: 2025-01-14
+date: 2025-08-14
 page: /posts/markdown-posts-now-live
 tags: blazor, markdown, source-generators, claude-code
 ---
@@ -64,7 +64,7 @@ The magic happens through a source generator that:
 # 1. Reads markdown files with frontmatter
 ---
 title: Your Post Title
-date: 2025-01-14
+date: 2025-08-14
 ---
 
 # 2. Converts to Blazor components
@@ -81,4 +81,4 @@ And yes, it's pretty meta that this post announcing markdown support was itself 
 
 ---
 
-*This feature was completed on January 14, 2025, with the assistance of Claude Code—turning a long-pending task into a success story in just a few hours.*
+*This feature was completed on August 14, 2025, with the assistance of Claude Code—turning a long-pending task into a success story in just a few hours.*
