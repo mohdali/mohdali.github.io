@@ -13,21 +13,21 @@ jobs:
       # uses GitHub's checkout action to checkout code form the master branch
       - uses: actions/checkout@v4
       
-      # sets up .NET 9 SDK
+      # sets up .NET 10 SDK
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
       
       # publishes Blazor project to the release-folder
       - name: Publish .NET Core Project
         run: dotnet publish src/mohdali.github.io/mohdali.github.io.csproj -c Release -o Prerender/output --nologo
       
-      # Setup Node.js for Puppeteer
+      # Setup Node.js for Playwright
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
       
       # Pre-render pages with Puppeteer
       - name: Pre-render Blazor pages
@@ -51,19 +51,6 @@ jobs:
           npm run prerender
           
           echo "✅ Pre-rendering completed"
-
-      # Remove Blazor script tags from pre-rendered HTML files
-      - name: Remove Blazor scripts
-        working-directory: Prerender/output/wwwroot
-        run: |
-          find . -name "*.html" | while read htmlFile; do
-              # Remove .NET 9 Blazor autostart script
-              sed -i 's/<script src="_framework\/blazor.webassembly.js" autostart="false"><\/script>//g' $htmlFile
-              # Remove any remaining Blazor-related scripts
-              sed -i 's/<script>Blazor\.start.*<\/script>//g' $htmlFile
-              # Remove dotnet.js references
-              sed -i 's/<script src="_framework\/dotnet\.[^"]*\.js"[^>]*><\/script>//g' $htmlFile
-          done
 
       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
       - name: Add .nojekyll file

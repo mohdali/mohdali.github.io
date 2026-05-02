@@ -19,7 +19,7 @@
     [Inject]
     private IJSRuntime JsRuntime { get; set; } = null!;
 
-    private ThemeOption _selectedTheme = ThemeOption.Dark;
+    private ThemeOption _selectedTheme = ThemeOption.System;
 
     protected override async Task OnInitializedAsync()
     {
@@ -27,11 +27,13 @@
 
         var theme = await JsRuntime.InvokeAsync<string>("getTheme");
 
-        if (Enum.TryParse<ThemeOption>(theme, out _selectedTheme))
+        if (!Enum.TryParse<ThemeOption>(theme, out _selectedTheme))
         {
-            await JsRuntime.InvokeVoidAsync("setTheme");
-            await NotifyThemeChanged();
+            _selectedTheme = ThemeOption.System;
         }
+
+        await JsRuntime.InvokeVoidAsync("setTheme");
+        await NotifyThemeChanged();
     }
 
     private async Task ToggleMode()

@@ -2,7 +2,11 @@
 title: Markdown Posts Are Now Live!
 date: 2025-08-14
 page: /posts/markdown-posts-now-live
-tags: blazor, markdown, source-generators, claude-code
+description: The blog now accepts markdown posts with frontmatter and turns them into routed Blazor pages during the build.
+tags:
+  - blazor
+  - markdown
+  - source-generators
 ---
 
 # Markdown Posts Are Now Live! 🎉

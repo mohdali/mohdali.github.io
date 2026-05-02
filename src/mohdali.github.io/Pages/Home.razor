@@ -1,87 +1,104 @@
 @page "/"
 
-<div class="hero-section">
-    <div class="hero-content">
-        <MudText Typo="Typo.h1" Class="hero-title">
-            Welcome to my <span class="gradient-text">Digital Garden</span>
-        </MudText>
-        <MudText Typo="Typo.h5" Class="hero-subtitle">
-            Thoughts on software development, technology, and innovation
-        </MudText>
-        <div class="hero-actions">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Class="hero-button" Href="#latest-posts">
-                Explore Posts
+<PageTitle>mohdali.dev - Software notes by Mohamed Ali</PageTitle>
+<HeadContent>
+    <meta name="description" content="Personal notes from Mohamed Ali on software engineering, developer tools, data visualization, and side projects." />
+    <meta property="og:title" content="mohdali.dev" />
+    <meta property="og:description" content="Software notes by Mohamed Ali." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mohdali.dev/" />
+</HeadContent>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="home-page">
+    <section class="intro-section" aria-labelledby="home-title">
+        <div>
+            <MudText Typo="Typo.h1" HtmlTag="h1" Class="intro-title" id="home-title">Mohamed Ali</MudText>
+            <MudText Typo="Typo.h5" HtmlTag="p" Class="intro-copy">
+                Notes on software engineering, developer tools, data visualization, and whatever is worth writing down.
+            </MudText>
+        </div>
+        <div class="intro-actions">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="#latest-posts" StartIcon="@Icons.Material.Filled.Article">
+                Latest Posts
             </MudButton>
-            <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" Class="hero-button" Href="https://github.com/mohdali" Target="_blank">
-                <MudIcon Icon="@Icons.Custom.Brands.GitHub" Class="mr-2"/> GitHub
+            <MudButton Variant="Variant.Outlined" Color="Color.Primary" Href="/rss.xml" Target="_blank" StartIcon="@Icons.Material.Filled.RssFeed">
+                RSS
+            </MudButton>
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                           Color="Color.Primary"
+                           Href="https://github.com/mohdali"
+                           Target="_blank"
+                           aria-label="GitHub profile" />
+        </div>
+    </section>
+
+    <section id="latest-posts" class="posts-section" aria-labelledby="latest-posts-title">
+        <div class="section-heading">
+            <MudText Typo="Typo.h2" HtmlTag="h2" id="latest-posts-title">Latest Posts</MudText>
+            <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/posts" EndIcon="@Icons.Material.Filled.ArrowForward">
+                Archive
             </MudButton>
         </div>
-    </div>
-    <div class="hero-background"></div>
-</div>
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-16" id="latest-posts">
-    <MudText Typo="Typo.h3" Class="section-title mb-8">
-        <MudIcon Icon="@Icons.Material.Filled.Article" Class="mr-2"/> Latest Posts
-    </MudText>
-    
-    <MudGrid Spacing="4">
-        @foreach (var blogPost in BlogPosts)
+        @if (BlogPosts.Count == 0)
         {
-            <MudItem xs="12" md="6" lg="6">
-                <MudCard Class="blog-card" Elevation="0">
-                    <div class="card-gradient"></div>
-                    <MudCardContent Class="blog-card-content">
-                        <div class="card-header">
-                            <MudChip T="string" Color="Color.Primary" Size="Size.Small" Class="mb-3">
-                                @blogPost?.Timestamp.ToString("dd MMM yyyy")
-                            </MudChip>
-                        </div>
-                        <MudText Typo="Typo.h5" Class="blog-title mb-3">
-                            @blogPost?.Title
-                        </MudText>
-                        
-                        <div class="blog-excerpt post">
-                            <CascadingValue Value="@summary">
-                                <DynamicComponent Type="@blogPost.Type" />
-                            </CascadingValue>
-                        </div>
-                    </MudCardContent>
-                    <MudCardActions Class="blog-card-actions">
-                        <MudButton Href=@(blogPost.Url+"#detail") 
-                                   Variant="Variant.Text" 
-                                   Color="Color.Primary" 
-                                   EndIcon="@Icons.Material.Filled.ArrowForward"
-                                   Class="read-more-btn">
-                            Read More
-                        </MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
+            <MudPaper Class="empty-state" Elevation="0">
+                <MudIcon Icon="@Icons.Material.Filled.Article" Size="Size.Large" Color="Color.Primary" />
+                <MudText Typo="Typo.h5">No posts yet</MudText>
+                <MudText Typo="Typo.body1">New writing will appear here after publication.</MudText>
+            </MudPaper>
         }
-    </MudGrid>
-    
-    @if (BlogPosts.Count == 0)
-    {
-        <MudPaper Class="pa-8 text-center" Elevation="0">
-            <MudIcon Icon="@Icons.Material.Filled.Article" Size="Size.Large" Color="Color.Primary" Class="mb-4"/>
-            <MudText Typo="Typo.h5">No posts yet</MudText>
-            <MudText Typo="Typo.body1" Class="mud-text-secondary">Check back soon for new content!</MudText>
-        </MudPaper>
-    }
+        else
+        {
+            <MudGrid Spacing="3">
+                @foreach (var blogPost in BlogPosts)
+                {
+                    <MudItem xs="12" md="4">
+                        <article class="blog-card">
+                            <div class="post-card-meta">
+                                <time datetime="@blogPost.Timestamp.ToString("yyyy-MM-dd")">@blogPost.Timestamp.ToString("dd MMM yyyy")</time>
+                            </div>
+                            <MudText Typo="Typo.h3" HtmlTag="h3" Class="post-card-title">
+                                <MudLink Href="@blogPost.Url">@blogPost.Title</MudLink>
+                            </MudText>
+                            @if (!string.IsNullOrWhiteSpace(blogPost.Description))
+                            {
+                                <MudText Typo="Typo.body1" Class="post-card-description">@blogPost.Description</MudText>
+                            }
+                            @if (blogPost.Tags.Length > 0)
+                            {
+                                <div class="tag-list" aria-label="Post tags">
+                                    @foreach (var tag in blogPost.Tags)
+                                    {
+                                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@tag</MudChip>
+                                    }
+                                </div>
+                            }
+                            <MudButton Href="@blogPost.Url"
+                                       Variant="Variant.Text"
+                                       Color="Color.Primary"
+                                       EndIcon="@Icons.Material.Filled.ArrowForward"
+                                       Class="read-more-btn">
+                                Read
+                            </MudButton>
+                        </article>
+                    </MudItem>
+                }
+            </MudGrid>
+        }
+    </section>
 </MudContainer>
 
 @code {
-    [Inject] BlogPostService blogPostService {get;set;} = default!;
+    [Inject] BlogPostService blogPostService { get; set; } = default!;
 
     private List<BlogPost> BlogPosts = new();
-    private bool summary = true;
-    
+
     protected override void OnInitialized()
     {
         BlogPosts = blogPostService.GetBlogPosts(typeof(Program).Assembly)
-                        .OrderByDescending(p => p.Timestamp)
-                        .Take(6)
-                        .ToList();
+            .OrderByDescending(p => p.Timestamp)
+            .Take(3)
+            .ToList();
     }
 }

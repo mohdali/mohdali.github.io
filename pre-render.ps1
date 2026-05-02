@@ -28,13 +28,10 @@ if (-not (Test-Path "output\wwwroot\index.html") -and (Test-Path "output\wwwroot
     $stream.Close()
 }
 
-# Install dependencies if needed
-if (-not (Test-Path "node_modules\playwright")) {
-    Write-Host "Installing Playwright..." -ForegroundColor Yellow
-    npm install
-    # Install browsers for Playwright
-    npx playwright install chromium
-}
+# Install dependencies and the browser used by the prerender pass
+Write-Host "Installing prerender dependencies..." -ForegroundColor Yellow
+npm install
+npx playwright install chromium
 
 # Run the pre-rendering with Playwright
 Write-Host "Pre-rendering pages with Playwright..." -ForegroundColor Yellow

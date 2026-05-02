@@ -20,13 +20,13 @@ public class BlogPostService
 
         var blogPosts = components
             .Select(component => GetBlogPost(component))
-            .Where(post => post is not null)
+            .OfType<BlogPost>()
             .ToList();
 
         return blogPosts;
     }
 
-    public BlogPost GetBlogPost(Type component)
+    public BlogPost? GetBlogPost(Type component)
     {
         var attributes = component.GetCustomAttributes(inherit: true);
 
@@ -37,58 +37,64 @@ public class BlogPostService
             var route = routeAttribute.Template;
             if (!string.IsNullOrEmpty(route) && route.StartsWith("/posts/"))
             {
-                var name = Regex.Replace(component.Name, pattern, "");
-                
-                // Try to get title and date from the instance if it's a generated markdown post
-                var date = DateTime.MinValue;
-                string title = name.Humanize();
-                
-                try
-                {
-                    // Check if this is a markdown-generated post
-                    if (component.Namespace?.Contains("Generated") == true)
-                    {
-                        // Create an instance to get the properties
-                        var instance = Activator.CreateInstance(component);
-                        var titleProp = component.GetProperty("Title");
-                        var timestampProp = component.GetProperty("Timestamp");
-                        
-                        if (titleProp != null && instance != null)
-                        {
-                            var titleValue = titleProp.GetValue(instance) as string;
-                            if (!string.IsNullOrEmpty(titleValue))
-                                title = titleValue;
-                        }
-                        
-                        if (timestampProp != null && instance != null)
-                        {
-                            var timestampValue = timestampProp.GetValue(instance);
-                            if (timestampValue is DateTime dt)
-                                date = dt;
-                        }
-                    }
-                    else
-                    {
-                        // Original logic for non-generated posts
-                        var match = Regex.Match(component.Name, pattern);
-                        if(match.Success) {
-                            DateTime.TryParseExact(match.Value,"yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out date);
-                        }
-                    }
-                }
-                catch
-                {
-                    // Fallback to original logic if instantiation fails
-                    var match = Regex.Match(component.Name, pattern);
-                    if(match.Success) {
-                        DateTime.TryParseExact(match.Value,"yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out date);
-                    }
-                }
-                
-                return new BlogPost(title, route, date, component);
+                var name = Regex.Replace(component.Name, pattern, "").Trim('_', ' ');
+                var title = name.Humanize();
+                var date = ReadDateFromComponentName(component.Name);
+                var description = string.Empty;
+                var tags = Array.Empty<string>();
+
+                var instance = TryCreateComponent(component);
+                title = ReadStringProperty(component, instance, "Title") ?? title;
+                date = ReadDateProperty(component, instance, "Timestamp") ?? date;
+                description = ReadStringProperty(component, instance, "Description") ?? description;
+                tags = ReadStringArrayProperty(component, instance, "Tags") ?? tags;
+
+                return new BlogPost(title, route, date, component, description, tags);
             }
         }
 
         return null;
+    }
+
+    private static object? TryCreateComponent(Type component)
+    {
+        try
+        {
+            return Activator.CreateInstance(component);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static string? ReadStringProperty(Type component, object? instance, string propertyName)
+    {
+        return instance is null
+            ? null
+            : component.GetProperty(propertyName)?.GetValue(instance) as string;
+    }
+
+    private static DateTime? ReadDateProperty(Type component, object? instance, string propertyName)
+    {
+        return instance is null
+            ? null
+            : component.GetProperty(propertyName)?.GetValue(instance) as DateTime?;
+    }
+
+    private static string[]? ReadStringArrayProperty(Type component, object? instance, string propertyName)
+    {
+        return instance is null
+            ? null
+            : component.GetProperty(propertyName)?.GetValue(instance) as string[];
+    }
+
+    private static DateTime ReadDateFromComponentName(string componentName)
+    {
+        var match = Regex.Match(componentName, pattern);
+        return match.Success &&
+               DateTime.TryParseExact(match.Value, "yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out var date)
+            ? date
+            : DateTime.MinValue;
     }
 }

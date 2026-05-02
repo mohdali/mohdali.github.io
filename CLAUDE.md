@@ -8,10 +8,10 @@ Personal blog website built with Blazor WebAssembly, hosted on GitHub Pages with
 
 ## Tech Stack
 
-- **Blazor WebAssembly** (.NET 9) - Main framework
-- **MudBlazor v7** - Modern Material Design component library
+- **Blazor WebAssembly** (.NET 10) - Main framework
+- **MudBlazor v9** - Material Design component library
 - **TypeScript/Webpack** - Client-side assets (syntax highlighting)
-- **react-snap** - Static pre-rendering
+- **Playwright** - Static pre-rendering
 - **GitHub Actions** - CI/CD deployment
 - **C# Source Generators** - Compile-time markdown to Blazor conversion
 - **Markdig** - Markdown parsing with advanced features
@@ -35,8 +35,9 @@ npm run build
 # Publish for production
 dotnet publish src/mohdali.github.io/mohdali.github.io.csproj -c Release -o Prerender/output
 
-# Pre-render static pages (run from Prerender folder)
-npx react-snap
+# Pre-render static pages (run from Prerender folder after publish)
+npm install
+npm run prerender
 
 # Full pre-render pipeline
 ./pre-render.ps1
@@ -112,8 +113,8 @@ The BlogEngine/ClientLib contains TypeScript code for syntax highlighting that g
 ### Deployment Pipeline
 GitHub Actions workflow on push to master:
 1. Builds and publishes Blazor app
-2. Runs react-snap for static pre-rendering
-3. Removes WASM bootstrap scripts from HTML for SEO
+2. Runs Playwright for static pre-rendering
+3. Generates RSS, sitemap, and robots files
 4. Deploys to gh-pages branch
 
 ## Key Development Notes

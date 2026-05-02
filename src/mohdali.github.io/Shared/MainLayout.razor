@@ -1,195 +1,191 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider Theme="@_theme" IsDarkMode="@_isDarkMode"/>
-
+<MudThemeProvider Theme="@_theme" IsDarkMode="@_isDarkMode" />
+<MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
-<MudPopoverProvider />
-
 
 <MudLayout>
-    <MudAppBar>
+    <MudAppBar Elevation="0" Class="top-bar">
         <MudTooltip Text="Home">
-            <MudIconButton Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" href="/" />
+            <MudIconButton Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Href="/" />
         </MudTooltip>
-        <MudLink Typo="Typo.h5" class="ml-3 logo" Href="/" Color="Color.Inherit">mohdali.dev</MudLink>
+        <MudLink Typo="Typo.h6" Class="logo" Href="/" Color="Color.Inherit">mohdali.dev</MudLink>
         <MudSpacer />
-        <ThemeSwitcher OnThemeChanged="@HandleThemeChanged"/>
-
+        <MudLink Href="/posts" Color="Color.Inherit" Class="nav-link">Posts</MudLink>
+        <MudLink Href="/about" Color="Color.Inherit" Class="nav-link">About</MudLink>
+        <ThemeSwitcher OnThemeChanged="@HandleThemeChanged" />
     </MudAppBar>
-    <MudMainContent class="main-content">
+
+    <MudMainContent Class="main-content">
         @Body
     </MudMainContent>
-    <MudAppBar Bottom="true" Fixed="true" Color="Color.Transparent" Elevation="0" Class="footer-bar">
+
+    <footer class="site-footer">
         <MudContainer MaxWidth="MaxWidth.Large">
             <div class="footer-content">
                 <div class="footer-text">
                     <MudText Typo="Typo.body2">&copy; @DateTime.Now.Year Mohamed Ali</MudText>
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">Built with Blazor & MudBlazor</MudText>
+                    <MudText Typo="Typo.caption">Static Blazor blog, authored in Markdown</MudText>
                 </div>
-                <MudSpacer />
                 <div class="footer-social">
                     <MudTooltip Text="GitHub">
-                        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" 
-                                      Target="_blank" 
-                                      href="https://github.com/mohdali/" 
-                                      Color="Color.Inherit"
-                                      Class="social-icon"/>
+                        <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                                       Target="_blank"
+                                       Href="https://github.com/mohdali/"
+                                       Color="Color.Inherit"
+                                       Class="social-icon" />
                     </MudTooltip>
                     <MudTooltip Text="Twitter">
-                        <MudIconButton Icon="@Icons.Custom.Brands.Twitter" 
-                                      Target="_blank" 
-                                      href="https://twitter.com/mohdali" 
-                                      Color="Color.Inherit"
-                                      Class="social-icon"/>
+                        <MudIconButton Icon="@Icons.Custom.Brands.Twitter"
+                                       Target="_blank"
+                                       Href="https://twitter.com/mohdali"
+                                       Color="Color.Inherit"
+                                       Class="social-icon" />
                     </MudTooltip>
                     <MudTooltip Text="Mastodon">
-                        <MudIconButton Icon="fab fa-mastodon" 
-                                      Target="_blank" 
-                                      Href="https://mastodon.online/&#64;mohdali" 
-                                      Color="Color.Inherit"
-                                      Class="social-icon"/>
+                        <MudIconButton Icon="fab fa-mastodon"
+                                       Target="_blank"
+                                       Href="https://mastodon.online/&#64;mohdali"
+                                       Color="Color.Inherit"
+                                       Class="social-icon" />
                     </MudTooltip>
                     <MudTooltip Text="Observable">
-                        <MudIconButton Icon="@observableIcon" 
-                                      Target="_blank" 
-                                      href="https://observablehq.com/&#64;mohdali" 
-                                      Color="Color.Inherit"
-                                      Class="social-icon"/>
+                        <MudIconButton Icon="@observableIcon"
+                                       Target="_blank"
+                                       Href="https://observablehq.com/&#64;mohdali"
+                                       Color="Color.Inherit"
+                                       Class="social-icon" />
                     </MudTooltip>
                 </div>
             </div>
         </MudContainer>
-    </MudAppBar>
+    </footer>
 </MudLayout>
 
 @code {
-    private bool _isDarkMode = true;
-    private MudTheme _theme = new MudTheme()
+    private bool _isDarkMode = false;
+    private MudTheme _theme = new()
     {
         Typography = new Typography()
         {
-            Default = new Default()
+            Default = new DefaultTypography()
             {
                 FontFamily = new[] { "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif" },
+                FontSize = "0.95rem",
+                FontWeight = "400",
+                LineHeight = "1.6",
+                LetterSpacing = "0"
+            },
+            H1 = new H1Typography()
+            {
+                FontSize = "3rem",
+                FontWeight = "750",
+                LineHeight = "1.12",
+                LetterSpacing = "0"
+            },
+            H2 = new H2Typography()
+            {
+                FontSize = "2.125rem",
+                FontWeight = "700",
+                LineHeight = "1.2",
+                LetterSpacing = "0"
+            },
+            H3 = new H3Typography()
+            {
+                FontSize = "1.6rem",
+                FontWeight = "650",
+                LineHeight = "1.3",
+                LetterSpacing = "0"
+            },
+            H4 = new H4Typography()
+            {
+                FontSize = "1.35rem",
+                FontWeight = "650",
+                LineHeight = "1.35",
+                LetterSpacing = "0"
+            },
+            H5 = new H5Typography()
+            {
+                FontSize = "1.15rem",
+                FontWeight = "650",
+                LineHeight = "1.4",
+                LetterSpacing = "0"
+            },
+            H6 = new H6Typography()
+            {
+                FontSize = "1rem",
+                FontWeight = "650",
+                LineHeight = "1.4",
+                LetterSpacing = "0"
+            },
+            Button = new ButtonTypography()
+            {
+                FontWeight = "650",
                 FontSize = "0.875rem",
-                FontWeight = 400,
-                LineHeight = 1.5,
-                LetterSpacing = "0.01071em"
-            },
-            H1 = new H1()
-            {
-                FontSize = "4rem",
-                FontWeight = 800,
-                LineHeight = 1.2,
-                LetterSpacing = "-0.02em"
-            },
-            H2 = new H2()
-            {
-                FontSize = "2.5rem",
-                FontWeight = 700,
-                LineHeight = 1.3,
-                LetterSpacing = "-0.01em"
-            },
-            H3 = new H3()
-            {
-                FontSize = "2rem",
-                FontWeight = 600,
-                LineHeight = 1.4
-            },
-            H4 = new H4()
-            {
-                FontSize = "1.5rem",
-                FontWeight = 600,
-                LineHeight = 1.4
-            },
-            H5 = new H5()
-            {
-                FontSize = "1.25rem",
-                FontWeight = 600,
-                LineHeight = 1.5
-            },
-            H6 = new H6()
-            {
-                FontSize = "1.125rem",
-                FontWeight = 600,
-                LineHeight = 1.5
-            },
-            Button = new Button()
-            {
-                FontWeight = 600,
-                FontSize = "0.875rem",
-                LineHeight = 1.75,
-                LetterSpacing = "0.02857em",
+                LineHeight = "1.5",
+                LetterSpacing = "0",
                 TextTransform = "none"
             }
         },
         PaletteLight = new PaletteLight()
         {
-            Primary = "#6366F1",
-            PrimaryDarken = "#4F46E5",
-            PrimaryLighten = "#818CF8",
-            Secondary = "#EC4899",
-            SecondaryDarken = "#DB2777",
-            SecondaryLighten = "#F472B6",
-            Tertiary = "#10B981",
-            Background = "#FFFFFF",
-            Surface = "#F9FAFB",
-            AppbarBackground = "rgba(255,255,255,0.8)",
-            AppbarText = "#1F2937",
-            TextPrimary = "#111827",
-            TextSecondary = "#6B7280",
-            DrawerBackground = "#FFFFFF",
-            DrawerText = "#111827",
-            DrawerIcon = "#6B7280",
-            ActionDefault = "#6B7280",
-            ActionDisabled = "rgba(0, 0, 0, 0.26)",
-            ActionDisabledBackground = "rgba(0, 0, 0, 0.12)",
-            Divider = "rgba(0, 0, 0, 0.08)",
-            DividerLight = "rgba(0, 0, 0, 0.04)",
-            Black = "#000000",
-            White = "#FFFFFF",
-            Info = "#3B82F6",
-            Success = "#10B981",
-            Warning = "#F59E0B",
-            Error = "#EF4444",
-            Dark = "#1F2937"
+            Primary = "#0f766e",
+            PrimaryDarken = "#115e59",
+            PrimaryLighten = "#14b8a6",
+            Secondary = "#be123c",
+            SecondaryDarken = "#9f1239",
+            SecondaryLighten = "#fb7185",
+            Tertiary = "#7c3aed",
+            Background = "#f7f7f8",
+            Surface = "#ffffff",
+            AppbarBackground = "rgba(255,255,255,0.92)",
+            AppbarText = "#18181b",
+            TextPrimary = "#18181b",
+            TextSecondary = "#52525b",
+            DrawerBackground = "#ffffff",
+            DrawerText = "#18181b",
+            DrawerIcon = "#52525b",
+            ActionDefault = "#52525b",
+            Divider = "rgba(24, 24, 27, 0.12)",
+            DividerLight = "rgba(24, 24, 27, 0.08)",
+            Info = "#2563eb",
+            Success = "#15803d",
+            Warning = "#b45309",
+            Error = "#dc2626",
+            Dark = "#18181b"
         },
         PaletteDark = new PaletteDark()
         {
-            Primary = "#818CF8",
-            PrimaryDarken = "#6366F1",
-            PrimaryLighten = "#A5B4FC",
-            Secondary = "#F472B6",
-            SecondaryDarken = "#EC4899",
-            SecondaryLighten = "#F9A8D4",
-            Tertiary = "#34D399",
-            Background = "#0F0F23",
-            BackgroundGray = "#1A1B3A",
-            Surface = "#1A1B3A",
-            AppbarBackground = "rgba(15,15,35,0.8)",
-            AppbarText = "#F3F4F6",
-            TextPrimary = "#F3F4F6",
-            TextSecondary = "#9CA3AF",
-            DrawerBackground = "#1A1B3A",
-            DrawerText = "#F3F4F6",
-            DrawerIcon = "#9CA3AF",
-            ActionDefault = "#9CA3AF",
-            ActionDisabled = "rgba(255,255,255, 0.26)",
-            ActionDisabledBackground = "rgba(255,255,255, 0.12)",
-            Divider = "rgba(255,255,255, 0.08)",
-            DividerLight = "rgba(255,255,255, 0.04)",
-            Black = "#000000",
-            White = "#FFFFFF",
-            Info = "#60A5FA",
-            Success = "#34D399",
-            Warning = "#FBBF24",
-            Error = "#F87171",
-            Dark = "#111827"
+            Primary = "#2dd4bf",
+            PrimaryDarken = "#14b8a6",
+            PrimaryLighten = "#5eead4",
+            Secondary = "#fb7185",
+            SecondaryDarken = "#f43f5e",
+            SecondaryLighten = "#fda4af",
+            Tertiary = "#a78bfa",
+            Background = "#121212",
+            BackgroundGray = "#1a1a1a",
+            Surface = "#1f1f1f",
+            AppbarBackground = "rgba(18,18,18,0.92)",
+            AppbarText = "#f4f4f5",
+            TextPrimary = "#f4f4f5",
+            TextSecondary = "#a1a1aa",
+            DrawerBackground = "#1f1f1f",
+            DrawerText = "#f4f4f5",
+            DrawerIcon = "#a1a1aa",
+            ActionDefault = "#a1a1aa",
+            Divider = "rgba(244, 244, 245, 0.14)",
+            DividerLight = "rgba(244, 244, 245, 0.08)",
+            Info = "#60a5fa",
+            Success = "#4ade80",
+            Warning = "#fbbf24",
+            Error = "#f87171",
+            Dark = "#09090b"
         },
         LayoutProperties = new LayoutProperties()
         {
-            DefaultBorderRadius = "12px",
+            DefaultBorderRadius = "8px",
             DrawerWidthLeft = "260px",
             DrawerWidthRight = "320px",
             AppbarHeight = "64px"

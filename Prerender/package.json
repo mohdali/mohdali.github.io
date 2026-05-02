@@ -6,6 +6,7 @@
     "prerender": "node prerender.mjs"
   },
   "dependencies": {
-    "playwright": "^1.40.0"
+    "playwright": "^1.59.1",
+    "yaml": "^2.8.2"
   }
 }

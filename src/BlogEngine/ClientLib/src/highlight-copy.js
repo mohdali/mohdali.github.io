@@ -25,46 +25,53 @@ class CopyButtonPlugin {
       if (el.parentElement.querySelector(".hljs-copy-button")) {
         return;
       }
-      
+
       // Create the copy button and append it to the codeblock.
       let button = Object.assign(document.createElement("button"), {
         innerHTML: "Copy",
         className: "hljs-copy-button",
       });
       button.dataset.copied = false;
+      button.dataset.tooltip = "Copy";
+      button.type = "button";
+      button.setAttribute("aria-label", "Copy code");
       el.parentElement.classList.add("hljs-copy-wrapper");
       el.parentElement.appendChild(button);
-  
+
       // Add a custom proprety to the code block so that the copy button can reference and match its background-color value.
       el.parentElement.style.setProperty(
         "--hljs-theme-background",
         window.getComputedStyle(el).backgroundColor
       );
-  
+
       button.onclick = function () {
         if (!navigator.clipboard) return;
-  
+
         let newText = text;
         if (hook && typeof hook === "function") {
           newText = hook(text, el) || text;
         }
-  
+
         navigator.clipboard
           .writeText(newText)
           .then(function () {
             button.innerHTML = "Copied!";
             button.dataset.copied = true;
-  
+            button.dataset.tooltip = "Copied!";
+            button.setAttribute("aria-label", "Copied to clipboard");
+
             let alert = Object.assign(document.createElement("div"), {
               role: "status",
               className: "hljs-copy-alert",
               innerHTML: "Copied to clipboard",
             });
             el.parentElement.appendChild(alert);
-  
+
             setTimeout(() => {
               button.innerHTML = "Copy";
               button.dataset.copied = false;
+              button.dataset.tooltip = "Copy";
+              button.setAttribute("aria-label", "Copy code");
               el.parentElement.removeChild(alert);
               alert = null;
             }, 2000);
@@ -75,9 +82,9 @@ class CopyButtonPlugin {
       };
     }
   }
-  
+
   export default CopyButtonPlugin
-  
+
   /**
    * @typedef {function} CopyCallback
    * @param {string} text - The raw text copied to the clipboard.
@@ -90,4 +97,4 @@ class CopyButtonPlugin {
    * @param {HTMLElement} el - The code block element that was copied from.
    * @returns {string|undefined}
    */
-  
+

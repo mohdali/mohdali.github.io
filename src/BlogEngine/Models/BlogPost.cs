@@ -1,3 +1,9 @@
 ﻿namespace BlogEngine;
 
-public record BlogPost(string Title, string Url, DateTime Timestamp, Type Type);
+public sealed record BlogPost(
+    string Title,
+    string Url,
+    DateTime Timestamp,
+    Type Type,
+    string Description,
+    string[] Tags);

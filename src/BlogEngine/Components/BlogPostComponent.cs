@@ -6,9 +6,9 @@ namespace BlogEngine;
 
 public class BlogPostComponent : ComponentBase {
     [CascadingParameter]
-    public PostLayoutBase Layout { get; set; }
+    public PostLayoutBase? Layout { get; set; }
 
-    [Inject] BlogPostService blogPostService { get; set; }
+    [Inject] BlogPostService blogPostService { get; set; } = default!;
     
     protected override void OnInitialized()
     {

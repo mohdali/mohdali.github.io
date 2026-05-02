@@ -1,0 +1,75 @@
+@page "/posts"
+
+<PageTitle>Posts - mohdali.dev</PageTitle>
+<HeadContent>
+    <meta name="description" content="All posts from mohdali.dev, grouped by year." />
+    <meta property="og:title" content="Posts - mohdali.dev" />
+    <meta property="og:description" content="All posts from mohdali.dev." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mohdali.dev/posts" />
+</HeadContent>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="archive-page">
+    <header class="page-header">
+        <MudText Typo="Typo.h1" HtmlTag="h1">Posts</MudText>
+        <MudText Typo="Typo.body1">Everything published here, newest first.</MudText>
+    </header>
+
+    @if (Posts.Count == 0)
+    {
+        <MudPaper Class="empty-state" Elevation="0">
+            <MudIcon Icon="@Icons.Material.Filled.Article" Size="Size.Large" Color="Color.Primary" />
+            <MudText Typo="Typo.h5">No posts yet</MudText>
+        </MudPaper>
+    }
+    else
+    {
+        <div class="archive-list">
+            @foreach (var group in Posts.GroupBy(post => post.Timestamp.Year).OrderByDescending(group => group.Key))
+            {
+                <section class="archive-year" aria-labelledby="@($"archive-{group.Key}")">
+                    <MudText Typo="Typo.h2" HtmlTag="h2" id="@($"archive-{group.Key}")">@group.Key</MudText>
+                    <div class="archive-items">
+                        @foreach (var post in group.OrderByDescending(post => post.Timestamp))
+                        {
+                            <article class="archive-item">
+                                <time datetime="@post.Timestamp.ToString("yyyy-MM-dd")">@post.Timestamp.ToString("dd MMM")</time>
+                                <div>
+                                    <MudText Typo="Typo.h3" HtmlTag="h3">
+                                        <MudLink Href="@post.Url">@post.Title</MudLink>
+                                    </MudText>
+                                    @if (!string.IsNullOrWhiteSpace(post.Description))
+                                    {
+                                        <MudText Typo="Typo.body2">@post.Description</MudText>
+                                    }
+                                    @if (post.Tags.Length > 0)
+                                    {
+                                        <div class="tag-list compact" aria-label="Post tags">
+                                            @foreach (var tag in post.Tags)
+                                            {
+                                                <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@tag</MudChip>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+            }
+        </div>
+    }
+</MudContainer>
+
+@code {
+    [Inject] BlogPostService blogPostService { get; set; } = default!;
+
+    private List<BlogPost> Posts = new();
+
+    protected override void OnInitialized()
+    {
+        Posts = blogPostService.GetBlogPosts(typeof(Program).Assembly)
+            .OrderByDescending(post => post.Timestamp)
+            .ToList();
+    }
+}
