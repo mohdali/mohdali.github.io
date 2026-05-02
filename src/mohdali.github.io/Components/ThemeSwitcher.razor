@@ -40,10 +40,15 @@
 
     private async Task ToggleMode()
     {
-        var isCurrentlyDark = _selectedTheme == ThemeOption.Dark ||
-                              (_selectedTheme == ThemeOption.System && await IsSystemDarkMode());
+        var isSystemDark = await IsSystemDarkMode();
 
-        _selectedTheme = isCurrentlyDark ? ThemeOption.Light : ThemeOption.Dark;
+        _selectedTheme = _selectedTheme switch
+        {
+            ThemeOption.System => isSystemDark ? ThemeOption.Light : ThemeOption.Dark,
+            ThemeOption.Light => isSystemDark ? ThemeOption.Dark : ThemeOption.System,
+            ThemeOption.Dark => isSystemDark ? ThemeOption.System : ThemeOption.Light,
+            _ => ThemeOption.System
+        };
 
         await JsRuntime.InvokeVoidAsync("storeTheme", _selectedTheme.ToString());
         await JsRuntime.InvokeVoidAsync("setTheme");
