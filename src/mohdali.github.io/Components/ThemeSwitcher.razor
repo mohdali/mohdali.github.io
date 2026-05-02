@@ -1,10 +1,10 @@
-﻿<span class="theme-switcher">
+﻿<div class="theme-switcher">
     <MudTooltip Text="Switch Theme">
         <MudIconButton Icon="@(_selectedTheme == ThemeOption.System? @Icons.Material.Filled.AutoMode :
             _selectedTheme == ThemeOption.Dark? @Icons.Material.Outlined.DarkMode :
             @Icons.Material.Outlined.LightMode)" OnClick="@ToggleMode" Color="Color.Inherit"/>
     </MudTooltip>
-</span>
+</div>
 
 @code {
 
@@ -40,18 +40,10 @@
 
     private async Task ToggleMode()
     {
-        switch (_selectedTheme)
-        {
-            case ThemeOption.Dark:
-                _selectedTheme = ThemeOption.Light;
-                break;
-            case ThemeOption.Light:
-                _selectedTheme = ThemeOption.System;
-                break;
-            default:
-                _selectedTheme = ThemeOption.Dark;
-                break;
-        }
+        var isCurrentlyDark = _selectedTheme == ThemeOption.Dark ||
+                              (_selectedTheme == ThemeOption.System && await IsSystemDarkMode());
+
+        _selectedTheme = isCurrentlyDark ? ThemeOption.Light : ThemeOption.Dark;
 
         await JsRuntime.InvokeVoidAsync("storeTheme", _selectedTheme.ToString());
         await JsRuntime.InvokeVoidAsync("setTheme");
