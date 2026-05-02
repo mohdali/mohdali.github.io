@@ -6,34 +6,61 @@ const ThemeOption = {
     Light: "Light"
 }
 
-window.getTheme = () => localStorage.getItem('theme');
+const themeStorageKey = 'theme';
 
-window.storeTheme = theme => localStorage.setItem('theme', theme);
+const normalizeThemeOption = theme => {
+    return Object.values(ThemeOption).includes(theme) ? theme : ThemeOption.System;
+};
 
-window.getThemePreference = () => {
-    const theme = getTheme()
+window.getTheme = () => {
+    try {
+        return localStorage.getItem(themeStorageKey);
+    }
+    catch {
+        return null;
+    }
+};
 
-    if (theme && theme != ThemeOption.System)
-        return theme;
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark' : 'Light'
-}
+window.storeTheme = theme => {
+    try {
+        localStorage.setItem(themeStorageKey, theme);
+    }
+    catch {
+        // Ignore storage failures and keep the theme in memory for this page load.
+    }
+};
 
 window.isSystemDarkMode = () => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-window.setTheme = () => {
-    const theme = getThemePreference();
+window.getThemePreference = () => {
+    const theme = normalizeThemeOption(getTheme());
 
-    if (theme == ThemeOption.Dark) {
-        document.body.classList.add('mud-theme-dark');
-        document.body.classList.remove('mud-theme-light');
+    if (theme !== ThemeOption.System) {
+        return theme;
     }
-    else {
-        document.body.classList.add('mud-theme-light');
-        document.body.classList.remove('mud-theme-dark');
+
+    return isSystemDarkMode() ? ThemeOption.Dark : ThemeOption.Light;
+}
+
+window.setTheme = () => {
+    const selectedTheme = normalizeThemeOption(getTheme());
+    const resolvedOption = getThemePreference();
+    const isDark = resolvedOption === ThemeOption.Dark;
+    const resolvedTheme = isDark ? 'dark' : 'light';
+    const root = document.documentElement;
+
+    root.dataset.theme = resolvedTheme;
+    root.dataset.themeOption = selectedTheme.toLowerCase();
+    root.style.colorScheme = resolvedTheme;
+
+    if (document.body) {
+        document.body.classList.toggle('mud-theme-dark', isDark);
+        document.body.classList.toggle('mud-theme-light', !isDark);
     }
+
+    return resolvedOption;
 }
 
 setTheme();
@@ -42,6 +69,11 @@ window.addEventListener("DOMContentLoaded", () => {
     setTheme();
 });
 
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    setTheme();
-})
+const colorSchemeQuery = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+if (colorSchemeQuery) {
+    colorSchemeQuery.addEventListener('change', () => {
+        if (!getTheme() || getTheme() === ThemeOption.System) {
+            setTheme();
+        }
+    });
+}

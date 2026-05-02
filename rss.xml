@@ -6,6 +6,13 @@
     <description>Software notes by Mohamed Ali.</description>
     <language>en</language>
     <item>
+      <title>The Blazor Blog, Three Years Later</title>
+      <link>https://mohdali.dev/posts/blazor-blog-three-years-later</link>
+      <guid>https://mohdali.dev/posts/blazor-blog-three-years-later</guid>
+      <pubDate>Sat, 02 May 2026 00:00:00 GMT</pubDate>
+      <description>A follow-up to the 2023 Blazor blog post covering markdown authoring, source generation, prerendering, and UI polish.</description>
+    </item>
+    <item>
       <title>Markdown Posts Are Now Live!</title>
       <link>https://mohdali.dev/posts/markdown-posts-now-live</link>
       <guid>https://mohdali.dev/posts/markdown-posts-now-live</guid>
