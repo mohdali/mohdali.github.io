@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: '24'
       
-      # Pre-render pages with Puppeteer
+      # Pre-render pages with Playwright
       - name: Pre-render Blazor pages
         working-directory: Prerender
         run: |
@@ -60,8 +60,8 @@ jobs:
       - name: Commit wwwroot to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: Prerender/output/wwwroot
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: Prerender/output/wwwroot
         
       
