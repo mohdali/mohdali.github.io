@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>mohdali.dev</title>
+    <link>https://mohdali.dev/</link>
+    <description>Software notes by Mohamed Ali.</description>
+    <language>en</language>
+    <item>
+      <title>Markdown Posts Are Now Live!</title>
+      <link>https://mohdali.dev/posts/markdown-posts-now-live</link>
+      <guid>https://mohdali.dev/posts/markdown-posts-now-live</guid>
+      <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+      <description>The blog now accepts markdown posts with frontmatter and turns them into routed Blazor pages during the build.</description>
+    </item>
+    <item>
+      <title>Simple Blazor Blog</title>
+      <link>https://mohdali.dev/posts/Simple-Blazor-Blog</link>
+      <guid>https://mohdali.dev/posts/Simple-Blazor-Blog</guid>
+      <pubDate>Mon, 21 Aug 2023 00:00:00 GMT</pubDate>
+      <description>How this Blazor WebAssembly blog originally handled GitHub Pages hosting, prerendering, and automatic post navigation.</description>
+    </item>
+    <item>
+      <title>Rolling Shutter Simulation</title>
+      <link>https://mohdali.dev/posts/Rolling-Shutter-Simulation</link>
+      <guid>https://mohdali.dev/posts/Rolling-Shutter-Simulation</guid>
+      <pubDate>Sat, 10 Feb 2018 00:00:00 GMT</pubDate>
+      <description>A short write-up and embedded Observable notebook for simulating camera rolling-shutter artifacts.</description>
+    </item>
+  </channel>
+</rss>
