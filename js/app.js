@@ -60,6 +60,8 @@ window.setTheme = () => {
         document.body.classList.toggle('mud-theme-light', !isDark);
     }
 
+    window.BlogEngine?.renderMermaidDiagrams?.({ force: true });
+
     return resolvedOption;
 }
 
