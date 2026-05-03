@@ -1,12 +1,12 @@
-@if (!string.IsNullOrWhiteSpace(Post.Image))
+@if (!string.IsNullOrWhiteSpace(Post.CardImage))
 {
     <a href="@Post.Url" class="@Class" aria-label="@($"Read {Post.Title}")">
         <img class="post-preview-image"
-             src="@Post.Image"
+             src="@Post.CardImage"
              alt="@ImageAlt"
              loading="lazy"
              decoding="async"
-             onerror="this.onerror=null;this.src='/images/social-card.png';" />
+             onerror="this.onerror=null;this.parentElement.remove();" />
     </a>
 }
 
@@ -14,7 +14,7 @@
     [Parameter] public BlogPost Post { get; set; } = default!;
     [Parameter] public string Class { get; set; } = "post-preview-image-link";
 
-    private string ImageAlt => string.IsNullOrWhiteSpace(Post.ImageAlt)
+    private string ImageAlt => string.IsNullOrWhiteSpace(Post.CardImageAlt)
         ? $"Preview image for {Post.Title}"
-        : Post.ImageAlt;
+        : Post.CardImageAlt;
 }

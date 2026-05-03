@@ -192,6 +192,46 @@ function localPathForImageUrl(value) {
   return join(wwwroot, decodeURIComponent(parsed.pathname));
 }
 
+function localPathForPageImage(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (URL.canParse(value)) {
+    return localPathForImageUrl(value);
+  }
+
+  const pathname = value.split(/[?#]/)[0];
+
+  if (!pathname.startsWith('/')) {
+    return null;
+  }
+
+  return join(wwwroot, decodeURIComponent(pathname));
+}
+
+function validatePostPreviewImages(page, html) {
+  for (const match of html.matchAll(/<img\b[^>]*>/gi)) {
+    const attributes = parseAttributes(match[0]);
+    const classes = (attributes.get('class') ?? '').split(/\s+/);
+
+    if (!classes.includes('post-preview-image')) {
+      continue;
+    }
+
+    const source = attributes.get('src') ?? '';
+    const alt = attributes.get('alt') ?? '';
+    const localPath = localPathForPageImage(source);
+
+    requirePresent(page, 'post preview image src', source);
+    requirePresent(page, 'post preview image alt', alt);
+
+    if (localPath && !existsSync(localPath)) {
+      fail(`${page}: post preview image points to missing local image ${source}`);
+    }
+  }
+}
+
 function inferImageType(value) {
   const pathname = URL.canParse(value)
     ? new URL(value).pathname.toLowerCase()
@@ -442,6 +482,8 @@ function validatePage(route, htmlPath) {
   if (page.startsWith('/posts/')) {
     assertNotFutureDate(`${page}: article:published_time`, head.metaByProperty.get('article:published_time'));
   }
+
+  validatePostPreviewImages(page, html);
 
   for (const key of socialImageKeys) {
     const source = key.startsWith('og:') ? head.metaByProperty : head.metaByName;

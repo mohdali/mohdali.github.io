@@ -28,8 +28,8 @@ Optional frontmatter:
 - `slug: custom-url` overrides the filename slug when `page` is not set.
 - `draft: true` skips the post during build-time generation.
 - Future `date` values are treated as scheduled posts and are excluded from generated routes, RSS, sitemap, archive, and home until a later deploy on or after that UTC date.
-- Custom social preview images can use `image`, `imageAlt`, `imageType`, `imageWidth`, and `imageHeight`; dimensions are optional, but they are validated when provided.
-- If `image` is omitted, markdown posts use the first local image in the post body when possible; otherwise the prerender step generates a per-post social card.
+- Custom social preview images can use `image`, `imageAlt`, `imageType`, `imageWidth`, and `imageHeight`; dimensions are optional, but they are validated when provided. If `image` is omitted, prerendering generates a per-post social card.
+- On-page post cards use `cardImage` and `cardImageAlt`. Leave them unset for a text-only card; generated social cards are not shown as thumbnails unless explicitly referenced.
 
 Use [docs/post-template.md](docs/post-template.md) as a starting point.
 

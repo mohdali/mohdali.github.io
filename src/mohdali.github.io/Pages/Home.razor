@@ -5,7 +5,7 @@
             Description="Personal notes from Mohamed Ali on software engineering, developer tools, data visualization, and side projects."
             Path="/" />
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="home-page">
+<MudContainer MaxWidth="MaxWidth.Large" Class="@HomePageClass">
     <section class="intro-section" aria-labelledby="home-title">
         <div>
             <MudText Typo="Typo.h1" HtmlTag="h1" Class="intro-title" id="home-title">Mohamed Ali</MudText>
@@ -90,6 +90,10 @@
     [Inject] BlogPostService blogPostService { get; set; } = default!;
 
     private List<BlogPost> BlogPosts = new();
+
+    private string HomePageClass => BlogPosts.Any(post => !string.IsNullOrWhiteSpace(post.CardImage))
+        ? "home-page has-card-images"
+        : "home-page";
 
     protected override void OnInitialized()
     {

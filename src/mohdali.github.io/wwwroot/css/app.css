@@ -226,7 +226,9 @@ h1:focus {
 }
 
 .main-content {
-    flex: 0 0 auto;
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
     min-height: 0;
 }
 
@@ -321,8 +323,11 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
 }
 
 .home-page {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
     padding-top: 2.5rem;
-    padding-bottom: 1.75rem;
+    padding-bottom: 3rem;
 }
 
 .intro-section {
@@ -543,12 +548,16 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
 
 .archive-item {
     display: grid;
-    grid-template-columns: 5.5rem 7.5rem minmax(0, 1fr);
+    grid-template-columns: 5.5rem minmax(0, 1fr);
     gap: 1rem;
     align-items: start;
     padding: 1rem;
     border: 1px solid transparent;
     border-radius: var(--radius);
+}
+
+.archive-item.has-preview-image {
+    grid-template-columns: 5.5rem 7.5rem minmax(0, 1fr);
 }
 
 .archive-item:focus-within,
@@ -989,11 +998,15 @@ pre code.hljs::-webkit-scrollbar-thumb {
 
 .related-post-item {
     display: grid;
-    grid-template-columns: 6.75rem 6.75rem minmax(0, 1fr);
+    grid-template-columns: 6.75rem minmax(0, 1fr);
     gap: 1rem;
     align-items: start;
     padding: 0.85rem 0;
     border-top: 1px solid var(--border-dark);
+}
+
+.related-post-item.has-preview-image {
+    grid-template-columns: 6.75rem 6.75rem minmax(0, 1fr);
 }
 
 .mud-theme-light .related-post-item {
@@ -1132,6 +1145,29 @@ pre code.hljs::-webkit-scrollbar-thumb {
     color: inherit;
 }
 
+@media (min-width: 961px) {
+    .home-page.has-card-images .posts-section {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .home-page.has-card-images .posts-section > .mud-grid {
+        flex: 1 1 auto;
+        align-items: stretch;
+    }
+
+    .home-page.has-card-images .posts-section > .mud-grid > .mud-grid-item {
+        display: flex;
+    }
+
+    .home-page.has-card-images .blog-card {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}
+
 @media (max-width: 960px) {
     .home-page,
     .archive-page,
@@ -1182,7 +1218,8 @@ pre code.hljs::-webkit-scrollbar-thumb {
         padding: 1rem;
     }
 
-    .archive-item {
+    .archive-item,
+    .archive-item.has-preview-image {
         grid-template-columns: 1fr;
         padding: 0.8rem 0;
     }
@@ -1217,6 +1254,7 @@ pre code.hljs::-webkit-scrollbar-thumb {
     }
 
     .related-post-item,
+    .related-post-item.has-preview-image,
     .post-neighbors {
         grid-template-columns: 1fr;
     }

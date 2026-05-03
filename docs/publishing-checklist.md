@@ -7,13 +7,14 @@ Use this before moving a post from `draft: true` to public. Markdown posts live 
 - Frontmatter includes `title`, `date`, `page`, `description`, and `tags`.
 - `date` is the UTC publication date; future-dated posts are excluded from generated routes, RSS, sitemap, archive, and home.
 - Use `draft: true` until the post is ready; omit it or set it to `false` for publication.
-- Use `image` and `imageAlt` only when the post needs a specific social preview instead of the first local body image or generated title card.
+- Use `image` and `imageAlt` only when the post needs a specific social preview instead of the generated title card.
 - Custom social previews include accurate `imageType`; `imageWidth` and `imageHeight` are optional, but must match the actual file when provided.
+- Use `cardImage` and `cardImageAlt` only when a specific visual thumbnail improves the homepage/archive card.
 - `page` is stable, lowercase, and starts with `/posts/`.
 - `description` works as standalone RSS/social copy.
 - Tags are specific enough to support archive browsing.
 - Images have meaningful alt text and live under `src/mohdali.github.io/wwwroot/images/`.
-- The first local image is suitable as a small card thumbnail, or the generated title card is acceptable.
+- Generated social cards are for link previews, not default on-page thumbnails.
 - Code blocks declare a language. Mermaid blocks render locally before publishing.
 - External links are useful, canonical, and not tracking-heavy.
 

@@ -52,9 +52,14 @@
                             <div class="related-post-list">
                                 @foreach (var post in relatedPosts)
                                 {
-                                    <article class="related-post-item">
+                                    var hasCardImage = !string.IsNullOrWhiteSpace(post.CardImage);
+
+                                    <article class="related-post-item @(hasCardImage ? "has-preview-image" : null)">
                                         <time datetime="@post.Timestamp.ToString("yyyy-MM-dd")">@post.Timestamp.ToString("dd MMM yyyy")</time>
-                                        <PostPreviewImage Post="@post" Class="related-post-image-link" />
+                                        @if (hasCardImage)
+                                        {
+                                            <PostPreviewImage Post="@post" Class="related-post-image-link" />
+                                        }
                                         <div class="related-post-copy">
                                             <MudText Typo="Typo.h3" HtmlTag="h3">
                                                 <MudLink Href="@post.Url">@post.Title</MudLink>

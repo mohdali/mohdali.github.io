@@ -12,6 +12,8 @@ imageAlt: "Short accessible description of the social preview image."
 imageType: "image/png"
 imageWidth: 1200
 imageHeight: 600
+cardImage: "/images/example-result.png"
+cardImageAlt: "Short accessible description of the post card image."
 ---
 
 # Post Title
@@ -47,7 +49,7 @@ Use images when they carry evidence or make a result inspectable:
 
 ![Alt text that explains the evidence in the image](/images/example-result.png)
 
-The first local image in the post body is used for post cards and social previews when `image` is omitted. If the post has no local image, prerendering generates a title card automatically.
+Use `image` for the social preview and `cardImage` for homepage/archive thumbnails. If `image` is omitted, prerendering generates a title card for social sharing. If `cardImage` is omitted, listings use a text-only card.
 
 Use links for source material, implementation references, and follow-up reading:
 

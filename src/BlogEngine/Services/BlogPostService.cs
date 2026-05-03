@@ -118,6 +118,8 @@ public class BlogPostService
                 string? imageType = null;
                 int? imageWidth = null;
                 int? imageHeight = null;
+                string? cardImage = null;
+                string? cardImageAlt = null;
 
                 var instance = TryCreateComponent(component);
                 title = ReadStringProperty(component, instance, "Title") ?? title;
@@ -129,9 +131,11 @@ public class BlogPostService
                 imageType = ReadStringProperty(component, instance, "ImageType");
                 imageWidth = ReadIntProperty(component, instance, "ImageWidth");
                 imageHeight = ReadIntProperty(component, instance, "ImageHeight");
+                cardImage = ReadStringProperty(component, instance, "CardImage");
+                cardImageAlt = ReadStringProperty(component, instance, "CardImageAlt");
                 ResolvePostImage(route, title, ref image, ref imageAlt, ref imageType, ref imageWidth, ref imageHeight);
 
-                return new BlogPost(title, route, date, component, description, tags, image, imageAlt, imageType, imageWidth, imageHeight);
+                return new BlogPost(title, route, date, component, description, tags, image, imageAlt, imageType, imageWidth, imageHeight, cardImage, cardImageAlt);
             }
         }
 

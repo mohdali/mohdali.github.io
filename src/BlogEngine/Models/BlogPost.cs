@@ -11,4 +11,6 @@ public sealed record BlogPost(
     string? ImageAlt,
     string? ImageType,
     int? ImageWidth,
-    int? ImageHeight);
+    int? ImageHeight,
+    string? CardImage,
+    string? CardImageAlt);

@@ -28,9 +28,14 @@
                     <div class="archive-items">
                         @foreach (var post in group.OrderByDescending(post => post.Timestamp).ThenBy(post => post.Title))
                         {
-                            <article class="archive-item">
+                            var hasCardImage = !string.IsNullOrWhiteSpace(post.CardImage);
+
+                            <article class="archive-item @(hasCardImage ? "has-preview-image" : null)">
                                 <time datetime="@post.Timestamp.ToString("yyyy-MM-dd")">@post.Timestamp.ToString("dd MMM")</time>
-                                <PostPreviewImage Post="@post" Class="archive-post-image-link" />
+                                @if (hasCardImage)
+                                {
+                                    <PostPreviewImage Post="@post" Class="archive-post-image-link" />
+                                }
                                 <div>
                                     <MudText Typo="Typo.h3" HtmlTag="h3">
                                         <MudLink Href="@post.Url">@post.Title</MudLink>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using Markdig;
@@ -50,7 +49,7 @@ namespace BlogEngine.Markdown
                 var (frontmatter, htmlContent, codeBlocks) = ParseMarkdown(content);
 
                 // Extract metadata from frontmatter and filename
-                var metadata = ExtractMetadata(file.Path, frontmatter, htmlContent);
+                var metadata = ExtractMetadata(file.Path, frontmatter);
 
                 if (metadata.IsDraft)
                     return;
@@ -201,7 +200,7 @@ namespace BlogEngine.Markdown
             return codeBlocks;
         }
 
-        private BlogPostMetadata ExtractMetadata(string filePath, Dictionary<string, object> frontmatter, string htmlContent)
+        private BlogPostMetadata ExtractMetadata(string filePath, Dictionary<string, object> frontmatter)
         {
             var metadata = new BlogPostMetadata();
             var fileName = Path.GetFileNameWithoutExtension(filePath);
@@ -256,9 +255,11 @@ namespace BlogEngine.Markdown
             metadata.ImageType = GetFirstString(frontmatter, "imageType", "image_type", "socialImageType", "ogImageType");
             metadata.ImageWidth = TryGetInt(frontmatter, "imageWidth", out var imageWidth) ? imageWidth : null;
             metadata.ImageHeight = TryGetInt(frontmatter, "imageHeight", out var imageHeight) ? imageHeight : null;
+            metadata.CardImage = GetFirstString(frontmatter, "cardImage", "card_image", "thumbnail", "thumbnailImage", "coverImage");
+            metadata.CardImageAlt = GetFirstString(frontmatter, "cardImageAlt", "card_image_alt", "thumbnailAlt", "thumbnailImageAlt", "coverImageAlt");
             metadata.IsDraft = TryGetBool(frontmatter, "draft", out var draft) && draft;
 
-            ResolveImageMetadata(metadata, htmlContent);
+            ResolveImageMetadata(metadata);
 
             // Get the page route from frontmatter or generate it
             if (TryGetString(frontmatter, "page", out var page))
@@ -341,85 +342,13 @@ namespace BlogEngine.Markdown
             return date != DateTime.MinValue && date.Date > DateTime.UtcNow.Date;
         }
 
-        private static void ResolveImageMetadata(BlogPostMetadata metadata, string htmlContent)
+        private static void ResolveImageMetadata(BlogPostMetadata metadata)
         {
-            if (string.IsNullOrWhiteSpace(metadata.Image))
-            {
-                var contentImage = FindFirstContentImage(htmlContent);
-
-                if (contentImage != null)
-                {
-                    metadata.Image = contentImage.Source;
-                    metadata.ImageAlt = contentImage.Alt;
-                    metadata.ImageType = contentImage.Type;
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(metadata.Image))
-                return;
-
-            if (string.IsNullOrWhiteSpace(metadata.ImageType))
+            if (!string.IsNullOrWhiteSpace(metadata.Image) &&
+                string.IsNullOrWhiteSpace(metadata.ImageType))
             {
                 metadata.ImageType = InferImageType(metadata.Image);
             }
-        }
-
-        private static ImageMetadata FindFirstContentImage(string htmlContent)
-        {
-            foreach (Match match in Regex.Matches(htmlContent, @"<img\b[^>]*>", RegexOptions.IgnoreCase))
-            {
-                var attributes = ParseHtmlAttributes(match.Value);
-
-                if (!attributes.TryGetValue("src", out var source) || string.IsNullOrWhiteSpace(source))
-                    continue;
-
-                if (IsUnsupportedImageSource(source))
-                    continue;
-
-                attributes.TryGetValue("alt", out var alt);
-
-                return new ImageMetadata
-                {
-                    Source = source,
-                    Alt = alt ?? "",
-                    Type = InferImageType(source)
-                };
-            }
-
-            return null;
-        }
-
-        private static Dictionary<string, string> ParseHtmlAttributes(string tag)
-        {
-            var attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            var pattern = @"([^\s=]+)\s*=\s*(?:""([^""]*)""|'([^']*)'|([^\s""'>]+))";
-
-            foreach (Match match in Regex.Matches(tag, pattern))
-            {
-                var value = match.Groups[4].Value;
-
-                if (match.Groups[2].Success)
-                {
-                    value = match.Groups[2].Value;
-                }
-                else if (match.Groups[3].Success)
-                {
-                    value = match.Groups[3].Value;
-                }
-
-                attributes[match.Groups[1].Value] = WebUtility.HtmlDecode(value);
-            }
-
-            return attributes;
-        }
-
-        private static bool IsUnsupportedImageSource(string source)
-        {
-            var normalizedSource = source.Trim();
-
-            return string.IsNullOrWhiteSpace(normalizedSource) ||
-                   normalizedSource.StartsWith("data:", StringComparison.OrdinalIgnoreCase) ||
-                   normalizedSource.StartsWith("//", StringComparison.Ordinal);
         }
 
         private static string InferImageType(string source)
@@ -502,6 +431,8 @@ namespace BlogEngine.Markdown
             var escapedImage = EscapeVerbatimString(metadata.Image);
             var escapedImageAlt = EscapeVerbatimString(metadata.ImageAlt);
             var escapedImageType = EscapeVerbatimString(metadata.ImageType);
+            var escapedCardImage = EscapeVerbatimString(metadata.CardImage);
+            var escapedCardImageAlt = EscapeVerbatimString(metadata.CardImageAlt);
             var imageWidth = FormatNullableInt(metadata.ImageWidth);
             var imageHeight = FormatNullableInt(metadata.ImageHeight);
             var tags = metadata.Tags.Length == 0
@@ -608,6 +539,8 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public string ImageType {{ get; set; }} = @""{escapedImageType}"";
         public int? ImageWidth {{ get; set; }} = {imageWidth};
         public int? ImageHeight {{ get; set; }} = {imageHeight};
+        public string CardImage {{ get; set; }} = @""{escapedCardImage}"";
+        public string CardImageAlt {{ get; set; }} = @""{escapedCardImageAlt}"";
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {{
@@ -645,6 +578,8 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public string ImageType { get; set; } = "";
         public int? ImageWidth { get; set; }
         public int? ImageHeight { get; set; }
+        public string CardImage { get; set; } = "";
+        public string CardImageAlt { get; set; } = "";
         public string[] Tags { get; set; } = new string[0];
         public bool IsDraft { get; set; }
     }
@@ -657,10 +592,4 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public bool IsMermaid => string.Equals(Language, "mermaid", StringComparison.OrdinalIgnoreCase);
     }
 
-    internal class ImageMetadata
-    {
-        public string Source { get; set; } = "";
-        public string Alt { get; set; } = "";
-        public string Type { get; set; } = "";
-    }
 }
