@@ -9,6 +9,9 @@
                 Path="@BlogPost.Url"
                 ImageUrl="@BlogPost.Image"
                 ImageAlt="@BlogPost.ImageAlt"
+                ImageType="@BlogPost.ImageType"
+                ImageWidth="@BlogPost.ImageWidth"
+                ImageHeight="@BlogPost.ImageHeight"
                 PublishedTime="@BlogPost.Timestamp" />
 }
 
@@ -32,6 +35,61 @@
                     </div>
                 </CascadingValue>
             </article>
+
+            @if (BlogPost is not null)
+            {
+                var relatedPosts = GetRelatedPosts();
+                var adjacentPosts = GetAdjacentPosts();
+                var relatedTitle = relatedPosts.Any(HasSharedTags) ? "Related Posts" : "More Posts";
+
+                <section class="post-discovery" aria-label="Post navigation">
+                    @if (relatedPosts.Count > 0)
+                    {
+                        <section class="related-posts" aria-labelledby="related-posts-title">
+                            <MudText Typo="Typo.h2" HtmlTag="h2" id="related-posts-title" Class="post-discovery-title">
+                                @relatedTitle
+                            </MudText>
+                            <div class="related-post-list">
+                                @foreach (var post in relatedPosts)
+                                {
+                                    <article class="related-post-item">
+                                        <time datetime="@post.Timestamp.ToString("yyyy-MM-dd")">@post.Timestamp.ToString("dd MMM yyyy")</time>
+                                        <div class="related-post-copy">
+                                            <MudText Typo="Typo.h3" HtmlTag="h3">
+                                                <MudLink Href="@post.Url">@post.Title</MudLink>
+                                            </MudText>
+                                            @if (!string.IsNullOrWhiteSpace(post.Description))
+                                            {
+                                                <MudText Typo="Typo.body2">@post.Description</MudText>
+                                            }
+                                        </div>
+                                    </article>
+                                }
+                            </div>
+                        </section>
+                    }
+
+                    @if (adjacentPosts.Previous is not null || adjacentPosts.Next is not null)
+                    {
+                        <nav class="post-neighbors" aria-label="Previous and next posts">
+                            @if (adjacentPosts.Previous is not null)
+                            {
+                                <MudLink Href="@adjacentPosts.Previous.Url" Class="post-neighbor previous-post">
+                                    <span>Previous</span>
+                                    <strong>@adjacentPosts.Previous.Title</strong>
+                                </MudLink>
+                            }
+                            @if (adjacentPosts.Next is not null)
+                            {
+                                <MudLink Href="@adjacentPosts.Next.Url" Class="post-neighbor next-post">
+                                    <span>Next</span>
+                                    <strong>@adjacentPosts.Next.Title</strong>
+                                </MudLink>
+                            }
+                        </nav>
+                    }
+                </section>
+            }
             
             <div class="post-footer mt-6">
                 <MudDivider Class="mb-4"/>
@@ -62,6 +120,8 @@
 </div>
 
 @code {
+    [Inject] BlogPostService BlogPostService { get; set; } = default!;
+
     private string GetDescription()
     {
         return !string.IsNullOrWhiteSpace(BlogPost?.Description)
@@ -80,5 +140,35 @@
     {
         var url = $"https://mohdali.dev{BlogPost?.Url}";
         return $"https://www.linkedin.com/sharing/share-offsite/?url={Uri.EscapeDataString(url)}";
+    }
+
+    private List<BlogPost> GetRelatedPosts()
+    {
+        if (BlogPost is null)
+        {
+            return new List<BlogPost>();
+        }
+
+        return BlogPostService.GetRelatedPosts(typeof(Program).Assembly, BlogPost);
+    }
+
+    private (BlogPost? Previous, BlogPost? Next) GetAdjacentPosts()
+    {
+        if (BlogPost is null)
+        {
+            return (null, null);
+        }
+
+        return BlogPostService.GetAdjacentPosts(typeof(Program).Assembly, BlogPost);
+    }
+
+    private bool HasSharedTags(BlogPost post)
+    {
+        if (BlogPost is null)
+        {
+            return false;
+        }
+
+        return BlogPost.Tags.Any(tag => post.Tags.Contains(tag, StringComparer.OrdinalIgnoreCase));
     }
 }

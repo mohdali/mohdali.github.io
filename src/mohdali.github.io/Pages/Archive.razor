@@ -26,7 +26,7 @@
                 <section class="archive-year" aria-labelledby="@($"archive-{group.Key}")">
                     <MudText Typo="Typo.h2" HtmlTag="h2" id="@($"archive-{group.Key}")">@group.Key</MudText>
                     <div class="archive-items">
-                        @foreach (var post in group.OrderByDescending(post => post.Timestamp))
+                        @foreach (var post in group.OrderByDescending(post => post.Timestamp).ThenBy(post => post.Title))
                         {
                             <article class="archive-item">
                                 <time datetime="@post.Timestamp.ToString("yyyy-MM-dd")">@post.Timestamp.ToString("dd MMM")</time>
@@ -64,8 +64,6 @@
 
     protected override void OnInitialized()
     {
-        Posts = blogPostService.GetBlogPosts(typeof(Program).Assembly)
-            .OrderByDescending(post => post.Timestamp)
-            .ToList();
+        Posts = blogPostService.GetPublishedBlogPosts(typeof(Program).Assembly);
     }
 }

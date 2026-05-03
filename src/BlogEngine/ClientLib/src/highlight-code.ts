@@ -13,9 +13,9 @@ import CopyButtonPlugin from './highlight-copy'
 import '../node_modules/highlight.js/styles/dark.css'
 import '../node_modules/highlightjs-copy/dist/highlightjs-copy.min.css'
 
-// Initialize the plugin only once
-let isPluginInitialized = false;
+let isCopyPluginRegistered = false;
 let areLanguagesRegistered = false;
+let copyButtonPlugin: CopyButtonPlugin | null = null;
 
 function registerLanguages() {
     if (areLanguagesRegistered) {
@@ -40,15 +40,15 @@ function registerLanguages() {
 export function highlightCode() {
     registerLanguages();
 
-    // Only add the plugin once
-    if (!isPluginInitialized) {
-        hljs.addPlugin(new CopyButtonPlugin());
-        isPluginInitialized = true;
+    if (!isCopyPluginRegistered) {
+        copyButtonPlugin = new CopyButtonPlugin();
+        hljs.addPlugin(copyButtonPlugin);
+        isCopyPluginRegistered = true;
     }
 
     document.querySelectorAll<HTMLElement>('pre code').forEach((el) => {
-        // Skip if already highlighted
         if (el.classList.contains('hljs')) {
+            copyButtonPlugin?.addCopyButton(el);
             return;
         }
         hljs.highlightElement(el);

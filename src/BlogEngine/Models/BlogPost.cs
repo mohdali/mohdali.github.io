@@ -8,4 +8,7 @@ public sealed record BlogPost(
     string Description,
     string[] Tags,
     string? Image,
-    string? ImageAlt);
+    string? ImageAlt,
+    string? ImageType,
+    int? ImageWidth,
+    int? ImageHeight);

@@ -92,8 +92,7 @@
 
     protected override void OnInitialized()
     {
-        BlogPosts = blogPostService.GetBlogPosts(typeof(Program).Assembly)
-            .OrderByDescending(p => p.Timestamp)
+        BlogPosts = blogPostService.GetPublishedBlogPosts(typeof(Program).Assembly)
             .Take(3)
             .ToList();
     }

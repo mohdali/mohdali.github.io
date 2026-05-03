@@ -52,7 +52,7 @@ namespace BlogEngine.Markdown
                 var fileName = Path.GetFileNameWithoutExtension(file.Path);
                 var metadata = ExtractMetadata(fileName, frontmatter);
 
-                if (metadata.IsDraft)
+                if (metadata.IsDraft || IsFuturePost(metadata.Date))
                     return;
 
                 // Generate the Blazor component
@@ -158,7 +158,7 @@ namespace BlogEngine.Markdown
             }, RegexOptions.Singleline);
 
             // Replace <pre><code> blocks with placeholders
-            pattern = @"<pre><code class=""language-(\w+)"">(.*?)</code></pre>";
+            pattern = @"<pre><code class=""language-([^""]+)"">(.*?)</code></pre>";
             html = Regex.Replace(html, pattern, m =>
             {
                 var language = m.Groups[1].Value;
@@ -222,6 +222,9 @@ namespace BlogEngine.Markdown
             metadata.Description = GetFirstString(frontmatter, "description", "excerpt", "summary") ?? "";
             metadata.Image = GetFirstString(frontmatter, "image", "imageUrl", "socialImage", "ogImage");
             metadata.ImageAlt = GetFirstString(frontmatter, "imageAlt", "image_alt", "socialImageAlt", "ogImageAlt");
+            metadata.ImageType = GetFirstString(frontmatter, "imageType", "image_type", "socialImageType", "ogImageType");
+            metadata.ImageWidth = TryGetInt(frontmatter, "imageWidth", out var imageWidth) ? imageWidth : null;
+            metadata.ImageHeight = TryGetInt(frontmatter, "imageHeight", out var imageHeight) ? imageHeight : null;
             metadata.IsDraft = TryGetBool(frontmatter, "draft", out var draft) && draft;
 
             // Get the page route from frontmatter or generate it
@@ -283,6 +286,28 @@ namespace BlogEngine.Markdown
             return bool.TryParse(rawValue.ToString(), out value);
         }
 
+        private static bool TryGetInt(Dictionary<string, object> frontmatter, string key, out int value)
+        {
+            value = 0;
+
+            if (!frontmatter.TryGetValue(key, out var rawValue) || rawValue == null)
+                return false;
+
+            if (rawValue is int intValue)
+            {
+                value = intValue;
+                return value > 0;
+            }
+
+            return int.TryParse(rawValue.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out value) &&
+                   value > 0;
+        }
+
+        private static bool IsFuturePost(DateTime date)
+        {
+            return date != DateTime.MinValue && date.Date > DateTime.UtcNow.Date;
+        }
+
         private static string[] GetTags(Dictionary<string, object> frontmatter)
         {
             if (!frontmatter.TryGetValue("tags", out var rawTags) || rawTags == null)
@@ -339,29 +364,37 @@ namespace BlogEngine.Markdown
             var escapedDescription = EscapeVerbatimString(metadata.Description);
             var escapedImage = EscapeVerbatimString(metadata.Image);
             var escapedImageAlt = EscapeVerbatimString(metadata.ImageAlt);
+            var escapedImageType = EscapeVerbatimString(metadata.ImageType);
+            var imageWidth = FormatNullableInt(metadata.ImageWidth);
+            var imageHeight = FormatNullableInt(metadata.ImageHeight);
             var tags = metadata.Tags.Length == 0
                 ? "Array.Empty<string>()"
                 : $"new[] {{ {string.Join(", ", metadata.Tags.Select(tag => $"@\"{EscapeVerbatimString(tag)}\""))} }}";
 
-            // Split HTML content by code block placeholders
+            // Split HTML content by code block placeholders in document order.
+            // Code block indices are assigned by block type, so numeric order can
+            // differ from where placeholders appear in the rendered HTML.
             var htmlParts = new List<string>();
             var lastIndex = 0;
+            var codeBlockByIndex = codeBlocks.ToDictionary(codeBlock => codeBlock.Index);
 
-            foreach (var codeBlock in codeBlocks.OrderBy(cb => cb.Index))
+            foreach (Match match in Regex.Matches(htmlContent, @"%%CODE_BLOCK_(\d+)%%"))
             {
-                var placeholder = $"%%CODE_BLOCK_{codeBlock.Index}%%";
-                var index = htmlContent.IndexOf(placeholder, lastIndex);
-                if (index >= 0)
+                if (!int.TryParse(match.Groups[1].Value, out var blockIndex) ||
+                    !codeBlockByIndex.ContainsKey(blockIndex))
                 {
-                    // Add HTML before the code block
-                    if (index > lastIndex)
-                    {
-                        htmlParts.Add(htmlContent.Substring(lastIndex, index - lastIndex));
-                    }
-                    // Add marker for code block
-                    htmlParts.Add($"__CODEBLOCK_{codeBlock.Index}__");
-                    lastIndex = index + placeholder.Length;
+                    continue;
                 }
+
+                // Add HTML before the code block
+                if (match.Index > lastIndex)
+                {
+                    htmlParts.Add(htmlContent.Substring(lastIndex, match.Index - lastIndex));
+                }
+
+                // Add marker for code block
+                htmlParts.Add($"__CODEBLOCK_{blockIndex}__");
+                lastIndex = match.Index + match.Length;
             }
 
             // Add remaining HTML
@@ -383,7 +416,7 @@ namespace BlogEngine.Markdown
                 if (part.StartsWith("__CODEBLOCK_"))
                 {
                     var blockIndex = int.Parse(part.Replace("__CODEBLOCK_", "").Replace("__", ""));
-                    var codeBlock = codeBlocks.First(cb => cb.Index == blockIndex);
+                    var codeBlock = codeBlockByIndex[blockIndex];
                     var escapedCode = EscapeVerbatimString(codeBlock.Code);
 
                     if (codeBlock.IsMermaid)
@@ -395,7 +428,7 @@ namespace BlogEngine.Markdown
                         renderCode.AppendLine($@"            builder.OpenComponent<CodeSnippet>({sequenceNumber++});");
                         if (!string.IsNullOrEmpty(codeBlock.Language))
                         {
-                            renderCode.AppendLine($@"            builder.AddAttribute({sequenceNumber++}, ""Language"", ""{codeBlock.Language}"");");
+                            renderCode.AppendLine($@"            builder.AddAttribute({sequenceNumber++}, ""Language"", @""{EscapeVerbatimString(codeBlock.Language)}"");");
                         }
                     }
 
@@ -435,6 +468,9 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public string[] Tags {{ get; set; }} = {tags};
         public string Image {{ get; set; }} = @""{escapedImage}"";
         public string ImageAlt {{ get; set; }} = @""{escapedImageAlt}"";
+        public string ImageType {{ get; set; }} = @""{escapedImageType}"";
+        public int? ImageWidth {{ get; set; }} = {imageWidth};
+        public int? ImageHeight {{ get; set; }} = {imageHeight};
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {{
@@ -449,6 +485,13 @@ namespace {rootNamespace}.Pages.Posts.Generated
         {
             return value.Replace("\"", "\"\"");
         }
+
+        private static string FormatNullableInt(int? value)
+        {
+            return value.HasValue
+                ? value.Value.ToString(CultureInfo.InvariantCulture)
+                : "null";
+        }
     }
 
     internal class BlogPostMetadata
@@ -461,6 +504,9 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public string Description { get; set; } = "";
         public string Image { get; set; } = "";
         public string ImageAlt { get; set; } = "";
+        public string ImageType { get; set; } = "";
+        public int? ImageWidth { get; set; }
+        public int? ImageHeight { get; set; }
         public string[] Tags { get; set; } = new string[0];
         public bool IsDraft { get; set; }
     }

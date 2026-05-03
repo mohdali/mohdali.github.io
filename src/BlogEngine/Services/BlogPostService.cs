@@ -7,7 +7,7 @@ namespace BlogEngine;
 
 public class BlogPostService
 {
-    const string pattern = @"[0-9]{4}_[0-9]{2}_[0-9]{2}_";
+    private const string DatePattern = @"[0-9]{4}_[0-9]{2}_[0-9]{2}_";
 
     public List<BlogPost> GetBlogPosts(Assembly assembly)
     {
@@ -26,6 +26,77 @@ public class BlogPostService
         return blogPosts;
     }
 
+    public List<BlogPost> GetPublishedBlogPosts(Assembly assembly)
+    {
+        return GetBlogPosts(assembly)
+            .Where(post => post.Timestamp.Date <= DateTime.UtcNow.Date)
+            .OrderByDescending(post => post.Timestamp)
+            .ThenBy(post => post.Title)
+            .ToList();
+    }
+
+    public (BlogPost? Previous, BlogPost? Next) GetAdjacentPosts(Assembly assembly, BlogPost currentPost)
+    {
+        var posts = GetPublishedBlogPosts(assembly);
+        var currentIndex = posts.FindIndex(post => IsSamePost(post, currentPost));
+
+        if (currentIndex < 0)
+        {
+            return (null, null);
+        }
+
+        var previous = currentIndex < posts.Count - 1 ? posts[currentIndex + 1] : null;
+        var next = currentIndex > 0 ? posts[currentIndex - 1] : null;
+
+        return (previous, next);
+    }
+
+    public List<BlogPost> GetRelatedPosts(Assembly assembly, BlogPost currentPost, int count = 3)
+    {
+        if (count <= 0)
+        {
+            return new List<BlogPost>();
+        }
+
+        var currentTags = currentPost.Tags
+            .Where(tag => !string.IsNullOrWhiteSpace(tag))
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        var candidates = GetPublishedBlogPosts(assembly)
+            .Where(post => !IsSamePost(post, currentPost))
+            .ToList();
+
+        var relatedPosts = candidates
+            .Select(post => new
+            {
+                Post = post,
+                SharedTagCount = post.Tags.Count(currentTags.Contains)
+            })
+            .Where(result => result.SharedTagCount > 0)
+            .OrderByDescending(result => result.SharedTagCount)
+            .ThenByDescending(result => result.Post.Timestamp)
+            .ThenBy(result => result.Post.Title)
+            .Select(result => result.Post)
+            .Take(count)
+            .ToList();
+
+        if (relatedPosts.Count >= count)
+        {
+            return relatedPosts;
+        }
+
+        var missingPostCount = count - relatedPosts.Count;
+        var fallbackPosts = candidates
+            .Where(post => relatedPosts.All(relatedPost => !IsSamePost(relatedPost, post)))
+            .OrderByDescending(post => post.Timestamp)
+            .ThenBy(post => post.Title)
+            .Take(missingPostCount);
+
+        relatedPosts.AddRange(fallbackPosts);
+
+        return relatedPosts;
+    }
+
     public BlogPost? GetBlogPost(Type component)
     {
         var attributes = component.GetCustomAttributes(inherit: true);
@@ -37,13 +108,16 @@ public class BlogPostService
             var route = routeAttribute.Template;
             if (!string.IsNullOrEmpty(route) && route.StartsWith("/posts/"))
             {
-                var name = Regex.Replace(component.Name, pattern, "").Trim('_', ' ');
+                var name = Regex.Replace(component.Name, DatePattern, "").Trim('_', ' ');
                 var title = name.Humanize();
                 var date = ReadDateFromComponentName(component.Name);
                 var description = string.Empty;
                 var tags = Array.Empty<string>();
                 string? image = null;
                 string? imageAlt = null;
+                string? imageType = null;
+                int? imageWidth = null;
+                int? imageHeight = null;
 
                 var instance = TryCreateComponent(component);
                 title = ReadStringProperty(component, instance, "Title") ?? title;
@@ -52,8 +126,11 @@ public class BlogPostService
                 tags = ReadStringArrayProperty(component, instance, "Tags") ?? tags;
                 image = ReadStringProperty(component, instance, "Image");
                 imageAlt = ReadStringProperty(component, instance, "ImageAlt");
+                imageType = ReadStringProperty(component, instance, "ImageType");
+                imageWidth = ReadIntProperty(component, instance, "ImageWidth");
+                imageHeight = ReadIntProperty(component, instance, "ImageHeight");
 
-                return new BlogPost(title, route, date, component, description, tags, image, imageAlt);
+                return new BlogPost(title, route, date, component, description, tags, image, imageAlt, imageType, imageWidth, imageHeight);
             }
         }
 
@@ -93,9 +170,29 @@ public class BlogPostService
             : component.GetProperty(propertyName)?.GetValue(instance) as string[];
     }
 
+    private static int? ReadIntProperty(Type component, object? instance, string propertyName)
+    {
+        if (instance is null)
+        {
+            return null;
+        }
+
+        if (component.GetProperty(propertyName)?.GetValue(instance) is int value)
+        {
+            return value;
+        }
+
+        return null;
+    }
+
+    private static bool IsSamePost(BlogPost post, BlogPost otherPost)
+    {
+        return string.Equals(post.Url, otherPost.Url, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static DateTime ReadDateFromComponentName(string componentName)
     {
-        var match = Regex.Match(componentName, pattern);
+        var match = Regex.Match(componentName, DatePattern);
         return match.Success &&
                DateTime.TryParseExact(match.Value, "yyyy_MM_dd_", null, System.Globalization.DateTimeStyles.None, out var date)
             ? date

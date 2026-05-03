@@ -9,9 +9,15 @@
     <meta property="og:url" content="@AbsoluteUrl" />
     <meta property="og:image" content="@ResolvedImageUrl" />
     <meta property="og:image:secure_url" content="@ResolvedImageUrl" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="600" />
+    <meta property="og:image:type" content="@ResolvedImageType" />
+    @if (ResolvedImageWidth.HasValue)
+    {
+        <meta property="og:image:width" content="@ResolvedImageWidth.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
+    }
+    @if (ResolvedImageHeight.HasValue)
+    {
+        <meta property="og:image:height" content="@ResolvedImageHeight.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
+    }
     <meta property="og:image:alt" content="@ResolvedImageAlt" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -40,6 +46,9 @@
     [Parameter] public string Path { get; set; } = "/";
     [Parameter] public string? ImageUrl { get; set; }
     [Parameter] public string? ImageAlt { get; set; }
+    [Parameter] public string? ImageType { get; set; }
+    [Parameter] public int? ImageWidth { get; set; }
+    [Parameter] public int? ImageHeight { get; set; }
     [Parameter] public DateTime? PublishedTime { get; set; }
 
     private string AbsoluteUrl => ToAbsoluteUrl(Path);
@@ -47,6 +56,16 @@
     private string ResolvedImageUrl => string.IsNullOrWhiteSpace(ImageUrl)
         ? DefaultImageUrl
         : ToAbsoluteUrl(ImageUrl);
+
+    private bool UsesDefaultImage => string.IsNullOrWhiteSpace(ImageUrl);
+
+    private string ResolvedImageType => !string.IsNullOrWhiteSpace(ImageType)
+        ? ImageType
+        : InferImageType(ResolvedImageUrl);
+
+    private int? ResolvedImageWidth => ResolveImageDimension(ImageWidth, 1200);
+
+    private int? ResolvedImageHeight => ResolveImageDimension(ImageHeight, 600);
 
     private string ResolvedImageAlt => string.IsNullOrWhiteSpace(ImageAlt)
         ? $"Social preview card for {Title}"
@@ -61,5 +80,43 @@
         }
 
         return $"{SiteUrl}/{value.TrimStart('/')}";
+    }
+
+    private static string InferImageType(string value)
+    {
+        var path = value.Split('?', '#')[0];
+
+        if (path.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+            path.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+        {
+            return "image/jpeg";
+        }
+
+        if (path.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
+        {
+            return "image/webp";
+        }
+
+        if (path.EndsWith(".svg", StringComparison.OrdinalIgnoreCase))
+        {
+            return "image/svg+xml";
+        }
+
+        return "image/png";
+    }
+
+    private int? ResolveImageDimension(int? configuredValue, int defaultValue)
+    {
+        if (configuredValue.HasValue)
+        {
+            return configuredValue.Value;
+        }
+
+        if (UsesDefaultImage)
+        {
+            return defaultValue;
+        }
+
+        return null;
     }
 }
