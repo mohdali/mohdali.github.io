@@ -6,4 +6,6 @@ public sealed record BlogPost(
     DateTime Timestamp,
     Type Type,
     string Description,
-    string[] Tags);
+    string[] Tags,
+    string? Image,
+    string? ImageAlt);

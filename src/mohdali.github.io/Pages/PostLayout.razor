@@ -3,14 +3,13 @@
 
 @if (BlogPost is not null)
 {
-    <HeadContent>
-        <meta name="description" content="@GetDescription()" />
-        <meta property="og:title" content="@($"{BlogPost.Title} - mohdali.dev")" />
-        <meta property="og:description" content="@GetDescription()" />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="@($"https://mohdali.dev{BlogPost.Url}")" />
-        <meta property="article:published_time" content="@BlogPost.Timestamp.ToString("yyyy-MM-dd")" />
-    </HeadContent>
+    <SocialMeta Title="@($"{BlogPost.Title} - mohdali.dev")"
+                Description="@GetDescription()"
+                Type="article"
+                Path="@BlogPost.Url"
+                ImageUrl="@BlogPost.Image"
+                ImageAlt="@BlogPost.ImageAlt"
+                PublishedTime="@BlogPost.Timestamp" />
 }
 
 <div class="post-detail-container">

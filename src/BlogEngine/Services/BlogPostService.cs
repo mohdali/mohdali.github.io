@@ -42,14 +42,18 @@ public class BlogPostService
                 var date = ReadDateFromComponentName(component.Name);
                 var description = string.Empty;
                 var tags = Array.Empty<string>();
+                string? image = null;
+                string? imageAlt = null;
 
                 var instance = TryCreateComponent(component);
                 title = ReadStringProperty(component, instance, "Title") ?? title;
                 date = ReadDateProperty(component, instance, "Timestamp") ?? date;
                 description = ReadStringProperty(component, instance, "Description") ?? description;
                 tags = ReadStringArrayProperty(component, instance, "Tags") ?? tags;
+                image = ReadStringProperty(component, instance, "Image");
+                imageAlt = ReadStringProperty(component, instance, "ImageAlt");
 
-                return new BlogPost(title, route, date, component, description, tags);
+                return new BlogPost(title, route, date, component, description, tags, image, imageAlt);
             }
         }
 

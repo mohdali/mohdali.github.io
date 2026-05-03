@@ -328,6 +328,14 @@ async function prerender() {
         console.log(`Timed out waiting for app content on ${route}, continuing with current HTML.`);
       });
 
+      await page.waitForFunction(() => {
+        const diagrams = Array.from(document.querySelectorAll('.mermaid'));
+        return diagrams.length === 0 || diagrams.every(diagram =>
+          diagram.getAttribute('data-processed') === 'true' || diagram.querySelector('svg'));
+      }, { timeout: 20000 }).catch(() => {
+        console.log(`Timed out waiting for Mermaid diagrams on ${route}, continuing with current HTML.`);
+      });
+
       const notFoundText = await page.locator('[role="alert"]').textContent().catch(() => '');
       if (notFoundText?.includes("Sorry, there's nothing")) {
         throw new Error(`Route rendered NotFound: ${route}`);

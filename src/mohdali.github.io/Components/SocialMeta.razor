@@ -1,0 +1,65 @@
+<HeadContent>
+    <link rel="canonical" href="@AbsoluteUrl" />
+    <meta name="description" content="@Description" />
+
+    <meta property="og:site_name" content="@SiteName" />
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:type" content="@Type" />
+    <meta property="og:url" content="@AbsoluteUrl" />
+    <meta property="og:image" content="@ResolvedImageUrl" />
+    <meta property="og:image:secure_url" content="@ResolvedImageUrl" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    <meta property="og:image:alt" content="@ResolvedImageAlt" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@TwitterHandle" />
+    <meta name="twitter:creator" content="@TwitterHandle" />
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ResolvedImageUrl" />
+    <meta name="twitter:image:alt" content="@ResolvedImageAlt" />
+
+    @if (Type == "article" && PublishedTime.HasValue)
+    {
+        <meta property="article:published_time" content="@PublishedTime.Value.ToString("yyyy-MM-dd")" />
+    }
+</HeadContent>
+
+@code {
+    private const string SiteName = "mohdali.dev";
+    private const string SiteUrl = "https://mohdali.dev";
+    private const string DefaultImageUrl = "https://mohdali.dev/images/social-card.png";
+    private const string TwitterHandle = "@mohdali";
+
+    [Parameter] public string Title { get; set; } = SiteName;
+    [Parameter] public string Description { get; set; } = "Software notes by Mohamed Ali.";
+    [Parameter] public string Type { get; set; } = "website";
+    [Parameter] public string Path { get; set; } = "/";
+    [Parameter] public string? ImageUrl { get; set; }
+    [Parameter] public string? ImageAlt { get; set; }
+    [Parameter] public DateTime? PublishedTime { get; set; }
+
+    private string AbsoluteUrl => ToAbsoluteUrl(Path);
+
+    private string ResolvedImageUrl => string.IsNullOrWhiteSpace(ImageUrl)
+        ? DefaultImageUrl
+        : ToAbsoluteUrl(ImageUrl);
+
+    private string ResolvedImageAlt => string.IsNullOrWhiteSpace(ImageAlt)
+        ? $"Social preview card for {Title}"
+        : ImageAlt;
+
+    private static string ToAbsoluteUrl(string value)
+    {
+        if (value.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+            value.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+        {
+            return value;
+        }
+
+        return $"{SiteUrl}/{value.TrimStart('/')}";
+    }
+}

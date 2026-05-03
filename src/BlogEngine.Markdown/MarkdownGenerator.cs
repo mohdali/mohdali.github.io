@@ -146,8 +146,19 @@ namespace BlogEngine.Markdown
             var codeBlocks = new List<CodeBlockInfo>();
             var blockIndex = 0;
 
+            // Markdig's advanced extensions render Mermaid fences as <pre class="mermaid">.
+            var pattern = @"<pre class=""mermaid"">(.*?)</pre>";
+            html = Regex.Replace(html, pattern, m =>
+            {
+                var code = System.Web.HttpUtility.HtmlDecode(m.Groups[1].Value);
+                var placeholder = $"%%CODE_BLOCK_{blockIndex}%%";
+                codeBlocks.Add(new CodeBlockInfo { Index = blockIndex, Language = "mermaid", Code = code });
+                blockIndex++;
+                return placeholder;
+            }, RegexOptions.Singleline);
+
             // Replace <pre><code> blocks with placeholders
-            var pattern = @"<pre><code class=""language-(\w+)"">(.*?)</code></pre>";
+            pattern = @"<pre><code class=""language-(\w+)"">(.*?)</code></pre>";
             html = Regex.Replace(html, pattern, m =>
             {
                 var language = m.Groups[1].Value;
@@ -209,6 +220,8 @@ namespace BlogEngine.Markdown
 
             metadata.Tags = GetTags(frontmatter);
             metadata.Description = GetFirstString(frontmatter, "description", "excerpt", "summary") ?? "";
+            metadata.Image = GetFirstString(frontmatter, "image", "imageUrl", "socialImage", "ogImage");
+            metadata.ImageAlt = GetFirstString(frontmatter, "imageAlt", "image_alt", "socialImageAlt", "ogImageAlt");
             metadata.IsDraft = TryGetBool(frontmatter, "draft", out var draft) && draft;
 
             // Get the page route from frontmatter or generate it
@@ -324,6 +337,8 @@ namespace BlogEngine.Markdown
             // For verbatim string literals in C#, only quotes need to be doubled
             var escapedTitle = EscapeVerbatimString(metadata.Title);
             var escapedDescription = EscapeVerbatimString(metadata.Description);
+            var escapedImage = EscapeVerbatimString(metadata.Image);
+            var escapedImageAlt = EscapeVerbatimString(metadata.ImageAlt);
             var tags = metadata.Tags.Length == 0
                 ? "Array.Empty<string>()"
                 : $"new[] {{ {string.Join(", ", metadata.Tags.Select(tag => $"@\"{EscapeVerbatimString(tag)}\""))} }}";
@@ -371,11 +386,19 @@ namespace BlogEngine.Markdown
                     var codeBlock = codeBlocks.First(cb => cb.Index == blockIndex);
                     var escapedCode = EscapeVerbatimString(codeBlock.Code);
 
-                    renderCode.AppendLine($@"            builder.OpenComponent<CodeSnippet>({sequenceNumber++});");
-                    if (!string.IsNullOrEmpty(codeBlock.Language))
+                    if (codeBlock.IsMermaid)
                     {
-                        renderCode.AppendLine($@"            builder.AddAttribute({sequenceNumber++}, ""Language"", ""{codeBlock.Language}"");");
+                        renderCode.AppendLine($@"            builder.OpenComponent<MermaidDiagram>({sequenceNumber++});");
                     }
+                    else
+                    {
+                        renderCode.AppendLine($@"            builder.OpenComponent<CodeSnippet>({sequenceNumber++});");
+                        if (!string.IsNullOrEmpty(codeBlock.Language))
+                        {
+                            renderCode.AppendLine($@"            builder.AddAttribute({sequenceNumber++}, ""Language"", ""{codeBlock.Language}"");");
+                        }
+                    }
+
                     renderCode.AppendLine($@"            builder.AddAttribute({sequenceNumber++}, ""ChildContent"", (RenderFragment)((builder2) =>
             {{
                 builder2.AddContent({sequenceNumber++}, @""{escapedCode}"");
@@ -410,6 +433,8 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public DateTime Timestamp {{ get; set; }} = new DateTime({metadata.Date.Year}, {metadata.Date.Month}, {metadata.Date.Day});
         public string Description {{ get; set; }} = @""{escapedDescription}"";
         public string[] Tags {{ get; set; }} = {tags};
+        public string Image {{ get; set; }} = @""{escapedImage}"";
+        public string ImageAlt {{ get; set; }} = @""{escapedImageAlt}"";
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {{
@@ -434,6 +459,8 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public string Route { get; set; } = "";
         public DateTime Date { get; set; }
         public string Description { get; set; } = "";
+        public string Image { get; set; } = "";
+        public string ImageAlt { get; set; } = "";
         public string[] Tags { get; set; } = new string[0];
         public bool IsDraft { get; set; }
     }
@@ -443,5 +470,6 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public int Index { get; set; }
         public string Language { get; set; } = "";
         public string Code { get; set; } = "";
+        public bool IsMermaid => string.Equals(Language, "mermaid", StringComparison.OrdinalIgnoreCase);
     }
 }

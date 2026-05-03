@@ -735,6 +735,38 @@ pre.code {
     color: #b45309 !important;
 }
 
+.mermaid-diagram {
+    margin: 1.75rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    scrollbar-width: thin;
+}
+
+html[data-theme="dark"] .mermaid[data-mermaid-theme="light"],
+html[data-theme="light"] .mermaid[data-mermaid-theme="dark"] {
+    opacity: 0;
+}
+
+.mud-theme-light .mermaid-diagram {
+    border-color: rgba(24, 24, 27, 0.14);
+    background: #ffffff;
+}
+
+.mermaid-diagram .mermaid {
+    display: flex;
+    min-width: min-content;
+    justify-content: center;
+}
+
+.mermaid-diagram svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 .hljs-copy-wrapper {
     position: relative;
     max-width: 100%;

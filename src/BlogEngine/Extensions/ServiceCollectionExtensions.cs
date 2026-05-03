@@ -10,6 +10,7 @@ public static class ServiceCollectionExtension
 
         services.AddScoped<NavigationJsInterop>();
         services.AddScoped<CodeSnippetJsInterop>();
+        services.AddScoped<MermaidJsInterop>();
 
         services.AddScoped<NavigationHelper>();
 
