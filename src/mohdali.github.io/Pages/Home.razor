@@ -2,15 +2,16 @@
 
 <PageTitle>mohdali.dev - Software notes by Mohamed Ali</PageTitle>
 <SocialMeta Title="mohdali.dev"
-            Description="Personal notes from Mohamed Ali on software engineering, developer tools, data visualization, and side projects."
+            Description="Personal notes from Mohamed Ali on software engineering, developer tools, data visualization, and small experiments."
             Path="/" />
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="@HomePageClass">
+<MudContainer MaxWidth="MaxWidth.Large" Class="home-page">
     <section class="intro-section" aria-labelledby="home-title">
         <div>
             <MudText Typo="Typo.h1" HtmlTag="h1" Class="intro-title" id="home-title">Mohamed Ali</MudText>
             <MudText Typo="Typo.body1" HtmlTag="p" Class="intro-copy">
-                Notes on software engineering, developer tools, data visualization, and whatever is worth writing down.
+                Notes on software engineering, developer tools, data visualization, and small experiments that make ideas easier to inspect.
+                I write about the tradeoffs behind real projects: what changed, what broke, what was worth keeping, and the evidence that shaped the next iteration.
             </MudText>
         </div>
         <div class="intro-actions">
@@ -46,12 +47,13 @@
         }
         else
         {
-            <MudGrid Spacing="3">
+            <div class="home-post-list">
                 @foreach (var blogPost in BlogPosts)
                 {
-                    <MudItem xs="12" md="4">
-                        <article class="blog-card">
-                            <PostPreviewImage Post="@blogPost" Class="post-card-image-link" />
+                    var hasCardImage = !string.IsNullOrWhiteSpace(blogPost.CardImage);
+                    <article class="blog-card home-post-card @(hasCardImage ? "has-preview-image" : null)">
+                        <PostPreviewImage Post="@blogPost" Class="post-card-image-link" />
+                        <div class="post-card-main">
                             <div class="post-card-meta">
                                 <time datetime="@blogPost.Timestamp.ToString("yyyy-MM-dd")">@blogPost.Timestamp.ToString("dd MMM yyyy")</time>
                             </div>
@@ -62,26 +64,26 @@
                             {
                                 <MudText Typo="Typo.body1" Class="post-card-description">@blogPost.Description</MudText>
                             }
-                            @if (blogPost.Tags.Length > 0)
-                            {
-                                <div class="tag-list" aria-label="Post tags">
-                                    @foreach (var tag in blogPost.Tags)
-                                    {
-                                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@tag</MudChip>
-                                    }
-                                </div>
-                            }
-                            <MudButton Href="@blogPost.Url"
-                                       Variant="Variant.Text"
-                                       Color="Color.Primary"
-                                       EndIcon="@Icons.Material.Filled.ArrowForward"
-                                       Class="read-more-btn">
-                                Read
-                            </MudButton>
-                        </article>
-                    </MudItem>
+                        </div>
+                        @if (blogPost.Tags.Length > 0)
+                        {
+                            <div class="tag-list" aria-label="Post tags">
+                                @foreach (var tag in blogPost.Tags)
+                                {
+                                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@tag</MudChip>
+                                }
+                            </div>
+                        }
+                        <MudButton Href="@blogPost.Url"
+                                   Variant="Variant.Text"
+                                   Color="Color.Primary"
+                                   EndIcon="@Icons.Material.Filled.ArrowForward"
+                                   Class="read-more-btn">
+                            Read
+                        </MudButton>
+                    </article>
                 }
-            </MudGrid>
+            </div>
         }
     </section>
 </MudContainer>
@@ -90,10 +92,6 @@
     [Inject] BlogPostService blogPostService { get; set; } = default!;
 
     private List<BlogPost> BlogPosts = new();
-
-    private string HomePageClass => BlogPosts.Any(post => !string.IsNullOrWhiteSpace(post.CardImage))
-        ? "home-page has-card-images"
-        : "home-page";
 
     protected override void OnInitialized()
     {

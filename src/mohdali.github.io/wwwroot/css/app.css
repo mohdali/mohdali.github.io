@@ -376,6 +376,13 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
     padding-top: 1.75rem;
 }
 
+.home-page .posts-section {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+}
+
 .section-heading {
     display: flex;
     align-items: center;
@@ -405,6 +412,16 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
     flex-direction: column;
     gap: 0.75rem;
     padding: 1.1rem;
+}
+
+.home-post-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.post-card-main {
+    display: grid;
+    gap: 0.75rem;
 }
 
 .post-card-image-link,
@@ -1146,25 +1163,57 @@ pre code.hljs::-webkit-scrollbar-thumb {
 }
 
 @media (min-width: 961px) {
-    .home-page.has-card-images .posts-section {
-        display: flex;
+    .home-post-list {
         flex: 1 1 auto;
-        flex-direction: column;
+        grid-auto-rows: minmax(8.75rem, 1fr);
+    }
+
+    .home-post-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem);
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "main tags"
+            "main action";
+        column-gap: 2rem;
         min-height: 0;
+        padding: 1.25rem 1.4rem;
     }
 
-    .home-page.has-card-images .posts-section > .mud-grid {
-        flex: 1 1 auto;
-        align-items: stretch;
+    .home-post-card.has-preview-image {
+        grid-template-columns: minmax(11rem, 18rem) minmax(0, 1fr) minmax(14rem, 20rem);
+        grid-template-areas:
+            "image main tags"
+            "image main action";
     }
 
-    .home-page.has-card-images .posts-section > .mud-grid > .mud-grid-item {
-        display: flex;
+    .home-post-card.has-preview-image .post-card-image-link {
+        grid-area: image;
+        align-self: stretch;
+        aspect-ratio: auto;
+        min-height: 0;
+        margin: 0;
+        border-width: 1px;
+        border-radius: var(--radius);
     }
 
-    .home-page.has-card-images .blog-card {
-        flex: 1 1 auto;
-        width: 100%;
+    .home-post-card .post-card-main {
+        grid-area: main;
+        align-content: start;
+        max-width: 48rem;
+    }
+
+    .home-post-card .tag-list {
+        grid-area: tags;
+        justify-content: flex-end;
+        margin-top: 0;
+    }
+
+    .home-post-card .read-more-btn {
+        grid-area: action;
+        align-self: end;
+        justify-self: end;
+        margin-top: 0;
     }
 }
 
