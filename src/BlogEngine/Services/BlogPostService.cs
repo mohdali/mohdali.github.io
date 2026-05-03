@@ -129,6 +129,7 @@ public class BlogPostService
                 imageType = ReadStringProperty(component, instance, "ImageType");
                 imageWidth = ReadIntProperty(component, instance, "ImageWidth");
                 imageHeight = ReadIntProperty(component, instance, "ImageHeight");
+                ResolvePostImage(route, title, ref image, ref imageAlt, ref imageType, ref imageWidth, ref imageHeight);
 
                 return new BlogPost(title, route, date, component, description, tags, image, imageAlt, imageType, imageWidth, imageHeight);
             }
@@ -194,6 +195,43 @@ public class BlogPostService
     {
         return post.Timestamp != DateTime.MinValue &&
                post.Timestamp.Date <= DateTime.UtcNow.Date;
+    }
+
+    private static void ResolvePostImage(
+        string route,
+        string title,
+        ref string? image,
+        ref string? imageAlt,
+        ref string? imageType,
+        ref int? imageWidth,
+        ref int? imageHeight)
+    {
+        if (!string.IsNullOrWhiteSpace(image))
+        {
+            return;
+        }
+
+        image = BuildGeneratedSocialImageUrl(route);
+        imageAlt = $"Social preview card for {title}";
+        imageType = "image/png";
+        imageWidth = 1200;
+        imageHeight = 600;
+    }
+
+    private static string BuildGeneratedSocialImageUrl(string route)
+    {
+        var slug = route
+            .Split('/', StringSplitOptions.RemoveEmptyEntries)
+            .LastOrDefault() ?? "post";
+
+        slug = Regex.Replace(slug.Trim().ToLowerInvariant(), @"[^a-z0-9]+", "-").Trim('-');
+
+        if (string.IsNullOrWhiteSpace(slug))
+        {
+            slug = "post";
+        }
+
+        return $"/images/social/posts/{slug}.png";
     }
 
     private static DateTime ReadDateFromComponentName(string componentName)

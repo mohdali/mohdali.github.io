@@ -402,6 +402,42 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
     padding: 1.1rem;
 }
 
+.post-card-image-link,
+.archive-post-image-link,
+.related-post-image-link {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.mud-theme-light .post-card-image-link,
+.mud-theme-light .archive-post-image-link,
+.mud-theme-light .related-post-image-link {
+    border-color: var(--border-light);
+    background: #f8fafc;
+}
+
+.post-card-image-link {
+    aspect-ratio: 16 / 9;
+    margin: -1.1rem -1.1rem 0.2rem;
+    border-width: 0 0 1px;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.archive-post-image-link,
+.related-post-image-link {
+    aspect-ratio: 16 / 10;
+}
+
+.post-preview-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .blog-card:focus-within,
 .blog-card:hover,
 .archive-item:focus-within,
@@ -507,8 +543,9 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
 
 .archive-item {
     display: grid;
-    grid-template-columns: 5.5rem minmax(0, 1fr);
+    grid-template-columns: 5.5rem 7.5rem minmax(0, 1fr);
     gap: 1rem;
+    align-items: start;
     padding: 1rem;
     border: 1px solid transparent;
     border-radius: var(--radius);
@@ -952,8 +989,9 @@ pre code.hljs::-webkit-scrollbar-thumb {
 
 .related-post-item {
     display: grid;
-    grid-template-columns: 6.75rem minmax(0, 1fr);
+    grid-template-columns: 6.75rem 6.75rem minmax(0, 1fr);
     gap: 1rem;
+    align-items: start;
     padding: 0.85rem 0;
     border-top: 1px solid var(--border-dark);
 }
@@ -1147,6 +1185,11 @@ pre code.hljs::-webkit-scrollbar-thumb {
     .archive-item {
         grid-template-columns: 1fr;
         padding: 0.8rem 0;
+    }
+
+    .archive-post-image-link,
+    .related-post-image-link {
+        max-width: 12rem;
     }
 
     .post-content {

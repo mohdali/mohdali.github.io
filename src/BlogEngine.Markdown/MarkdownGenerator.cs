@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using Markdig;
@@ -49,8 +50,7 @@ namespace BlogEngine.Markdown
                 var (frontmatter, htmlContent, codeBlocks) = ParseMarkdown(content);
 
                 // Extract metadata from frontmatter and filename
-                var fileName = Path.GetFileNameWithoutExtension(file.Path);
-                var metadata = ExtractMetadata(fileName, frontmatter);
+                var metadata = ExtractMetadata(file.Path, frontmatter, htmlContent);
 
                 if (metadata.IsDraft)
                     return;
@@ -201,9 +201,10 @@ namespace BlogEngine.Markdown
             return codeBlocks;
         }
 
-        private BlogPostMetadata ExtractMetadata(string fileName, Dictionary<string, object> frontmatter)
+        private BlogPostMetadata ExtractMetadata(string filePath, Dictionary<string, object> frontmatter, string htmlContent)
         {
             var metadata = new BlogPostMetadata();
+            var fileName = Path.GetFileNameWithoutExtension(filePath);
 
             // Parse filename for date and title (format: YYYY-MM-DD-Title.md)
             var match = Regex.Match(fileName, @"^(\d{4})-(\d{2})-(\d{2})-(.+)$");
@@ -256,6 +257,8 @@ namespace BlogEngine.Markdown
             metadata.ImageWidth = TryGetInt(frontmatter, "imageWidth", out var imageWidth) ? imageWidth : null;
             metadata.ImageHeight = TryGetInt(frontmatter, "imageHeight", out var imageHeight) ? imageHeight : null;
             metadata.IsDraft = TryGetBool(frontmatter, "draft", out var draft) && draft;
+
+            ResolveImageMetadata(metadata, htmlContent);
 
             // Get the page route from frontmatter or generate it
             if (TryGetString(frontmatter, "page", out var page))
@@ -336,6 +339,110 @@ namespace BlogEngine.Markdown
         private static bool IsFuturePost(DateTime date)
         {
             return date != DateTime.MinValue && date.Date > DateTime.UtcNow.Date;
+        }
+
+        private static void ResolveImageMetadata(BlogPostMetadata metadata, string htmlContent)
+        {
+            if (string.IsNullOrWhiteSpace(metadata.Image))
+            {
+                var contentImage = FindFirstContentImage(htmlContent);
+
+                if (contentImage != null)
+                {
+                    metadata.Image = contentImage.Source;
+                    metadata.ImageAlt = contentImage.Alt;
+                    metadata.ImageType = contentImage.Type;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(metadata.Image))
+                return;
+
+            if (string.IsNullOrWhiteSpace(metadata.ImageType))
+            {
+                metadata.ImageType = InferImageType(metadata.Image);
+            }
+        }
+
+        private static ImageMetadata FindFirstContentImage(string htmlContent)
+        {
+            foreach (Match match in Regex.Matches(htmlContent, @"<img\b[^>]*>", RegexOptions.IgnoreCase))
+            {
+                var attributes = ParseHtmlAttributes(match.Value);
+
+                if (!attributes.TryGetValue("src", out var source) || string.IsNullOrWhiteSpace(source))
+                    continue;
+
+                if (IsUnsupportedImageSource(source))
+                    continue;
+
+                attributes.TryGetValue("alt", out var alt);
+
+                return new ImageMetadata
+                {
+                    Source = source,
+                    Alt = alt ?? "",
+                    Type = InferImageType(source)
+                };
+            }
+
+            return null;
+        }
+
+        private static Dictionary<string, string> ParseHtmlAttributes(string tag)
+        {
+            var attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var pattern = @"([^\s=]+)\s*=\s*(?:""([^""]*)""|'([^']*)'|([^\s""'>]+))";
+
+            foreach (Match match in Regex.Matches(tag, pattern))
+            {
+                var value = match.Groups[4].Value;
+
+                if (match.Groups[2].Success)
+                {
+                    value = match.Groups[2].Value;
+                }
+                else if (match.Groups[3].Success)
+                {
+                    value = match.Groups[3].Value;
+                }
+
+                attributes[match.Groups[1].Value] = WebUtility.HtmlDecode(value);
+            }
+
+            return attributes;
+        }
+
+        private static bool IsUnsupportedImageSource(string source)
+        {
+            var normalizedSource = source.Trim();
+
+            return string.IsNullOrWhiteSpace(normalizedSource) ||
+                   normalizedSource.StartsWith("data:", StringComparison.OrdinalIgnoreCase) ||
+                   normalizedSource.StartsWith("//", StringComparison.Ordinal);
+        }
+
+        private static string InferImageType(string source)
+        {
+            var path = source.Split('?', '#')[0];
+
+            if (path.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                path.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+            {
+                return "image/jpeg";
+            }
+
+            if (path.EndsWith(".webp", StringComparison.OrdinalIgnoreCase))
+            {
+                return "image/webp";
+            }
+
+            if (path.EndsWith(".svg", StringComparison.OrdinalIgnoreCase))
+            {
+                return "image/svg+xml";
+            }
+
+            return "image/png";
         }
 
         private static string[] GetTags(Dictionary<string, object> frontmatter)
@@ -548,5 +655,12 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public string Language { get; set; } = "";
         public string Code { get; set; } = "";
         public bool IsMermaid => string.Equals(Language, "mermaid", StringComparison.OrdinalIgnoreCase);
+    }
+
+    internal class ImageMetadata
+    {
+        public string Source { get; set; } = "";
+        public string Alt { get; set; } = "";
+        public string Type { get; set; } = "";
     }
 }

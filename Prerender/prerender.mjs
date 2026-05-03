@@ -243,6 +243,166 @@ function absoluteUrl(route) {
   return `${siteUrl}${route === '/' ? '/' : route}`;
 }
 
+function socialCardSlug(route) {
+  const routeParts = route.split('/').filter(Boolean);
+  return slugify(decodeURIComponent(routeParts.at(-1) ?? 'post'));
+}
+
+function socialCardOutputPath(post) {
+  return join(wwwroot, 'images', 'social', 'posts', `${socialCardSlug(post.route)}.png`);
+}
+
+function htmlEscape(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function buildSocialCardHtml(post) {
+  const tags = post.tags.slice(0, 4).map(tag => `<span>${htmlEscape(tag)}</span>`).join('');
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1200px; height: 600px; margin: 0; }
+    body {
+      display: grid;
+      place-items: stretch;
+      background: #071312;
+      color: #f8fafc;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .card {
+      position: relative;
+      display: grid;
+      align-content: space-between;
+      width: 1200px;
+      height: 600px;
+      padding: 72px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(45, 212, 191, 0.2), transparent 30%),
+        linear-gradient(135deg, #091312 0%, #101316 54%, #071312 100%);
+    }
+    .card::before {
+      position: absolute;
+      inset: 34px;
+      content: "";
+      border: 2px solid rgba(244, 244, 245, 0.16);
+      border-radius: 28px;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+    .eyebrow {
+      margin: 0 0 28px;
+      color: #2dd4bf;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+    h1 {
+      display: -webkit-box;
+      margin: 0;
+      overflow: hidden;
+      color: #ffffff;
+      font-size: 74px;
+      font-weight: 850;
+      letter-spacing: 0;
+      line-height: 0.98;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+    p {
+      display: -webkit-box;
+      max-width: 870px;
+      margin: 32px 0 0;
+      overflow: hidden;
+      color: #a1a1aa;
+      font-size: 32px;
+      font-weight: 560;
+      line-height: 1.25;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    .footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .tags span {
+      padding: 9px 16px;
+      border: 2px solid rgba(45, 212, 191, 0.48);
+      border-radius: 999px;
+      color: #5eead4;
+      font-size: 24px;
+      font-weight: 750;
+      line-height: 1;
+    }
+    .site {
+      color: #d4d4d8;
+      font-size: 28px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="content">
+      <p class="eyebrow">${htmlEscape(post.date || 'mohdali.dev')}</p>
+      <h1>${htmlEscape(post.title)}</h1>
+      ${post.description ? `<p>${htmlEscape(post.description)}</p>` : ''}
+    </section>
+    <footer class="footer">
+      <div class="tags">${tags}</div>
+      <div class="site">mohdali.dev</div>
+    </footer>
+  </main>
+</body>
+</html>`;
+}
+
+async function generateSocialCards(browser, posts) {
+  const outputDir = join(wwwroot, 'images', 'social', 'posts');
+  mkdirSync(outputDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1200, height: 600 },
+    deviceScaleFactor: 1
+  });
+
+  try {
+    const page = await context.newPage();
+
+    for (const post of posts) {
+      await page.setContent(buildSocialCardHtml(post), { waitUntil: 'load' });
+      await page.screenshot({
+        path: socialCardOutputPath(post),
+        type: 'png'
+      });
+    }
+  } finally {
+    await context.close();
+  }
+}
+
 function writeDiscoveryFiles(posts, routes) {
   const rssItems = posts.map(post => `
     <item>
@@ -307,6 +467,8 @@ async function prerender() {
   const browser = await chromium.launch({ headless: true });
 
   try {
+    await generateSocialCards(browser, posts);
+
     const context = await browser.newContext({
       viewport: { width: 1280, height: 720 }
     });

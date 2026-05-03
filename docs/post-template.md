@@ -47,6 +47,8 @@ Use images when they carry evidence or make a result inspectable:
 
 ![Alt text that explains the evidence in the image](/images/example-result.png)
 
+The first local image in the post body is used for post cards and social previews when `image` is omitted. If the post has no local image, prerendering generates a title card automatically.
+
 Use links for source material, implementation references, and follow-up reading:
 
 - [Repository source](https://github.com/mohdali/mohdali.github.io)

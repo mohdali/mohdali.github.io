@@ -18,8 +18,6 @@ const requiredMeta = {
     'og:image',
     'og:image:secure_url',
     'og:image:type',
-    'og:image:width',
-    'og:image:height',
     'og:image:alt'
   ],
   name: [
@@ -175,13 +173,23 @@ function assertSocialImage(page, key, value) {
     return;
   }
 
-  if (parsed.origin === siteOrigin) {
-    const localPath = join(wwwroot, decodeURIComponent(parsed.pathname));
+  const localPath = localPathForImageUrl(parsed);
 
-    if (!existsSync(localPath)) {
-      fail(`${page}: ${key} points to missing local image ${parsed.pathname}`);
-    }
+  if (localPath && !existsSync(localPath)) {
+    fail(`${page}: ${key} points to missing local image ${parsed.pathname}`);
   }
+}
+
+function localPathForImageUrl(value) {
+  const parsed = value instanceof URL
+    ? value
+    : URL.canParse(value) ? new URL(value) : null;
+
+  if (!parsed || parsed.origin !== siteOrigin) {
+    return null;
+  }
+
+  return join(wwwroot, decodeURIComponent(parsed.pathname));
 }
 
 function inferImageType(value) {
@@ -206,6 +214,111 @@ function inferImageType(value) {
   }
 
   return '';
+}
+
+function readImageDimensions(path) {
+  if (!existsSync(path)) {
+    return null;
+  }
+
+  const bytes = readFileSync(path);
+
+  if (bytes.length >= 24 &&
+      bytes[0] === 0x89 &&
+      bytes[1] === 0x50 &&
+      bytes[2] === 0x4E &&
+      bytes[3] === 0x47) {
+    return {
+      width: bytes.readUInt32BE(16),
+      height: bytes.readUInt32BE(20)
+    };
+  }
+
+  if (bytes.length >= 4 && bytes[0] === 0xFF && bytes[1] === 0xD8) {
+    return readJpegDimensions(bytes);
+  }
+
+  return null;
+}
+
+function readJpegDimensions(bytes) {
+  let index = 2;
+
+  while (index < bytes.length - 9) {
+    if (bytes[index] !== 0xFF) {
+      index++;
+      continue;
+    }
+
+    while (index < bytes.length && bytes[index] === 0xFF) {
+      index++;
+    }
+
+    if (index >= bytes.length) {
+      return null;
+    }
+
+    const marker = bytes[index++];
+
+    if (marker === 0xD8 || marker === 0xD9) {
+      continue;
+    }
+
+    if (index + 1 >= bytes.length) {
+      return null;
+    }
+
+    const segmentLength = bytes.readUInt16BE(index);
+
+    if (segmentLength < 2 || index + segmentLength > bytes.length) {
+      return null;
+    }
+
+    if (isJpegStartOfFrame(marker)) {
+      return {
+        width: bytes.readUInt16BE(index + 5),
+        height: bytes.readUInt16BE(index + 3)
+      };
+    }
+
+    index += segmentLength;
+  }
+
+  return null;
+}
+
+function isJpegStartOfFrame(marker) {
+  return marker === 0xC0 ||
+    marker === 0xC1 ||
+    marker === 0xC2 ||
+    marker === 0xC3 ||
+    marker === 0xC5 ||
+    marker === 0xC6 ||
+    marker === 0xC7 ||
+    marker === 0xC9 ||
+    marker === 0xCA ||
+    marker === 0xCB ||
+    marker === 0xCD ||
+    marker === 0xCE ||
+    marker === 0xCF;
+}
+
+function assertDeclaredImageDimensions(page, imageUrl, width, height) {
+  const localPath = localPathForImageUrl(imageUrl);
+
+  if (!localPath || !existsSync(localPath)) {
+    return;
+  }
+
+  const dimensions = readImageDimensions(localPath);
+
+  if (!dimensions) {
+    return;
+  }
+
+  if (Number(width) !== dimensions.width || Number(height) !== dimensions.height) {
+    fail(`${page}: og:image dimensions ${width}x${height} do not match actual image ${dimensions.width}x${dimensions.height}`);
+  }
 }
 
 function findMermaidTags(html) {
@@ -306,14 +419,20 @@ function validatePage(route, htmlPath) {
   }
 
   assertAbsoluteHttps(page, 'og:url', head.metaByProperty.get('og:url'));
-  assertPositiveInteger(page, 'og:image:width', head.metaByProperty.get('og:image:width'));
-  assertPositiveInteger(page, 'og:image:height', head.metaByProperty.get('og:image:height'));
-
-  const inferredImageType = inferImageType(head.metaByProperty.get('og:image') ?? '');
+  const imageUrl = head.metaByProperty.get('og:image') ?? '';
+  const imageWidth = head.metaByProperty.get('og:image:width') ?? '';
+  const imageHeight = head.metaByProperty.get('og:image:height') ?? '';
+  const inferredImageType = inferImageType(imageUrl);
   const declaredImageType = head.metaByProperty.get('og:image:type') ?? '';
 
   if (inferredImageType && declaredImageType !== inferredImageType) {
     fail(`${page}: og:image:type ${declaredImageType} does not match image URL type ${inferredImageType}`);
+  }
+
+  if (imageWidth || imageHeight) {
+    assertPositiveInteger(page, 'og:image:width', imageWidth);
+    assertPositiveInteger(page, 'og:image:height', imageHeight);
+    assertDeclaredImageDimensions(page, imageUrl, imageWidth, imageHeight);
   }
 
   if (page.startsWith('/posts/') && !head.metaByProperty.get('article:published_time')) {

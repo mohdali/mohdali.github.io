@@ -51,6 +51,7 @@
                 {
                     <MudItem xs="12" md="4">
                         <article class="blog-card">
+                            <PostPreviewImage Post="@blogPost" Class="post-card-image-link" />
                             <div class="post-card-meta">
                                 <time datetime="@blogPost.Timestamp.ToString("yyyy-MM-dd")">@blogPost.Timestamp.ToString("dd MMM yyyy")</time>
                             </div>

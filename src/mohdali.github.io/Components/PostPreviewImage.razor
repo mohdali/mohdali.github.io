@@ -1,0 +1,20 @@
+@if (!string.IsNullOrWhiteSpace(Post.Image))
+{
+    <a href="@Post.Url" class="@Class" aria-label="@($"Read {Post.Title}")">
+        <img class="post-preview-image"
+             src="@Post.Image"
+             alt="@ImageAlt"
+             loading="lazy"
+             decoding="async"
+             onerror="this.onerror=null;this.src='/images/social-card.png';" />
+    </a>
+}
+
+@code {
+    [Parameter] public BlogPost Post { get; set; } = default!;
+    [Parameter] public string Class { get; set; } = "post-preview-image-link";
+
+    private string ImageAlt => string.IsNullOrWhiteSpace(Post.ImageAlt)
+        ? $"Preview image for {Post.Title}"
+        : Post.ImageAlt;
+}
