@@ -6,20 +6,6 @@
     <description>Software notes by Mohamed Ali.</description>
     <language>en</language>
     <item>
-      <title>Rolling Shutter, Revisited</title>
-      <link>https://mohdali.dev/posts/rolling-shutter-revisited</link>
-      <guid>https://mohdali.dev/posts/rolling-shutter-revisited</guid>
-      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
-      <description>A short look at why the rolling-shutter simulation is still a useful kind of post: visual, inspectable, and easier to trust than prose alone.</description>
-    </item>
-    <item>
-      <title>The Static Blazor Blog Pipeline</title>
-      <link>https://mohdali.dev/posts/static-blazor-blog-pipeline</link>
-      <guid>https://mohdali.dev/posts/static-blazor-blog-pipeline</guid>
-      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
-      <description>How markdown, source generation, Playwright prerendering, and GitHub Pages fit together in this static Blazor blog.</description>
-    </item>
-    <item>
       <title>The Blazor Blog, Three Years Later</title>
       <link>https://mohdali.dev/posts/blazor-blog-three-years-later</link>
       <guid>https://mohdali.dev/posts/blazor-blog-three-years-later</guid>
