@@ -29,7 +29,7 @@ public class BlogPostService
     public List<BlogPost> GetPublishedBlogPosts(Assembly assembly)
     {
         return GetBlogPosts(assembly)
-            .Where(post => post.Timestamp.Date <= DateTime.UtcNow.Date)
+            .Where(IsPublished)
             .OrderByDescending(post => post.Timestamp)
             .ThenBy(post => post.Title)
             .ToList();
@@ -188,6 +188,12 @@ public class BlogPostService
     private static bool IsSamePost(BlogPost post, BlogPost otherPost)
     {
         return string.Equals(post.Url, otherPost.Url, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsPublished(BlogPost post)
+    {
+        return post.Timestamp != DateTime.MinValue &&
+               post.Timestamp.Date <= DateTime.UtcNow.Date;
     }
 
     private static DateTime ReadDateFromComponentName(string componentName)

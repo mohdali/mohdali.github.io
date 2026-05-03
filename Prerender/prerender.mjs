@@ -146,7 +146,7 @@ function normalizeTags(value) {
 }
 
 function isPublished(post) {
-  return !post.date || post.date <= publicationDate;
+  return Boolean(post.date) && post.date <= publicationDate;
 }
 
 function comparePosts(a, b) {

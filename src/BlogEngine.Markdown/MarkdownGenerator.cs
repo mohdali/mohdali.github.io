@@ -52,7 +52,25 @@ namespace BlogEngine.Markdown
                 var fileName = Path.GetFileNameWithoutExtension(file.Path);
                 var metadata = ExtractMetadata(fileName, frontmatter);
 
-                if (metadata.IsDraft || IsFuturePost(metadata.Date))
+                if (metadata.IsDraft)
+                    return;
+
+                if (!metadata.HasDate)
+                {
+                    context.ReportDiagnostic(Diagnostic.Create(
+                        new DiagnosticDescriptor(
+                            "MD002",
+                            "Markdown Post Date Required",
+                            "Markdown post {0} must have a parseable date in frontmatter or a YYYY-MM-DD filename prefix",
+                            "MarkdownGenerator",
+                            DiagnosticSeverity.Error,
+                            true),
+                        Location.None,
+                        Path.GetFileName(file.Path)));
+                    return;
+                }
+
+                if (IsFuturePost(metadata.Date))
                     return;
 
                 // Generate the Blazor component
@@ -195,6 +213,7 @@ namespace BlogEngine.Markdown
                 var month = int.Parse(match.Groups[2].Value);
                 var day = int.Parse(match.Groups[3].Value);
                 metadata.Date = new DateTime(year, month, day);
+                metadata.HasDate = true;
                 metadata.Title = match.Groups[4].Value.Replace("-", " ");
                 metadata.UrlSlug = Slugify(match.Groups[4].Value);
                 metadata.ClassName = BuildClassName(metadata.Date, metadata.UrlSlug);
@@ -212,8 +231,19 @@ namespace BlogEngine.Markdown
             if (TryGetString(frontmatter, "title", out var title))
                 metadata.Title = title;
 
-            if (TryGetString(frontmatter, "date", out var dateStr) && DateTime.TryParse(dateStr, CultureInfo.InvariantCulture, DateTimeStyles.None, out var date))
-                metadata.Date = date;
+            if (TryGetString(frontmatter, "date", out var dateStr))
+            {
+                if (DateTime.TryParse(dateStr, CultureInfo.InvariantCulture, DateTimeStyles.None, out var date))
+                {
+                    metadata.Date = date;
+                    metadata.HasDate = true;
+                }
+                else
+                {
+                    metadata.Date = DateTime.MinValue;
+                    metadata.HasDate = false;
+                }
+            }
 
             if (TryGetString(frontmatter, "slug", out var slug))
                 metadata.UrlSlug = Slugify(slug);
@@ -501,6 +531,7 @@ namespace {rootNamespace}.Pages.Posts.Generated
         public string ClassName { get; set; } = "";
         public string Route { get; set; } = "";
         public DateTime Date { get; set; }
+        public bool HasDate { get; set; }
         public string Description { get; set; } = "";
         public string Image { get; set; } = "";
         public string ImageAlt { get; set; } = "";
