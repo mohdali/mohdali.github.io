@@ -49,7 +49,11 @@ jobs:
           # Run pre-rendering
           echo "Pre-rendering pages..."
           npm run prerender
-          
+
+          # Validate generated public metadata and discovery files
+          echo "Validating pre-rendered output..."
+          npm run validate
+
           echo "✅ Pre-rendering completed"
 
       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prerender": "node prerender.mjs"
+    "prerender": "node prerender.mjs",
+    "validate": "node validate-prerender.mjs"
   },
   "dependencies": {
     "playwright": "^1.59.1",

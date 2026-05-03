@@ -27,6 +27,8 @@ Optional frontmatter:
 - `page: /posts/custom-url` overrides the generated route.
 - `slug: custom-url` overrides the filename slug when `page` is not set.
 - `draft: true` skips the post during build-time generation.
+- Future `date` values are treated as scheduled posts and are excluded from generated routes, RSS, sitemap, archive, and home until a later deploy on or after that UTC date.
+- Custom social preview images can use `image`, `imageAlt`, `imageType`, `imageWidth`, and `imageHeight`; dimensions must match the actual image.
 
 Use [docs/post-template.md](docs/post-template.md) as a starting point.
 
@@ -38,6 +40,7 @@ dotnet watch run --project src/mohdali.github.io/mohdali.github.io.csproj
 dotnet publish src/mohdali.github.io/mohdali.github.io.csproj -c Release -o Prerender/output
 npm install --prefix Prerender
 npm run prerender --prefix Prerender
+npm run validate --prefix Prerender
 ```
 
 ## Stack Decision

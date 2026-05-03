@@ -11,6 +11,7 @@ const wwwroot = join(__dirname, 'output', 'wwwroot');
 const postsDir = join(repoRoot, 'src', 'mohdali.github.io', 'Pages', 'Posts');
 const siteUrl = 'https://mohdali.dev';
 const preferredPort = Number(process.env.PRERENDER_PORT ?? 0);
+const publicationDate = new Date().toISOString().slice(0, 10);
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -144,6 +145,16 @@ function normalizeTags(value) {
   return [];
 }
 
+function isPublished(post) {
+  return !post.date || post.date <= publicationDate;
+}
+
+function comparePosts(a, b) {
+  return (b.date || '').localeCompare(a.date || '') ||
+    (a.title || '').localeCompare(b.title || '') ||
+    (a.route || '').localeCompare(b.route || '');
+}
+
 function extractRazorStringProperty(content, propertyName) {
   const pattern = new RegExp(`public\\s+string\\s+${propertyName}\\s*\\{[^}]*\\}\\s*=\\s*\"([^\"]*)\"`, 'm');
   return content.match(pattern)?.[1] ?? '';
@@ -212,7 +223,8 @@ function discoverMarkdownPosts() {
 
 function discoverContent() {
   const posts = [...discoverRazorPosts(), ...discoverMarkdownPosts()]
-    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    .filter(isPublished)
+    .sort(comparePosts);
 
   const routes = Array.from(new Set(['/', '/posts', '/about', ...posts.map(post => post.route)]));
   return { posts, routes };
@@ -232,14 +244,12 @@ function absoluteUrl(route) {
 }
 
 function writeDiscoveryFiles(posts, routes) {
-  const today = new Date().toISOString().slice(0, 10);
-
   const rssItems = posts.map(post => `
     <item>
       <title>${xmlEscape(post.title)}</title>
       <link>${xmlEscape(absoluteUrl(post.route))}</link>
       <guid>${xmlEscape(absoluteUrl(post.route))}</guid>
-      <pubDate>${new Date(`${post.date || today}T00:00:00Z`).toUTCString()}</pubDate>
+      <pubDate>${new Date(`${post.date || publicationDate}T00:00:00Z`).toUTCString()}</pubDate>
       <description>${xmlEscape(post.description)}</description>
     </item>`).join('');
 
@@ -256,7 +266,7 @@ function writeDiscoveryFiles(posts, routes) {
 
   const sitemapUrls = routes.map(route => {
     const post = posts.find(candidate => candidate.route === route);
-    const lastmod = post?.date || today;
+    const lastmod = post?.date || publicationDate;
 
     return `
   <url>
@@ -331,10 +341,8 @@ async function prerender() {
       await page.waitForFunction(() => {
         const diagrams = Array.from(document.querySelectorAll('.mermaid'));
         return diagrams.length === 0 || diagrams.every(diagram =>
-          diagram.getAttribute('data-processed') === 'true' || diagram.querySelector('svg'));
-      }, { timeout: 20000 }).catch(() => {
-        console.log(`Timed out waiting for Mermaid diagrams on ${route}, continuing with current HTML.`);
-      });
+          diagram.getAttribute('data-processed') === 'true' && diagram.querySelector('svg'));
+      }, { timeout: 20000 });
 
       const notFoundText = await page.locator('[role="alert"]').textContent().catch(() => '');
       if (notFoundText?.includes("Sorry, there's nothing")) {
