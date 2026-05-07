@@ -1,0 +1,615 @@
+<!DOCTYPE html><html lang="en" data-theme="light" data-theme-option="system" style="color-scheme: light; --blazor-load-percentage: 100%; --blazor-load-percentage-text: &quot;100%&quot;;"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <base href="/">
+    <link rel="alternate" type="application/rss+xml" title="mohdali.dev" href="/rss.xml">
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet">
+    
+    <link href="css/app.css" rel="stylesheet">
+<style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+
+*/
+.hljs {
+  color: #ddd;
+  background: #303030
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: white
+}
+.hljs-subst {
+  /* default */
+  
+}
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #d88
+}
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #979797
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-type,
+.hljs-name,
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-emphasis {
+  font-style: italic
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL25vZGVfbW9kdWxlcy9oaWdobGlnaHQuanMvc3R5bGVzL2RhcmsuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsY0FBYztFQUNkLGdCQUFnQjtFQUNoQjtBQUNGO0FBQ0E7RUFDRTtBQUNGO0FBQ0E7Ozs7Q0FJQztBQUNEO0VBQ0UsV0FBVztFQUNYO0FBQ0Y7QUFDQTs7Ozs7RUFLRTtBQUNGO0FBQ0E7RUFDRSxZQUFZOztBQUVkO0FBQ0E7Ozs7Ozs7Ozs7OztFQVlFO0FBQ0Y7QUFDQTs7OztFQUlFO0FBQ0Y7QUFDQTs7Ozs7Ozs7O0VBU0U7QUFDRjtBQUNBO0VBQ0U7QUFDRiIsInNvdXJjZXNDb250ZW50IjpbInByZSBjb2RlLmhsanMge1xuICBkaXNwbGF5OiBibG9jaztcbiAgb3ZlcmZsb3cteDogYXV0bztcbiAgcGFkZGluZzogMWVtXG59XG5jb2RlLmhsanMge1xuICBwYWRkaW5nOiAzcHggNXB4XG59XG4vKlxuXG5EYXJrIHN0eWxlIGZyb20gc29mdHdhcmVtYW5pYWNzLm9yZyAoYykgSXZhbiBTYWdhbGFldiA8TWFuaWFjQFNvZnR3YXJlTWFuaWFjcy5Pcmc+XG5cbiovXG4uaGxqcyB7XG4gIGNvbG9yOiAjZGRkO1xuICBiYWNrZ3JvdW5kOiAjMzAzMDMwXG59XG4uaGxqcy1rZXl3b3JkLFxuLmhsanMtc2VsZWN0b3ItdGFnLFxuLmhsanMtbGl0ZXJhbCxcbi5obGpzLXNlY3Rpb24sXG4uaGxqcy1saW5rIHtcbiAgY29sb3I6IHdoaXRlXG59XG4uaGxqcy1zdWJzdCB7XG4gIC8qIGRlZmF1bHQgKi9cbiAgXG59XG4uaGxqcy1zdHJpbmcsXG4uaGxqcy10aXRsZSxcbi5obGpzLW5hbWUsXG4uaGxqcy10eXBlLFxuLmhsanMtYXR0cmlidXRlLFxuLmhsanMtc3ltYm9sLFxuLmhsanMtYnVsbGV0LFxuLmhsanMtYnVpbHRfaW4sXG4uaGxqcy1hZGRpdGlvbixcbi5obGpzLXZhcmlhYmxlLFxuLmhsanMtdGVtcGxhdGUtdGFnLFxuLmhsanMtdGVtcGxhdGUtdmFyaWFibGUge1xuICBjb2xvcjogI2Q4OFxufVxuLmhsanMtY29tbWVudCxcbi5obGpzLXF1b3RlLFxuLmhsanMtZGVsZXRpb24sXG4uaGxqcy1tZXRhIHtcbiAgY29sb3I6ICM5Nzk3OTdcbn1cbi5obGpzLWtleXdvcmQsXG4uaGxqcy1zZWxlY3Rvci10YWcsXG4uaGxqcy1saXRlcmFsLFxuLmhsanMtdGl0bGUsXG4uaGxqcy1zZWN0aW9uLFxuLmhsanMtZG9jdGFnLFxuLmhsanMtdHlwZSxcbi5obGpzLW5hbWUsXG4uaGxqcy1zdHJvbmcge1xuICBmb250LXdlaWdodDogYm9sZFxufVxuLmhsanMtZW1waGFzaXMge1xuICBmb250LXN0eWxlOiBpdGFsaWNcbn0iXSwic291cmNlUm9vdCI6IiJ9 */</style><style>.hljs-copy-wrapper{position:relative;overflow:hidden;transform:translateZ(0)}.hljs-copy-container{--hljs-theme-padding:16px;position:absolute;top:0;right:0;transition:transform 200ms ease-out}.hljs-copy-button{position:relative;margin:calc(var(--hljs-theme-padding) / 2);width:calc(16px + var(--hljs-theme-padding));height:calc(16px + var(--hljs-theme-padding));font-size:.8125rem;text-indent:-9999px;color:var(--hljs-theme-color);border-radius:.25rem;border:1px solid;border-color:color-mix(in srgb,var(--hljs-theme-color),transparent 80%);background-color:var(--hljs-theme-background);transition:background-color 200ms ease;overflow:hidden}.hljs-copy-button:not([data-copied="true"])::before{content:"";width:1rem;height:1rem;top:50%;left:50%;transform:translate(-50%,-50%);position:absolute;background-color:currentColor;mask:url("data:image/svg+xml;utf-8,<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M6 5C5.73478 5 5.48043 5.10536 5.29289 5.29289C5.10536 5.48043 5 5.73478 5 6V20C5 20.2652 5.10536 20.5196 5.29289 20.7071C5.48043 20.8946 5.73478 21 6 21H18C18.2652 21 18.5196 20.8946 18.7071 20.7071C18.8946 20.5196 19 20.2652 19 20V6C19 5.73478 18.8946 5.48043 18.7071 5.29289C18.5196 5.10536 18.2652 5 18 5H16C15.4477 5 15 4.55228 15 4C15 3.44772 15.4477 3 16 3H18C18.7956 3 19.5587 3.31607 20.1213 3.87868C20.6839 4.44129 21 5.20435 21 6V20C21 20.7957 20.6839 21.5587 20.1213 22.1213C19.5587 22.6839 18.7957 23 18 23H6C5.20435 23 4.44129 22.6839 3.87868 22.1213C3.31607 21.5587 3 20.7957 3 20V6C3 5.20435 3.31607 4.44129 3.87868 3.87868C4.44129 3.31607 5.20435 3 6 3H8C8.55228 3 9 3.44772 9 4C9 4.55228 8.55228 5 8 5H6Z\" fill=\"black\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7 3C7 1.89543 7.89543 1 9 1H15C16.1046 1 17 1.89543 17 3V5C17 6.10457 16.1046 7 15 7H9C7.89543 7 7 6.10457 7 5V3ZM15 3H9V5H15V3Z\" fill=\"black\"/></svg>");mask-repeat:no-repeat;mask-size:contain;mask-position:center center}.hljs-copy-button:hover{background-color:color-mix(in srgb,var(--hljs-theme-color),transparent 90%)}.hljs-copy-button:active{border-color:color-mix(in srgb,var(--hljs-theme-color),transparent 60%)}.hljs-copy-button[data-copied="true"]{text-indent:0;width:auto}.hljs-copy-container[data-autohide="true"]{transform:translateX(calc(100% + 1.125em))}.hljs-copy-wrapper:focus-within .hljs-copy-container{transition:none;transform:translateX(0)}.hljs-copy-wrapper:hover .hljs-copy-container{transform:translateX(0)}@media(prefers-reduced-motion){.hljs-copy-button{transition:none}}.hljs-copy-alert{clip:rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL25vZGVfbW9kdWxlcy9oaWdobGlnaHRqcy1jb3B5L2Rpc3QvaGlnaGxpZ2h0anMtY29weS5taW4uY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLG1CQUFtQixpQkFBaUIsQ0FBQyxlQUFlLENBQUMsdUJBQXVCLENBQUMscUJBQXFCLHlCQUF5QixDQUFDLGlCQUFpQixDQUFDLEtBQUssQ0FBQyxPQUFPLENBQUMsbUNBQW1DLENBQUMsa0JBQWtCLGlCQUFpQixDQUFDLDBDQUEwQyxDQUFDLDRDQUE0QyxDQUFDLDZDQUE2QyxDQUFDLGtCQUFrQixDQUFDLG1CQUFtQixDQUFDLDZCQUE2QixDQUFDLG9CQUFvQixDQUFDLGdCQUFnQixDQUFDLHVFQUF1RSxDQUFDLDZDQUE2QyxDQUFDLHNDQUFzQyxDQUFDLGVBQWUsQ0FBQyxvREFBb0QsVUFBVSxDQUFDLFVBQVUsQ0FBQyxXQUFXLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyw4QkFBOEIsQ0FBQyxpQkFBaUIsQ0FBQyw2QkFBNkIsQ0FBQyw0Q0FBK2xDLENBQUMscUJBQXFCLENBQUMsaUJBQWlCLENBQUMsMkJBQTJCLENBQUMsd0JBQXdCLDJFQUEyRSxDQUFDLHlCQUF5Qix1RUFBdUUsQ0FBQyxzQ0FBc0MsYUFBYSxDQUFDLFVBQVUsQ0FBQywyQ0FBMkMsMENBQTBDLENBQUMscURBQXFELGVBQWUsQ0FBQyx1QkFBdUIsQ0FBQyw4Q0FBOEMsdUJBQXVCLENBQUMsK0JBQStCLGtCQUFrQixlQUFlLENBQUMsQ0FBQyxpQkFBaUIsa0JBQWtCLENBQUMsb0JBQW9CLENBQUMsVUFBVSxDQUFDLGVBQWUsQ0FBQyxpQkFBaUIsQ0FBQyxrQkFBa0IsQ0FBQyxTQUFTIiwic291cmNlc0NvbnRlbnQiOlsiLmhsanMtY29weS13cmFwcGVye3Bvc2l0aW9uOnJlbGF0aXZlO292ZXJmbG93OmhpZGRlbjt0cmFuc2Zvcm06dHJhbnNsYXRlWigwKX0uaGxqcy1jb3B5LWNvbnRhaW5lcnstLWhsanMtdGhlbWUtcGFkZGluZzoxNnB4O3Bvc2l0aW9uOmFic29sdXRlO3RvcDowO3JpZ2h0OjA7dHJhbnNpdGlvbjp0cmFuc2Zvcm0gMjAwbXMgZWFzZS1vdXR9LmhsanMtY29weS1idXR0b257cG9zaXRpb246cmVsYXRpdmU7bWFyZ2luOmNhbGModmFyKC0taGxqcy10aGVtZS1wYWRkaW5nKSAvIDIpO3dpZHRoOmNhbGMoMTZweCArIHZhcigtLWhsanMtdGhlbWUtcGFkZGluZykpO2hlaWdodDpjYWxjKDE2cHggKyB2YXIoLS1obGpzLXRoZW1lLXBhZGRpbmcpKTtmb250LXNpemU6LjgxMjVyZW07dGV4dC1pbmRlbnQ6LTk5OTlweDtjb2xvcjp2YXIoLS1obGpzLXRoZW1lLWNvbG9yKTtib3JkZXItcmFkaXVzOi4yNXJlbTtib3JkZXI6MXB4IHNvbGlkO2JvcmRlci1jb2xvcjpjb2xvci1taXgoaW4gc3JnYix2YXIoLS1obGpzLXRoZW1lLWNvbG9yKSx0cmFuc3BhcmVudCA4MCUpO2JhY2tncm91bmQtY29sb3I6dmFyKC0taGxqcy10aGVtZS1iYWNrZ3JvdW5kKTt0cmFuc2l0aW9uOmJhY2tncm91bmQtY29sb3IgMjAwbXMgZWFzZTtvdmVyZmxvdzpoaWRkZW59LmhsanMtY29weS1idXR0b246bm90KFtkYXRhLWNvcGllZD1cInRydWVcIl0pOjpiZWZvcmV7Y29udGVudDpcIlwiO3dpZHRoOjFyZW07aGVpZ2h0OjFyZW07dG9wOjUwJTtsZWZ0OjUwJTt0cmFuc2Zvcm06dHJhbnNsYXRlKC01MCUsLTUwJSk7cG9zaXRpb246YWJzb2x1dGU7YmFja2dyb3VuZC1jb2xvcjpjdXJyZW50Q29sb3I7bWFzazp1cmwoJ2RhdGE6aW1hZ2Uvc3ZnK3htbDt1dGYtOCw8c3ZnIHdpZHRoPVwiMjRcIiBoZWlnaHQ9XCIyNFwiIHZpZXdCb3g9XCIwIDAgMjQgMjRcIiBmaWxsPVwibm9uZVwiIHhtbG5zPVwiaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmdcIj48cGF0aCBmaWxsLXJ1bGU9XCJldmVub2RkXCIgY2xpcC1ydWxlPVwiZXZlbm9kZFwiIGQ9XCJNNiA1QzUuNzM0NzggNSA1LjQ4MDQzIDUuMTA1MzYgNS4yOTI4OSA1LjI5Mjg5QzUuMTA1MzYgNS40ODA0MyA1IDUuNzM0NzggNSA2VjIwQzUgMjAuMjY1MiA1LjEwNTM2IDIwLjUxOTYgNS4yOTI4OSAyMC43MDcxQzUuNDgwNDMgMjAuODk0NiA1LjczNDc4IDIxIDYgMjFIMThDMTguMjY1MiAyMSAxOC41MTk2IDIwLjg5NDYgMTguNzA3MSAyMC43MDcxQzE4Ljg5NDYgMjAuNTE5NiAxOSAyMC4yNjUyIDE5IDIwVjZDMTkgNS43MzQ3OCAxOC44OTQ2IDUuNDgwNDMgMTguNzA3MSA1LjI5Mjg5QzE4LjUxOTYgNS4xMDUzNiAxOC4yNjUyIDUgMTggNUgxNkMxNS40NDc3IDUgMTUgNC41NTIyOCAxNSA0QzE1IDMuNDQ3NzIgMTUuNDQ3NyAzIDE2IDNIMThDMTguNzk1NiAzIDE5LjU1ODcgMy4zMTYwNyAyMC4xMjEzIDMuODc4NjhDMjAuNjgzOSA0LjQ0MTI5IDIxIDUuMjA0MzUgMjEgNlYyMEMyMSAyMC43OTU3IDIwLjY4MzkgMjEuNTU4NyAyMC4xMjEzIDIyLjEyMTNDMTkuNTU4NyAyMi42ODM5IDE4Ljc5NTcgMjMgMTggMjNINkM1LjIwNDM1IDIzIDQuNDQxMjkgMjIuNjgzOSAzLjg3ODY4IDIyLjEyMTNDMy4zMTYwNyAyMS41NTg3IDMgMjAuNzk1NyAzIDIwVjZDMyA1LjIwNDM1IDMuMzE2MDcgNC40NDEyOSAzLjg3ODY4IDMuODc4NjhDNC40NDEyOSAzLjMxNjA3IDUuMjA0MzUgMyA2IDNIOEM4LjU1MjI4IDMgOSAzLjQ0NzcyIDkgNEM5IDQuNTUyMjggOC41NTIyOCA1IDggNUg2WlwiIGZpbGw9XCJibGFja1wiLz48cGF0aCBmaWxsLXJ1bGU9XCJldmVub2RkXCIgY2xpcC1ydWxlPVwiZXZlbm9kZFwiIGQ9XCJNNyAzQzcgMS44OTU0MyA3Ljg5NTQzIDEgOSAxSDE1QzE2LjEwNDYgMSAxNyAxLjg5NTQzIDE3IDNWNUMxNyA2LjEwNDU3IDE2LjEwNDYgNyAxNSA3SDlDNy44OTU0MyA3IDcgNi4xMDQ1NyA3IDVWM1pNMTUgM0g5VjVIMTVWM1pcIiBmaWxsPVwiYmxhY2tcIi8+PC9zdmc+Jyk7bWFzay1yZXBlYXQ6bm8tcmVwZWF0O21hc2stc2l6ZTpjb250YWluO21hc2stcG9zaXRpb246Y2VudGVyIGNlbnRlcn0uaGxqcy1jb3B5LWJ1dHRvbjpob3ZlcntiYWNrZ3JvdW5kLWNvbG9yOmNvbG9yLW1peChpbiBzcmdiLHZhcigtLWhsanMtdGhlbWUtY29sb3IpLHRyYW5zcGFyZW50IDkwJSl9LmhsanMtY29weS1idXR0b246YWN0aXZle2JvcmRlci1jb2xvcjpjb2xvci1taXgoaW4gc3JnYix2YXIoLS1obGpzLXRoZW1lLWNvbG9yKSx0cmFuc3BhcmVudCA2MCUpfS5obGpzLWNvcHktYnV0dG9uW2RhdGEtY29waWVkPVwidHJ1ZVwiXXt0ZXh0LWluZGVudDowO3dpZHRoOmF1dG99LmhsanMtY29weS1jb250YWluZXJbZGF0YS1hdXRvaGlkZT1cInRydWVcIl17dHJhbnNmb3JtOnRyYW5zbGF0ZVgoY2FsYygxMDAlICsgMS4xMjVlbSkpfS5obGpzLWNvcHktd3JhcHBlcjpmb2N1cy13aXRoaW4gLmhsanMtY29weS1jb250YWluZXJ7dHJhbnNpdGlvbjpub25lO3RyYW5zZm9ybTp0cmFuc2xhdGVYKDApfS5obGpzLWNvcHktd3JhcHBlcjpob3ZlciAuaGxqcy1jb3B5LWNvbnRhaW5lcnt0cmFuc2Zvcm06dHJhbnNsYXRlWCgwKX1AbWVkaWEocHJlZmVycy1yZWR1Y2VkLW1vdGlvbil7LmhsanMtY29weS1idXR0b257dHJhbnNpdGlvbjpub25lfX0uaGxqcy1jb3B5LWFsZXJ0e2NsaXA6cmVjdCgwIDAgMCAwKTtjbGlwLXBhdGg6aW5zZXQoNTAlKTtoZWlnaHQ6MXB4O292ZXJmbG93OmhpZGRlbjtwb3NpdGlvbjphYnNvbHV0ZTt3aGl0ZS1zcGFjZTpub3dyYXA7d2lkdGg6MXB4fVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */</style><!--!--><!--!--><!--!--><title>Running Elsa Workflows Through Aspire - mohdali.dev</title><!--!--><!--!--><!--!--><link rel="canonical" href="https://mohdali.dev/posts/running-elsa-workflows-through-aspire"><!--!-->
+    <meta name="description" content="A practical look at running Elsa Workflows as an Aspire-modeled distributed app with Postgres, RabbitMQ, Keycloak, server replicas, observability, and Kubernetes publishing."><!--!-->
+
+    <meta property="og:site_name" content="mohdali.dev"><!--!-->
+    <meta property="og:title" content="Running Elsa Workflows Through Aspire - mohdali.dev"><!--!-->
+    <meta property="og:description" content="A practical look at running Elsa Workflows as an Aspire-modeled distributed app with Postgres, RabbitMQ, Keycloak, server replicas, observability, and Kubernetes publishing."><!--!-->
+    <meta property="og:type" content="article"><!--!-->
+    <meta property="og:url" content="https://mohdali.dev/posts/running-elsa-workflows-through-aspire"><!--!-->
+    <meta property="og:image" content="https://mohdali.dev/images/social/posts/running-elsa-workflows-through-aspire.png"><!--!-->
+    <meta property="og:image:secure_url" content="https://mohdali.dev/images/social/posts/running-elsa-workflows-through-aspire.png"><!--!-->
+    <meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="600"><meta property="og:image:alt" content="Social preview card for Running Elsa Workflows Through Aspire"><!--!-->
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@mohdali"><!--!-->
+    <meta name="twitter:creator" content="@mohdali"><!--!-->
+    <meta name="twitter:title" content="Running Elsa Workflows Through Aspire - mohdali.dev"><!--!-->
+    <meta name="twitter:description" content="A practical look at running Elsa Workflows as an Aspire-modeled distributed app with Postgres, RabbitMQ, Keycloak, server replicas, observability, and Kubernetes publishing."><!--!-->
+    <meta name="twitter:image" content="https://mohdali.dev/images/social/posts/running-elsa-workflows-through-aspire.png"><!--!-->
+    <meta name="twitter:image:alt" content="Social preview card for Running Elsa Workflows Through Aspire"><meta property="article:published_time" content="2026-05-07"></head>
+
+<body class="mud-theme-light">
+    <script>window.setTheme && window.setTheme();</script>
+    <div id="app"><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><style>
+::-webkit-scrollbar {width: 8px;height: 8px;z-index: 1;}
+::-webkit-scrollbar-track {background: transparent;}
+::-webkit-scrollbar-thumb {background: #c4c4c4;border-radius: 1px;}
+::-webkit-scrollbar-thumb:hover {background: #a6a6a6;}
+html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
+</style>
+<!--!--><style>
+    .mud-chart-serie:hover {
+        filter: url(#lighten);
+    }
+
+    .mud-chart-serie-hovered 
+    {
+        filter: url(#lighten);
+    }
+</style>
+
+<!--!--><style class="mud-theme-provider">
+:root{
+--mud-palette-black: rgba(39,44,52,1);
+--mud-palette-white: rgba(255,255,255,1);
+--mud-palette-primary: rgba(15,118,110,1);
+--mud-palette-primary-rgb: 15,118,110;
+--mud-palette-primary-text: rgba(255,255,255,1);
+--mud-palette-primary-darken: rgb(17,94,89);
+--mud-palette-primary-lighten: rgb(20,184,166);
+--mud-palette-primary-hover: rgba(15,118,110,0.058823529411764705);
+--mud-palette-secondary: rgba(190,18,60,1);
+--mud-palette-secondary-rgb: 190,18,60;
+--mud-palette-secondary-text: rgba(255,255,255,1);
+--mud-palette-secondary-darken: rgb(159,18,57);
+--mud-palette-secondary-lighten: rgb(251,113,133);
+--mud-palette-secondary-hover: rgba(190,18,60,0.058823529411764705);
+--mud-palette-tertiary: rgba(124,58,237,1);
+--mud-palette-tertiary-rgb: 124,58,237;
+--mud-palette-tertiary-text: rgba(255,255,255,1);
+--mud-palette-tertiary-darken: rgb(99,22,233);
+--mud-palette-tertiary-lighten: rgb(146,92,240);
+--mud-palette-tertiary-hover: rgba(124,58,237,0.058823529411764705);
+--mud-palette-info: rgba(37,99,235,1);
+--mud-palette-info-rgb: 37,99,235;
+--mud-palette-info-text: rgba(255,255,255,1);
+--mud-palette-info-darken: rgb(20,82,215);
+--mud-palette-info-lighten: rgb(68,122,238);
+--mud-palette-info-hover: rgba(37,99,235,0.058823529411764705);
+--mud-palette-success: rgba(21,128,61,1);
+--mud-palette-success-rgb: 21,128,61;
+--mud-palette-success-text: rgba(255,255,255,1);
+--mud-palette-success-darken: rgb(15,92,43);
+--mud-palette-success-lighten: rgb(26,158,74);
+--mud-palette-success-hover: rgba(21,128,61,0.058823529411764705);
+--mud-palette-warning: rgba(180,83,9,1);
+--mud-palette-warning-rgb: 180,83,9;
+--mud-palette-warning-text: rgba(255,255,255,1);
+--mud-palette-warning-darken: rgb(145,67,8);
+--mud-palette-warning-lighten: rgb(213,99,11);
+--mud-palette-warning-hover: rgba(180,83,9,0.058823529411764705);
+--mud-palette-error: rgba(220,38,38,1);
+--mud-palette-error-rgb: 220,38,38;
+--mud-palette-error-text: rgba(255,255,255,1);
+--mud-palette-error-darken: rgb(193,31,31);
+--mud-palette-error-lighten: rgb(225,71,71);
+--mud-palette-error-hover: rgba(220,38,38,0.058823529411764705);
+--mud-palette-dark: rgba(24,24,27,1);
+--mud-palette-dark-rgb: 24,24,27;
+--mud-palette-dark-text: rgba(255,255,255,1);
+--mud-palette-dark-darken: rgb(7,7,8);
+--mud-palette-dark-lighten: rgb(43,43,49);
+--mud-palette-dark-hover: rgba(24,24,27,0.058823529411764705);
+--mud-palette-text-primary: rgba(24,24,27,1);
+--mud-palette-text-primary-rgb: 24,24,27;
+--mud-palette-text-secondary: rgba(82,82,91,1);
+--mud-palette-text-secondary-rgb: 82,82,91;
+--mud-palette-text-disabled: rgba(0,0,0,0.3764705882352941);
+--mud-palette-text-disabled-rgb: 0,0,0;
+--mud-palette-action-default: rgba(82,82,91,1);
+--mud-palette-action-default-hover: rgba(82,82,91,0.058823529411764705);
+--mud-palette-action-disabled: rgba(0,0,0,0.25882352941176473);
+--mud-palette-action-disabled-background: rgba(0,0,0,0.11764705882352941);
+--mud-palette-surface: rgba(255,255,255,1);
+--mud-palette-surface-rgb: 255,255,255;
+--mud-palette-background: rgba(247,247,248,1);
+--mud-palette-background-gray: rgba(245,245,245,1);
+--mud-palette-drawer-background: rgba(255,255,255,1);
+--mud-palette-drawer-text: rgba(24,24,27,1);
+--mud-palette-drawer-icon: rgba(82,82,91,1);
+--mud-palette-appbar-background: rgba(255,255,255,0.9176470588235294);
+--mud-palette-appbar-text: rgba(24,24,27,1);
+--mud-palette-lines-default: rgba(0,0,0,0.11764705882352941);
+--mud-palette-lines-inputs: rgba(189,189,189,1);
+--mud-palette-table-lines: rgba(224,224,224,1);
+--mud-palette-table-striped: rgba(0,0,0,0.0196078431372549);
+--mud-palette-table-hover: rgba(0,0,0,0.0392156862745098);
+--mud-palette-divider: rgba(24,24,27,0.11764705882352941);
+--mud-palette-divider-rgb: 24,24,27;
+--mud-palette-divider-light: rgba(24,24,27,0.0784313725490196);
+--mud-palette-skeleton: rgba(0,0,0,0.10980392156862745);
+--mud-palette-gray-default: #9E9E9E;
+--mud-palette-gray-light: #BDBDBD;
+--mud-palette-gray-lighter: #E0E0E0;
+--mud-palette-gray-dark: #757575;
+--mud-palette-gray-darker: #616161;
+--mud-palette-overlay-dark: rgba(33,33,33,0.4980392156862745);
+--mud-palette-overlay-light: rgba(255,255,255,0.4980392156862745);
+--mud-palette-border-opacity: 1;
+--mud-ripple-color: var(--mud-palette-text-primary);
+--mud-ripple-opacity: 0.1;
+--mud-ripple-opacity-secondary: 0.2;
+--mud-elevation-0: none;
+--mud-elevation-1: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+--mud-elevation-2: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+--mud-elevation-3: 0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12);
+--mud-elevation-4: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+--mud-elevation-5: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12);
+--mud-elevation-6: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+--mud-elevation-7: 0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12);
+--mud-elevation-8: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+--mud-elevation-9: 0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12);
+--mud-elevation-10: 0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12);
+--mud-elevation-11: 0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12);
+--mud-elevation-12: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12);
+--mud-elevation-13: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12);
+--mud-elevation-14: 0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12);
+--mud-elevation-15: 0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12);
+--mud-elevation-16: 0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12);
+--mud-elevation-17: 0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12);
+--mud-elevation-18: 0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12);
+--mud-elevation-19: 0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12);
+--mud-elevation-20: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12);
+--mud-elevation-21: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12);
+--mud-elevation-22: 0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12);
+--mud-elevation-23: 0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12);
+--mud-elevation-24: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);
+--mud-elevation-25: 0 5px 5px -3px rgba(0,0,0,.06), 0 8px 10px 1px rgba(0,0,0,.042), 0 3px 14px 2px rgba(0,0,0,.036);
+--mud-default-borderradius: 8px;
+--mud-drawer-width-left: 260px;
+--mud-drawer-width-right: 320px;
+--mud-drawer-width-mini-left: 56px;
+--mud-drawer-width-mini-right: 56px;
+--mud-appbar-height: 64px;
+--mud-typography-default-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-default-size: 0.95rem;
+--mud-typography-default-weight: 400;
+--mud-typography-default-lineheight: 1.6;
+--mud-typography-default-letterspacing: 0;
+--mud-typography-default-text-transform: none;
+--mud-typography-h1-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-h1-size: 3rem;
+--mud-typography-h1-weight: 750;
+--mud-typography-h1-lineheight: 1.12;
+--mud-typography-h1-letterspacing: 0;
+--mud-typography-h1-text-transform: none;
+--mud-typography-h2-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-h2-size: 2.125rem;
+--mud-typography-h2-weight: 700;
+--mud-typography-h2-lineheight: 1.2;
+--mud-typography-h2-letterspacing: 0;
+--mud-typography-h2-text-transform: none;
+--mud-typography-h3-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-h3-size: 1.6rem;
+--mud-typography-h3-weight: 650;
+--mud-typography-h3-lineheight: 1.3;
+--mud-typography-h3-letterspacing: 0;
+--mud-typography-h3-text-transform: none;
+--mud-typography-h4-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-h4-size: 1.35rem;
+--mud-typography-h4-weight: 650;
+--mud-typography-h4-lineheight: 1.35;
+--mud-typography-h4-letterspacing: 0;
+--mud-typography-h4-text-transform: none;
+--mud-typography-h5-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-h5-size: 1.15rem;
+--mud-typography-h5-weight: 650;
+--mud-typography-h5-lineheight: 1.4;
+--mud-typography-h5-letterspacing: 0;
+--mud-typography-h5-text-transform: none;
+--mud-typography-h6-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-h6-size: 1rem;
+--mud-typography-h6-weight: 650;
+--mud-typography-h6-lineheight: 1.4;
+--mud-typography-h6-letterspacing: 0;
+--mud-typography-h6-text-transform: none;
+--mud-typography-subtitle1-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-subtitle1-size: 1rem;
+--mud-typography-subtitle1-weight: 400;
+--mud-typography-subtitle1-lineheight: 1.75;
+--mud-typography-subtitle1-letterspacing: .00938em;
+--mud-typography-subtitle1-text-transform: none;
+--mud-typography-subtitle2-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-subtitle2-size: .875rem;
+--mud-typography-subtitle2-weight: 500;
+--mud-typography-subtitle2-lineheight: 1.57;
+--mud-typography-subtitle2-letterspacing: .00714em;
+--mud-typography-subtitle2-text-transform: none;
+--mud-typography-body1-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-body1-size: 1rem;
+--mud-typography-body1-weight: 400;
+--mud-typography-body1-lineheight: 1.5;
+--mud-typography-body1-letterspacing: .00938em;
+--mud-typography-body1-text-transform: none;
+--mud-typography-body2-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-body2-size: .875rem;
+--mud-typography-body2-weight: 400;
+--mud-typography-body2-lineheight: 1.43;
+--mud-typography-body2-letterspacing: .01071em;
+--mud-typography-body2-text-transform: none;
+--mud-typography-button-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-button-size: 0.875rem;
+--mud-typography-button-weight: 650;
+--mud-typography-button-lineheight: 1.5;
+--mud-typography-button-letterspacing: 0;
+--mud-typography-button-text-transform: none;
+--mud-typography-caption-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-caption-size: .75rem;
+--mud-typography-caption-weight: 400;
+--mud-typography-caption-lineheight: 1.66;
+--mud-typography-caption-letterspacing: .03333em;
+--mud-typography-caption-text-transform: none;
+--mud-typography-overline-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+--mud-typography-overline-size: .75rem;
+--mud-typography-overline-weight: 400;
+--mud-typography-overline-lineheight: 2.66;
+--mud-typography-overline-letterspacing: .08333em;
+--mud-typography-overline-text-transform: none;
+--mud-zindex-drawer: 1100;
+--mud-zindex-appbar: 1300;
+--mud-zindex-dialog: 1400;
+--mud-zindex-popover: 1200;
+--mud-zindex-snackbar: 1500;
+--mud-zindex-tooltip: 1600;
+--mud-native-html-color-scheme: light;
+}
+</style>
+<!--!-->
+<!--!--><div class="mud-popover-provider"><!--!--><!--!--><!--!--><div id="popovercontent-d4d4568c-45b4-4d40-b29b-7224a1a32df1" data-ticks="0" class="mud-popover mud-popover-top-center mud-popover-anchor-bottom-center mud-popover-overflow-flip-always mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-88e4b59f-42d0-4c6e-a6eb-5271b3a2b7c9" data-ticks="0" class="mud-popover mud-popover-top-center mud-popover-anchor-bottom-center mud-popover-overflow-flip-always mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-870bc9c6-d803-43c0-be12-c373df47268e" data-ticks="0" class="mud-popover mud-popover-top-center mud-popover-anchor-bottom-center mud-popover-overflow-flip-always mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-9d355d01-506e-4832-a960-343c9bb84657" data-ticks="0" class="mud-popover mud-popover-top-center mud-popover-anchor-bottom-center mud-popover-overflow-flip-always mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-53ca4bc7-67cb-410d-aeb1-99f1c1198ae9" data-ticks="0" class="mud-popover mud-popover-top-center mud-popover-anchor-bottom-center mud-popover-overflow-flip-always mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div><!--!--><div id="popovercontent-ec06ddda-a365-4e5c-a6e8-0c44dd8bc4a0" data-ticks="0" class="mud-popover mud-popover-top-center mud-popover-anchor-bottom-center mud-popover-overflow-flip-always mud-tooltip d-flex mud-tooltip-default mud-tooltip-bottom-center" style="transition-duration:251ms;transition-delay:0ms;"></div></div><!--!-->
+<!--!--><!--!--><!--!--><!--!-->
+<!--!--><div id="mud-snackbar-container" class="mud-snackbar-location-top-right"></div><!--!-->
+
+<!--!--><div class="mud-layout" style=""><!--!--><!--!--><header class="mud-appbar mud-appbar-fixed-top mud-elevation-0 top-bar"><!--!--><div role="toolbar" class="mud-toolbar mud-toolbar-gutters mud-toolbar-appbar"><!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><!--!--><a type="button" href="/" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon" _bl_6=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg></span></a><!--!--><div id="popover-53ca4bc7-67cb-410d-aeb1-99f1c1198ae9" class="mud-popover-cascading-value"></div></div><!--!-->
+        <!--!--><a href="/" class="mud-typography mud-link mud-inherit-text mud-link-underline-hover mud-typography-h6 logo">mohdali.dev</a><!--!-->
+        <!--!--><!--!--><div aria-hidden="true" class="flex-grow-1"></div><!--!-->
+        <!--!--><a href="/posts" class="mud-typography mud-link mud-inherit-text mud-link-underline-hover nav-link">Posts</a><!--!-->
+        <!--!--><a href="/about" class="mud-typography mud-link mud-inherit-text mud-link-underline-hover nav-link">About</a><!--!-->
+        <!--!--><div class="theme-switcher"><!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><!--!--><button type="button" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon" _bl_10=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><g><rect fill="none" height="24" width="24"></rect></g><g><g><path d="M19.03,3.56c-1.67-1.39-3.74-2.3-6.03-2.51v2.01c1.73,0.19,3.31,0.88,4.61,1.92L19.03,3.56z"></path><path d="M11,3.06V1.05C8.71,1.25,6.64,2.17,4.97,3.56l1.42,1.42C7.69,3.94,9.27,3.25,11,3.06z"></path><path d="M4.98,6.39L3.56,4.97C2.17,6.64,1.26,8.71,1.05,11h2.01C3.25,9.27,3.94,7.69,4.98,6.39z"></path><path d="M20.94,11h2.01c-0.21-2.29-1.12-4.36-2.51-6.03l-1.42,1.42C20.06,7.69,20.75,9.27,20.94,11z"></path><polygon points="7,12 10.44,13.56 12,17 13.56,13.56 17,12 13.56,10.44 12,7 10.44,10.44"></polygon><path d="M12,21c-3.11,0-5.85-1.59-7.46-4H7v-2H1v6h2v-2.7c1.99,2.84,5.27,4.7,9,4.7c4.87,0,9-3.17,10.44-7.56l-1.96-0.45 C19.25,18.48,15.92,21,12,21z"></path></g></g></svg></span></button><!--!--><div id="popover-ec06ddda-a365-4e5c-a6e8-0c44dd8bc4a0" class="mud-popover-cascading-value"></div></div></div></div></header><!--!-->
+
+    <!--!--><div class="mud-main-content main-content"><!--!--><!--!--><!--!--><!--!--><div class="post-detail-container"><!--!--><div class="mud-container mud-container-maxwidth-md mud-container--gutters py-8"><!--!--><div class="post-header mb-6"><!--!--><!--!--><p class="mud-typography mud-typography-subtitle2 post-date mb-2"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-small mr-1" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"></path></svg><!--!-->
+                    Published: 07 May 2026</p><!--!-->
+                <!--!--><!--!--><h1 class="mud-typography mud-typography-h1 post-detail-title" tabindex="-1">Running Elsa Workflows Through Aspire</h1></div><!--!-->
+            
+            <!--!--><!--!--><!--!-->
+            
+            <article class="post-content-wrapper"><!--!--><div class="post-content post"><!--!--><div class="post-content"><!--!--><p>The interesting thing about running Elsa through Aspire is not that Aspire can start a few containers.</p>
+<p>The interesting thing is that a workflow runtime stops looking like a sidecar and starts looking like part of a complete distributed application.</p>
+<p>Elsa Workflows gives a .NET application workflow definitions, runtime execution, persistence, scheduling, HTTP activities, distributed runtime support, and Elsa Studio. Aspire gives a distributed application a code-first model for projects, containers, databases, queues, service discovery, health checks, telemetry, local orchestration, and deployment publishing.</p>
+<p>Those are complementary jobs.</p>
+<p>Elsa defines and runs long-lived business behavior. Aspire defines and runs the system that behavior lives inside.</p>
+<h2 id="the-claim">The Claim</h2>
+<p>Workflow systems become useful when they coordinate real services.</p>
+<p>Distributed application platforms become useful when they have real behavior to run.</p>
+<p>That is why this sample is a good pairing. Elsa gives Aspire a meaningful workload. Aspire gives Elsa the operational shape that a workflow platform eventually needs anyway: storage, messaging, authentication, replicas, health checks, logs, traces, and a path to deployment artifacts.</p>
+<p>The sample is intentionally small, but it is not a single-process toy.</p>
+<p>It runs:</p>
+<ul>
+<li>Elsa Studio</li>
+<li>Elsa Server with two replicas</li>
+<li>PostgreSQL for Elsa management and runtime persistence</li>
+<li>RabbitMQ for distributed runtime and cache messaging</li>
+<li>Keycloak for OpenID Connect login</li>
+<li>Aspire service defaults for health, discovery, logging, and telemetry</li>
+<li>a Kubernetes publishing environment</li>
+</ul>
+<p>The point is not the "hello world" workflow. The point is the topology around it.</p>
+<h2 id="the-apphost-is-the-center">The AppHost Is The Center</h2>
+<p>The AppHost is the most important file in the sample because it makes the application graph visible.</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="csharp hljs language-csharp" data-highlighted="yes"><span class="hljs-keyword">var</span> builder = DistributedApplication.CreateBuilder(<span class="hljs-keyword">args</span>);
+
+builder.AddKubernetesEnvironment(<span class="hljs-string">"k8s"</span>);
+
+<span class="hljs-keyword">var</span> postgres = builder.AddPostgres(<span class="hljs-string">"postgres"</span>)
+    .WithDataVolume(isReadOnly: <span class="hljs-literal">false</span>)
+    .WithLifetime(ContainerLifetime.Persistent);
+
+<span class="hljs-keyword">var</span> postgresdb = postgres.AddDatabase(<span class="hljs-string">"elsadb"</span>);
+
+<span class="hljs-keyword">var</span> messaging = builder.AddRabbitMQ(<span class="hljs-string">"messaging"</span>)
+    .WithLifetime(ContainerLifetime.Persistent);
+
+<span class="hljs-keyword">var</span> keycloak = builder.AddKeycloak(<span class="hljs-string">"keycloak"</span>, port: <span class="hljs-number">18080</span>)
+    .WithoutHttpsCertificate()
+    .WithDataVolume()
+    .WithRealmImport(<span class="hljs-string">"./Realms"</span>)
+    .WithLifetime(ContainerLifetime.Persistent);
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>Then it wires the Elsa resources into that graph:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="csharp hljs language-csharp" data-highlighted="yes"><span class="hljs-keyword">var</span> server = builder.AddProject&lt;Projects.Elsa_Aspire_Server&gt;(<span class="hljs-string">"elsaserver"</span>)
+    .WithReplicas(<span class="hljs-number">2</span>)
+    .WithHttpHealthCheck(<span class="hljs-string">"/health"</span>)
+    .WithReference(postgresdb)
+    .WithReference(messaging)
+    .WithReference(keycloak)
+    .WaitFor(postgresdb)
+    .WaitFor(messaging)
+    .WaitFor(keycloak);
+
+builder.AddProject&lt;Projects.Elsa_Aspire_Studio&gt;(<span class="hljs-string">"elsastudio"</span>)
+    .WithReference(server)
+    .WithReference(keycloak)
+    .WaitFor(server);
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>That is the first benefit: the architecture is in code.</p>
+<p>Without Aspire, this kind of demo usually turns into instructions:</p>
+<ol>
+<li>start Postgres</li>
+<li>start RabbitMQ</li>
+<li>start Keycloak</li>
+<li>import a realm</li>
+<li>configure ports</li>
+<li>run two backend instances</li>
+<li>point Studio at the backend</li>
+<li>remember the startup order</li>
+</ol>
+<p>Aspire replaces that with a model. The model says what exists, what depends on what, which resources need persistent state, which endpoints are referenced by other resources, and which environment can publish the system.</p>
+<h2 id="what-elsa-brings">What Elsa Brings</h2>
+<p>Elsa is the workflow layer.</p>
+<p>In this sample, Elsa Server configures management and runtime persistence through PostgreSQL. It uses Quartz for scheduling. It uses MassTransit over RabbitMQ for distributed runtime behavior and distributed cache messaging. It enables HTTP activities, JavaScript expressions, workflow API endpoints, and real-time workflow updates for Studio.</p>
+<p>The sample workflow is deliberately modest:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="csharp hljs language-csharp" data-highlighted="yes"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TimerHelloWorldWorkflow</span> : <span class="hljs-title">WorkflowBase</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Build</span>(<span class="hljs-params">IWorkflowBuilder builder</span>)</span>
+    {
+        builder.Name = <span class="hljs-string">"Timer Hello World"</span>;
+        builder.Root = <span class="hljs-keyword">new</span> Sequence
+        {
+            Activities =
+            {
+                <span class="hljs-keyword">new</span> Elsa.Scheduling.Activities.Timer(TimeSpan.FromSeconds(<span class="hljs-number">15</span>))
+                {
+                    CanStartWorkflow = <span class="hljs-literal">true</span>
+                },
+                <span class="hljs-keyword">new</span> WriteLine(<span class="hljs-string">"Hello World from the Elsa timer workflow."</span>)
+            }
+        };
+    }
+}
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>Every 15 seconds, the timer starts a workflow and writes:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="text hljs language-csharp" data-highlighted="yes">Hello World <span class="hljs-keyword">from</span> the Elsa timer workflow.
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>That workflow is not the product story. It is a proof that the runtime is alive inside the distributed shape: two server replicas, shared persistence, messaging, scheduling, authentication, and a Studio frontend calling the backend through the configured topology.</p>
+<h2 id="what-aspire-brings">What Aspire Brings</h2>
+<p>Aspire turns the supporting environment into something inspectable.</p>
+<p>Running the AppHost gives a dashboard with resources, endpoints, logs, health checks, and telemetry. For a workflow platform, that matters. A real workflow rarely stays inside one process. It might call an API, publish a message, write to a database, wait for a timer, and resume later after a human action.</p>
+<p>When the behavior crosses service boundaries, the system surface matters as much as the workflow designer.</p>
+<p>Elsa Studio shows workflow definitions and instances.</p>
+<p>Aspire Dashboard shows the resources those workflows depend on.</p>
+<p>That split is useful:</p>
+<!--!--><div class="mermaid-diagram"><div class="mermaid" data-mermaid-source="flowchart LR
+    Studio[Elsa Studio] --&gt; Server[Elsa Server replicas]
+    Server --&gt; Postgres[(PostgreSQL)]
+    Server --&gt; Rabbit[(RabbitMQ)]
+    Studio --&gt; Keycloak[Keycloak]
+    Server --&gt; Keycloak
+    AppHost[Aspire AppHost] --&gt; Studio
+    AppHost --&gt; Server
+    AppHost --&gt; Postgres
+    AppHost --&gt; Rabbit
+    AppHost --&gt; Keycloak" data-mermaid-theme="light" data-processed="true"><svg id="mermaid-1778176527663" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart" style="max-width: 804.421875px;" viewBox="0 0 804.421875 359.5621643066406" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#mermaid-1778176527663{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#mermaid-1778176527663 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#mermaid-1778176527663 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#mermaid-1778176527663 .error-icon{fill:#552222;}#mermaid-1778176527663 .error-text{fill:#552222;stroke:#552222;}#mermaid-1778176527663 .edge-thickness-normal{stroke-width:1px;}#mermaid-1778176527663 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1778176527663 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1778176527663 .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-1778176527663 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1778176527663 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1778176527663 .marker{fill:#333333;stroke:#333333;}#mermaid-1778176527663 .marker.cross{stroke:#333333;}#mermaid-1778176527663 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1778176527663 p{margin:0;}#mermaid-1778176527663 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#mermaid-1778176527663 .cluster-label text{fill:#333;}#mermaid-1778176527663 .cluster-label span{color:#333;}#mermaid-1778176527663 .cluster-label span p{background-color:transparent;}#mermaid-1778176527663 .label text,#mermaid-1778176527663 span{fill:#333;color:#333;}#mermaid-1778176527663 .node rect,#mermaid-1778176527663 .node circle,#mermaid-1778176527663 .node ellipse,#mermaid-1778176527663 .node polygon,#mermaid-1778176527663 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1778176527663 .rough-node .label text,#mermaid-1778176527663 .node .label text,#mermaid-1778176527663 .image-shape .label,#mermaid-1778176527663 .icon-shape .label{text-anchor:middle;}#mermaid-1778176527663 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-1778176527663 .rough-node .label,#mermaid-1778176527663 .node .label,#mermaid-1778176527663 .image-shape .label,#mermaid-1778176527663 .icon-shape .label{text-align:center;}#mermaid-1778176527663 .node.clickable{cursor:pointer;}#mermaid-1778176527663 .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#mermaid-1778176527663 .arrowheadPath{fill:#333333;}#mermaid-1778176527663 .edgePath .path{stroke:#333333;stroke-width:1px;}#mermaid-1778176527663 .flowchart-link{stroke:#333333;fill:none;}#mermaid-1778176527663 .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaid-1778176527663 .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#mermaid-1778176527663 .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaid-1778176527663 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaid-1778176527663 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaid-1778176527663 .cluster text{fill:#333;}#mermaid-1778176527663 .cluster span{color:#333;}#mermaid-1778176527663 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1778176527663 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-1778176527663 rect.text{fill:none;stroke-width:0;}#mermaid-1778176527663 .icon-shape,#mermaid-1778176527663 .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#mermaid-1778176527663 .icon-shape p,#mermaid-1778176527663 .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#mermaid-1778176527663 .icon-shape .label rect,#mermaid-1778176527663 .image-shape .label rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#mermaid-1778176527663 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#mermaid-1778176527663 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#mermaid-1778176527663 .node .neo-node{stroke:#9370DB;}#mermaid-1778176527663 [data-look="neo"].node rect,#mermaid-1778176527663 [data-look="neo"].cluster rect,#mermaid-1778176527663 [data-look="neo"].node polygon{stroke:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#mermaid-1778176527663 [data-look="neo"].node path{stroke:#9370DB;stroke-width:1px;}#mermaid-1778176527663 [data-look="neo"].node .outer-path{filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#mermaid-1778176527663 [data-look="neo"].node .neo-line path{stroke:#9370DB;filter:none;}#mermaid-1778176527663 [data-look="neo"].node circle{stroke:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#mermaid-1778176527663 [data-look="neo"].node circle .state-start{fill:#000000;}#mermaid-1778176527663 [data-look="neo"].icon-shape .icon{fill:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#mermaid-1778176527663 [data-look="neo"].icon-shape .icon-neo path{stroke:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#mermaid-1778176527663 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker id="mermaid-1778176527663_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaid-1778176527663_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaid-1778176527663_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaid-1778176527663_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></polygon></marker><marker id="mermaid-1778176527663_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaid-1778176527663_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaid-1778176527663_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaid-1778176527663_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"></circle></marker><marker id="mermaid-1778176527663_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaid-1778176527663_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="mermaid-1778176527663_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"></path></marker><marker id="mermaid-1778176527663_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M323.776,297.562L335.516,284.895C347.257,272.229,370.738,246.895,385.987,233.645C401.237,220.394,408.255,219.225,411.764,218.641L415.273,218.057" id="mermaid-1778176527663-L_Studio_Server_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Studio_Server_0" data-points="W3sieCI6MzIzLjc3NTc4ODgzNDk1MTQ3LCJ5IjoyOTcuNTYyMTU2Njc3MjQ2MX0seyJ4IjozOTQuMjE4NzUsInkiOjIyMS41NjIxNTY2NzcyNDYxfSx7IngiOjQxOS4yMTg3NSwieSI6MjE3LjQwMDEzNTEyMzkyMDJ9XQ==" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M553.872,173.562L569.31,161.124C584.748,148.687,615.624,123.811,636.638,106.171C657.653,88.53,668.805,78.125,674.382,72.923L679.958,67.72" id="mermaid-1778176527663-L_Server_Postgres_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Server_Postgres_0" data-points="W3sieCI6NTUzLjg3MjIwNzk0MDI1MjMsInkiOjE3My41NjIxNTY2NzcyNDYxfSx7IngiOjY0Ni41LCJ5Ijo5OC45MzU1MDg3MjgwMjczNH0seyJ4Ijo2ODIuODgyODEyNSwieSI6NjQuOTkxNTczNjExMDc2NzJ9XQ==" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M621.5,200.562L625.667,200.562C629.833,200.562,638.167,200.562,649.038,197.883C659.91,195.204,673.321,189.846,680.026,187.167L686.731,184.488" id="mermaid-1778176527663-L_Server_Rabbit_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Server_Rabbit_0" data-points="W3sieCI6NjIxLjUsInkiOjIwMC41NjIxNTY2NzcyNDYxfSx7IngiOjY0Ni41LCJ5IjoyMDAuNTYyMTU2Njc3MjQ2MX0seyJ4Ijo2OTAuNDQ1MzEyNSwieSI6MTgzLjAwNDA5OTcyNzkwMTUyfV0=" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M369.219,324.562L373.385,324.562C377.552,324.562,385.885,324.562,411.076,324.562C436.266,324.562,478.313,324.562,520.359,324.562C562.406,324.562,604.453,324.562,629.015,323.308C653.577,322.054,660.653,319.546,664.192,318.292L667.73,317.037" id="mermaid-1778176527663-L_Studio_Keycloak_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Studio_Keycloak_0" data-points="W3sieCI6MzY5LjIxODc1LCJ5IjozMjQuNTYyMTU2Njc3MjQ2MX0seyJ4IjozOTQuMjE4NzUsInkiOjMyNC41NjIxNTY2NzcyNDYxfSx7IngiOjUyMC4zNTkzNzUsInkiOjMyNC41NjIxNTY2NzcyNDYxfSx7IngiOjY0Ni41LCJ5IjozMjQuNTYyMTU2Njc3MjQ2MX0seyJ4Ijo2NzEuNSwieSI6MzE1LjcwMTA1Nzk3MjQ2NzJ9XQ==" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M553.107,227.562L568.673,240.395C584.238,253.229,615.369,278.895,634.44,291.288C653.51,303.68,660.521,302.799,664.026,302.358L667.531,301.917" id="mermaid-1778176527663-L_Server_Keycloak_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Server_Keycloak_0" data-points="W3sieCI6NTUzLjEwNzQyMTg3NSwieSI6MjI3LjU2MjE1NjY3NzI0NjF9LHsieCI6NjQ2LjUsInkiOjMwNC41NjIxNTY2NzcyNDYxfSx7IngiOjY3MS41LCJ5IjozMDEuNDE3ODk1ODQ2NTE4MX1d" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M111.205,186.936L126.551,209.873C141.897,232.811,172.589,278.687,191.435,301.624C210.281,324.562,217.281,324.562,220.781,324.562L224.281,324.562" id="mermaid-1778176527663-L_AppHost_Studio_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_AppHost_Studio_0" data-points="W3sieCI6MTExLjIwNDUxMDIzMzkyMjE5LCJ5IjoxODYuOTM1NTA4NzI4MDI3MzR9LHsieCI6MjAzLjI4MTI1LCJ5IjozMjQuNTYyMTU2Njc3MjQ2MX0seyJ4IjoyMjguMjgxMjUsInkiOjMyNC41NjIxNTY2NzcyNDYxfV0=" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M178.281,159.936L182.448,159.936C186.615,159.936,194.948,159.936,215.026,159.936C235.104,159.936,266.927,159.936,298.75,159.936C330.573,159.936,362.396,159.936,384.724,162.002C407.053,164.069,419.887,168.202,426.303,170.269L432.72,172.336" id="mermaid-1778176527663-L_AppHost_Server_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_AppHost_Server_0" data-points="W3sieCI6MTc4LjI4MTI1LCJ5IjoxNTkuOTM1NTA4NzI4MDI3MzR9LHsieCI6MjAzLjI4MTI1LCJ5IjoxNTkuOTM1NTA4NzI4MDI3MzR9LHsieCI6Mjk4Ljc1LCJ5IjoxNTkuOTM1NTA4NzI4MDI3MzR9LHsieCI6Mzk0LjIxODc1LCJ5IjoxNTkuOTM1NTA4NzI4MDI3MzR9LHsieCI6NDM2LjUyNzc3NTYyMDc2ODA3LCJ5IjoxNzMuNTYyMTU2Njc3MjQ2MX1d" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M117.591,132.936L131.873,117.164C146.154,101.393,174.718,69.851,204.911,54.08C235.104,38.309,266.927,38.309,298.75,38.309C330.573,38.309,362.396,38.309,399.331,38.309C436.266,38.309,478.313,38.309,520.359,38.309C562.406,38.309,604.453,38.309,630.875,38.683C657.297,39.056,668.095,39.804,673.494,40.178L678.892,40.552" id="mermaid-1778176527663-L_AppHost_Postgres_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_AppHost_Postgres_0" data-points="W3sieCI6MTE3LjU5MDgzMzI4MjAwMDkzLCJ5IjoxMzIuOTM1NTA4NzI4MDI3MzR9LHsieCI6MjAzLjI4MTI1LCJ5IjozOC4zMDg4NjA3Nzg4MDg1OTR9LHsieCI6Mjk4Ljc1LCJ5IjozOC4zMDg4NjA3Nzg4MDg1OTR9LHsieCI6Mzk0LjIxODc1LCJ5IjozOC4zMDg4NjA3Nzg4MDg1OTR9LHsieCI6NTIwLjM1OTM3NSwieSI6MzguMzA4ODYwNzc4ODA4NTk0fSx7IngiOjY0Ni41LCJ5IjozOC4zMDg4NjA3Nzg4MDg1OTR9LHsieCI6NjgyLjg4MjgxMjUsInkiOjQwLjgyNzkxMDg1OTAxMjk5fV0=" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M165.672,132.936L171.94,130.602C178.209,128.269,190.745,123.602,212.925,121.269C235.104,118.936,266.927,118.936,298.75,118.936C330.573,118.936,362.396,118.936,399.331,118.936C436.266,118.936,478.313,118.936,520.359,118.936C562.406,118.936,604.453,118.936,632.213,122.531C659.972,126.126,673.444,133.317,680.18,136.912L686.917,140.508" id="mermaid-1778176527663-L_AppHost_Rabbit_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_AppHost_Rabbit_0" data-points="W3sieCI6MTY1LjY3MjI1NjA5NzU2MSwieSI6MTMyLjkzNTUwODcyODAyNzM0fSx7IngiOjIwMy4yODEyNSwieSI6MTE4LjkzNTUwODcyODAyNzM0fSx7IngiOjI5OC43NSwieSI6MTE4LjkzNTUwODcyODAyNzM0fSx7IngiOjM5NC4yMTg3NSwieSI6MTE4LjkzNTUwODcyODAyNzM0fSx7IngiOjUyMC4zNTkzNzUsInkiOjExOC45MzU1MDg3MjgwMjczNH0seyJ4Ijo2NDYuNSwieSI6MTE4LjkzNTUwODcyODAyNzM0fSx7IngiOjY5MC40NDUzMTI1LCJ5IjoxNDIuMzkxMjg3ODQwNzA2NDd9XQ==" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path><path d="M122.117,186.936L135.645,199.54C149.172,212.144,176.227,237.353,205.665,249.958C235.104,262.562,266.927,262.562,298.75,262.562C330.573,262.562,362.396,262.562,399.331,262.562C436.266,262.562,478.313,262.562,520.359,262.562C562.406,262.562,604.453,262.562,629.015,263.816C653.577,265.07,660.653,267.579,664.192,268.833L667.73,270.087" id="mermaid-1778176527663-L_AppHost_Keycloak_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_AppHost_Keycloak_0" data-points="W3sieCI6MTIyLjExNzQ3Mzk0MTUyOTExLCJ5IjoxODYuOTM1NTA4NzI4MDI3MzR9LHsieCI6MjAzLjI4MTI1LCJ5IjoyNjIuNTYyMTU2Njc3MjQ2MX0seyJ4IjoyOTguNzUsInkiOjI2Mi41NjIxNTY2NzcyNDYxfSx7IngiOjM5NC4yMTg3NSwieSI6MjYyLjU2MjE1NjY3NzI0NjF9LHsieCI6NTIwLjM1OTM3NSwieSI6MjYyLjU2MjE1NjY3NzI0NjF9LHsieCI6NjQ2LjUsInkiOjI2Mi41NjIxNTY2NzcyNDYxfSx7IngiOjY3MS41LCJ5IjoyNzEuNDIzMjU1MzgyMDI1fV0=" data-look="classic" marker-end="url(#mermaid-1778176527663_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_Studio_Server_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Server_Postgres_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Server_Rabbit_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Studio_Keycloak_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Server_Keycloak_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_AppHost_Studio_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_AppHost_Server_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_AppHost_Postgres_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_AppHost_Rabbit_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_AppHost_Keycloak_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="mermaid-1778176527663-flowchart-Studio-0" data-look="classic" transform="translate(298.75, 324.5621566772461)"><rect class="basic label-container" style="" x="-70.46875" y="-27" width="140.9375" height="54"></rect><g class="label" style="" transform="translate(-40.46875, -12)"><rect></rect><foreignObject width="80.9375" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Elsa Studio</p></span></div></foreignObject></g></g><g class="node default" id="mermaid-1778176527663-flowchart-Server-1" data-look="classic" transform="translate(520.359375, 200.5621566772461)"><rect class="basic label-container" style="" x="-101.140625" y="-27" width="202.28125" height="54"></rect><g class="label" style="" transform="translate(-71.140625, -12)"><rect></rect><foreignObject width="142.28125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Elsa Server replicas</p></span></div></foreignObject></g></g><g class="node default" id="mermaid-1778176527663-flowchart-Postgres-3" data-look="classic" transform="translate(733.9609375, 44.36442565917969)"><path d="M0,11.242949511624708 a51.078125,11.242949511624708 0,0,0 102.15625,0 a51.078125,11.242949511624708 0,0,0 -102.15625,0 l0,50.24294951162471 a51.078125,11.242949511624708 0,0,0 102.15625,0 l0,-50.24294951162471" class="basic label-container outer-path" style="" transform="translate(-51.078125, -36.36442426743706)"></path><g class="label" style="" transform="translate(-43.578125, -2)"><rect></rect><foreignObject width="87.15625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>PostgreSQL</p></span></div></foreignObject></g></g><g class="node default" id="mermaid-1778176527663-flowchart-Rabbit-5" data-look="classic" transform="translate(733.9609375, 165.6177215576172)"><path d="M0,10.261606484893148 a43.515625,10.261606484893148 0,0,0 87.03125,0 a43.515625,10.261606484893148 0,0,0 -87.03125,0 l0,49.26160648489315 a43.515625,10.261606484893148 0,0,0 87.03125,0 l0,-49.26160648489315" class="basic label-container outer-path" style="" transform="translate(-43.515625, -34.892409727339725)"></path><g class="label" style="" transform="translate(-36.015625, -2)"><rect></rect><foreignObject width="72.03125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>RabbitMQ</p></span></div></foreignObject></g></g><g class="node default" id="mermaid-1778176527663-flowchart-Keycloak-7" data-look="classic" transform="translate(733.9609375, 293.5621566772461)"><rect class="basic label-container" style="" x="-62.4609375" y="-27" width="124.921875" height="54"></rect><g class="label" style="" transform="translate(-32.4609375, -12)"><rect></rect><foreignObject width="64.921875" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Keycloak</p></span></div></foreignObject></g></g><g class="node default" id="mermaid-1778176527663-flowchart-AppHost-10" data-look="classic" transform="translate(93.140625, 159.93550872802734)"><rect class="basic label-container" style="" x="-85.140625" y="-27" width="170.28125" height="54"></rect><g class="label" style="" transform="translate(-55.140625, -12)"><rect></rect><foreignObject width="110.28125" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Aspire AppHost</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="mermaid-1778176527663-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs><defs><filter id="mermaid-1778176527663-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"></feDropShadow></filter></defs></svg></div></div><!--!-->
+<p>The workflow designer is not being asked to explain the whole distributed system. The AppHost and dashboard carry that concern.</p>
+<h2 id="authentication-belongs-in-the-topology">Authentication Belongs In The Topology</h2>
+<p>The sample uses Keycloak as the OpenID Connect provider.</p>
+<p>That detail is important because authentication is often treated as documentation around a sample instead of part of the sample itself. Here, Keycloak is a resource in the application model. Aspire starts it, keeps its data in a volume, imports the <code>Elsa</code> realm, and exposes its endpoint to the services that need it.</p>
+<p>Studio signs users in through Keycloak. Elsa Server validates bearer tokens issued by the same realm. The local <code>ElsaServer</code> client issues access tokens with the expected audience.</p>
+<p>There is one practical local-development choice that is worth copying: the Keycloak port is pinned to <code>18080</code>.</p>
+<p>OpenID Connect tokens contain an issuer. If the local Keycloak endpoint moves between runs, old browser cookies can contain tokens whose issuer no longer matches the server validation settings. Pinning the port removes that churn.</p>
+<p>For demo authorization, the server uses an <code>IClaimsTransformation</code> to add broad Elsa permissions to authenticated users:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="csharp hljs language-csharp" data-highlighted="yes"><span class="hljs-keyword">if</span> (principal.Identity?.IsAuthenticated == <span class="hljs-literal">true</span>)
+{
+    claimsIdentity.AddClaim(<span class="hljs-keyword">new</span> Claim(<span class="hljs-string">"permissions"</span>, <span class="hljs-string">"*"</span>));
+    principal.AddIdentity(claimsIdentity);
+}
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>That is intentionally permissive. It keeps the sample focused on topology and OIDC plumbing rather than turning the article into a role-management tutorial.</p>
+<h2 id="distributed-elsa-locally">Distributed Elsa, Locally</h2>
+<p>The server runs with two replicas.</p>
+<p>That one line changes the quality of the demo:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="csharp hljs language-csharp" data-highlighted="yes">.WithReplicas(<span class="hljs-number">2</span>)
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>It forces the sample to behave more like a distributed runtime. The replicas share PostgreSQL persistence, coordinate through RabbitMQ-backed runtime and cache messaging, and expose health checks to Aspire.</p>
+<p>That makes local development more honest.</p>
+<p>If workflow execution depends on in-memory assumptions, replica mode is more likely to expose it. If storage or messaging is misconfigured, the failure shape is closer to the production shape. If the backend is unavailable, Studio talks to a real backend and fails through the same path a real deployment would use.</p>
+<p>Aspire makes that topology easy to run.</p>
+<p>Elsa makes the topology worth running.</p>
+<h2 id="deployment-starts-from-the-same-model">Deployment Starts From The Same Model</h2>
+<p>The sample also includes a Kubernetes compute environment:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="csharp hljs language-csharp" data-highlighted="yes">builder.AddKubernetesEnvironment(<span class="hljs-string">"k8s"</span>);
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>That means the same AppHost used for local development can publish deployment artifacts:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="bash hljs language-bash" data-highlighted="yes">aspire publish -o k8s-artifacts
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>For Kubernetes, Aspire generates Helm chart artifacts. The sample does not pretend that publishing is the same as a production rollout. You still need to deploy the generated chart with Helm, kubectl, or a GitOps workflow, and production settings need real review.</p>
+<p>But the important boundary has moved. The topology is not re-described from scratch for deployment. It starts from the same application model.</p>
+<h2 id="version-notes">Version Notes</h2>
+<p>The sample currently builds on:</p>
+<ul>
+<li>.NET SDK <code>10.0.107</code></li>
+<li>Aspire <code>13.2.4</code></li>
+<li>Elsa <code>3.6.1</code></li>
+<li>Elsa Studio <code>3.6.1</code></li>
+<li>Aspire Keycloak and Kubernetes hosting integrations <code>13.2.4-preview.1.26224.4</code></li>
+</ul>
+<p>I checked the dedicated Elsa Studio OpenID Connect package status before publishing this post. The <code>Elsa.Studio.Authentication.OpenIdConnect</code> packages exist, but the available package version is <code>3.7.0-rc1</code> as of 2026-05-07. This repository stays on the stable Elsa Studio <code>3.6.1</code> line and uses a small local Keycloak module around Elsa Studio Login's OpenID Connect hooks.</p>
+<p>That workaround should be revisited when the upstream OpenID Connect packages have a stable release aligned with the rest of the Elsa Studio stack.</p>
+<h2 id="what-this-sample-does-not-prove">What This Sample Does Not Prove</h2>
+<p>The sample proves the baseline topology. It does not prove production readiness.</p>
+<p>Several parts are intentionally loose:</p>
+<ul>
+<li>the workflow is only a timer-based hello world</li>
+<li>CORS is broad for demo purposes</li>
+<li>permissions are granted broadly after authentication</li>
+<li>the Keycloak module is local glue while upstream OIDC support matures</li>
+<li>Kubernetes publishing produces artifacts, not a full production deployment process</li>
+</ul>
+<p>That is fine for this stage. A sample should be honest about what it demonstrates.</p>
+<p>What it demonstrates is that Elsa can be treated as part of a distributed application from the first commit.</p>
+<h2 id="the-next-layer">The Next Layer</h2>
+<p>The next useful addition is an end-to-end business workflow that crosses service boundaries.</p>
+<p>For example:</p>
+<ol>
+<li>an <code>OrderApi</code> receives an order and starts an Elsa workflow</li>
+<li>a small risk service scores the order</li>
+<li>the workflow waits for approval when risk is high</li>
+<li>a fulfillment step reserves inventory</li>
+<li>a notification step sends a mock email or webhook</li>
+<li>a compensation branch handles failure</li>
+</ol>
+<p>That would show the full value of the pairing.</p>
+<p>Elsa would orchestrate the business process. Aspire would run the topology. Studio would show the workflow definition and instances. Aspire Dashboard would show resources, health, logs, and traces. Publishing would still begin from the same AppHost.</p>
+<p>That is the story worth building toward:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="text hljs language-csharp" data-highlighted="yes">Define the workflow <span class="hljs-keyword">in</span> Elsa.
+Define the distributed system <span class="hljs-keyword">in</span> Aspire.
+Run, observe, <span class="hljs-keyword">and</span> publish the whole thing <span class="hljs-keyword">from</span> one application model.
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<h2 id="closing-thought">Closing Thought</h2>
+<p>The useful result is not simply:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="text hljs language-undefined" data-highlighted="yes">Elsa can run in Aspire.
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>The useful result is:</p>
+<!--!--><pre class="code hljs-copy-wrapper" style="--hljs-theme-background: rgba(0, 0, 0, 0);"><code class="text hljs language-csharp" data-highlighted="yes">Elsa can be modeled <span class="hljs-keyword">as</span> part of a complete distributed application.
+</code><button class="hljs-copy-button" data-copied="false" data-tooltip="Copy" type="button" aria-label="Copy code">Copy</button></pre><!--!-->
+<p>That distinction matters.</p>
+<p>A workflow engine is rarely alone for long. It needs state, messaging, identity, observability, scaling, and deployment shape. Aspire gives those concerns a code-first home. Elsa gives that home a real workflow runtime to operate.</p>
+<p>That is why the pairing works.</p>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://github.com/mohdali/Elsa.Aspire">Elsa.Aspire sample repository</a></li>
+<li><a href="https://aspire.dev/get-started/what-is-aspire/">Aspire overview</a></li>
+<li><a href="https://aspire.dev/deployment/overview/">Aspire deployment overview</a></li>
+<li><a href="https://docs.elsaworkflows.io/">Elsa Workflows documentation</a></li>
+<li><a href="https://www.nuget.org/packages/Elsa.Studio.Authentication.OpenIdConnect">Elsa Studio OpenID Connect package</a></li>
+</ul>
+</div></div></article><section class="post-discovery" aria-label="Post navigation"><section class="related-posts" aria-labelledby="related-posts-title"><!--!--><!--!--><h2 id="related-posts-title" class="mud-typography mud-typography-h2 post-discovery-title">More Posts</h2><!--!-->
+                            <div class="related-post-list"><article class="related-post-item "><time datetime="2026-05-02">02 May 2026</time><div class="related-post-copy"><!--!--><!--!--><h3 class="mud-typography mud-typography-h3"><!--!--><a href="/posts/blazor-blog-three-years-later" class="mud-typography mud-link mud-primary-text mud-link-underline-hover">The Blazor Blog, Three Years Later</a></h3><!--!--><!--!--><p class="mud-typography mud-typography-body2">A follow-up to the 2023 Blazor blog post covering markdown authoring, source generation, prerendering, and UI polish.</p></div></article><article class="related-post-item "><time datetime="2025-08-14">14 Aug 2025</time><div class="related-post-copy"><!--!--><!--!--><h3 class="mud-typography mud-typography-h3"><!--!--><a href="/posts/markdown-posts-now-live" class="mud-typography mud-link mud-primary-text mud-link-underline-hover">Markdown Posts Are Now Live!</a></h3><!--!--><!--!--><p class="mud-typography mud-typography-body2">The blog now accepts markdown posts with frontmatter and turns them into routed Blazor pages during the build.</p></div></article><article class="related-post-item "><time datetime="2023-08-21">21 Aug 2023</time><div class="related-post-copy"><!--!--><!--!--><h3 class="mud-typography mud-typography-h3"><!--!--><a href="/posts/Simple-Blazor-Blog" class="mud-typography mud-link mud-primary-text mud-link-underline-hover">Simple Blazor Blog</a></h3><!--!--><!--!--><p class="mud-typography mud-typography-body2">How this Blazor WebAssembly blog originally handled GitHub Pages hosting, prerendering, and automatic post navigation.</p></div></article></div></section><nav class="post-neighbors" aria-label="Previous and next posts"><!--!--><a href="/posts/blazor-blog-three-years-later" class="mud-typography mud-link mud-primary-text mud-link-underline-hover post-neighbor previous-post"><!--!--><span>Previous</span>
+                                    <strong>The Blazor Blog, Three Years Later</strong></a></nav></section><div class="post-footer mt-6"><!--!--><hr class="mud-divider mud-divider-fullwidth mb-4"><!--!-->
+                <div class="d-flex justify-space-between align-center"><!--!--><!--!--><a type="button" href="/posts" class="mud-button-root mud-button mud-button-text mud-button-text-primary mud-button-text-size-medium mud-ripple" _bl_7=""><span class="mud-button-label"><span class="mud-button-icon-start mud-button-icon-size-medium"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg></span><!--!-->
+                        Back to Posts
+                    </span></a><!--!-->
+                    <div class="post-share"><!--!--><!--!--><p class="mud-typography mud-typography-body2 mr-2 d-inline">Share:</p><!--!-->
+                        <!--!--><!--!--><a type="button" href="https://twitter.com/intent/tweet?text=Running%20Elsa%20Workflows%20Through%20Aspire&amp;url=https%3A%2F%2Fmohdali.dev%2Fposts%2Frunning-elsa-workflows-through-aspire" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-primary-text hover:mud-primary-hover mud-ripple mud-ripple-icon mud-icon-button-size-small" _bl_8=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-small" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path></svg></span></a><!--!-->
+                        <!--!--><!--!--><a type="button" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmohdali.dev%2Fposts%2Frunning-elsa-workflows-through-aspire" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-primary-text hover:mud-primary-hover mud-ripple mud-ripple-icon mud-icon-button-size-small" _bl_9=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-small" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path></svg></span></a></div></div></div></div></div></div><!--!-->
+
+    <footer class="site-footer"><!--!--><div class="mud-container mud-container-maxwidth-lg mud-container--gutters"><div class="footer-content"><div class="footer-text"><!--!--><!--!--><p class="mud-typography mud-typography-body2">© 2026 Mohamed Ali</p><!--!-->
+                    <!--!--><!--!--><span class="mud-typography mud-typography-caption">Static Blazor blog, authored in Markdown</span></div><!--!-->
+                <div class="footer-social"><!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><!--!--><a type="button" href="https://github.com/mohdali/" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_2=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"></path></svg></span></a><!--!--><div id="popover-d4d4568c-45b4-4d40-b29b-7224a1a32df1" class="mud-popover-cascading-value"></div></div><!--!-->
+                    <!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><!--!--><a type="button" href="https://twitter.com/mohdali" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_3=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path></svg></span></a><!--!--><div id="popover-88e4b59f-42d0-4c6e-a6eb-5271b3a2b7c9" class="mud-popover-cascading-value"></div></div><!--!-->
+                    <!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><!--!--><a type="button" href="https://mastodon.online/@mohdali" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_4=""><span class="mud-icon-button-label"><!--!--><span class="mud-icon-root mud-icon-size-medium fab fa-mastodon" aria-hidden="true" role="img"></span></span></a><!--!--><div id="popover-870bc9c6-d803-43c0-be12-c373df47268e" class="mud-popover-cascading-value"></div></div><!--!-->
+                    <!--!--><div class="mud-tooltip-root mud-tooltip-inline"><!--!--><!--!--><!--!--><a type="button" href="https://observablehq.com/@mohdali" target="_blank" rel="noopener" class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon social-icon" _bl_5=""><span class="mud-icon-button-label"><!--!--><svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!-->
+<svg viewBox="0 0 25 28" fill="currentColor" class="bi" width="24" height="24">
+<path d="M12.5 22.6667C11.3458 22.6667 10.3458 22.4153 9.5 21.9127C8.65721 21.412 7.98339 20.7027 7.55521
+19.8654C7.09997 18.9942 6.76672 18.0729 6.56354 17.1239C6.34796 16.0947 6.24294 15.0483 6.25 14C6.25 13.1699 6.30417
+12.3764 6.41354 11.6176C6.52188 10.8598 6.72292 10.0894 7.01563 9.30748C7.30833 8.52555 7.68542 7.84763 8.14479
+7.27274C8.62304 6.68378 9.24141 6.20438 9.95208 5.87163C10.6979 5.51244 11.5458 5.33333 12.5 5.33333C13.6542 5.33333
+14.6542 5.58467 15.5 6.08733C16.3428 6.588 17.0166 7.29733 17.4448 8.13459C17.8969 8.99644 18.2271 9.9103 18.4365
+10.8761C18.6448 11.841 18.75 12.883 18.75 14C18.75 14.8301 18.6958 15.6236 18.5865 16.3824C18.4699 17.1702 18.2639
+17.9446 17.9719 18.6925C17.6698 19.4744 17.2948 20.1524 16.8427 20.7273C16.3906 21.3021 15.7927 21.7692 15.0479
+22.1284C14.3031 22.4876 13.4542 22.6667 12.5 22.6667ZM14.7063 16.2945C15.304 15.6944 15.6365 14.864 15.625 14C15.625
+13.1073 15.326 12.3425 14.7292 11.7055C14.1313 11.0685 13.3885 10.75 12.5 10.75C11.6115 10.75 10.8688 11.0685 10.2708
+11.7055C9.68532 12.3123 9.36198 13.1405 9.375 14C9.375 14.8927 9.67396 15.6575 10.2708 16.2945C10.8688 16.9315 11.6115
+17.25 12.5 17.25C13.3885 17.25 14.124 16.9315 14.7063 16.2945ZM12.5 27C19.4031 27 25 21.1792 25 14C25 6.82075 19.4031 1
+12.5 1C5.59687 1 0 6.82075 0 14C0 21.1792 5.59687 27 12.5 27Z"></path></svg>
+</svg></span></a><!--!--><div id="popover-9d355d01-506e-4832-a960-343c9bb84657" class="mud-popover-cascading-value"></div></div></div></div></div></footer></div><!--!-->
+        <!--!--></div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">x</a>
+    </div>
+    
+    <script type="module" src="_content/BlogEngine/BlogEngine.min.js"></script>
+    
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    
+    <script src="_framework/blazor.webassembly.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-BWGNCP62MT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BWGNCP62MT');
+    </script>
+
+
+
+<div class="mermaidTooltip" style="opacity: 0; position: absolute; text-align: center; max-width: 200px; padding: 2px; font-size: 12px; background: rgb(255, 255, 222); border: 1px solid rgb(51, 51, 51); border-radius: 2px; pointer-events: none; z-index: 100;"></div></body></html>

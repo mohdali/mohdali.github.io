@@ -6,6 +6,13 @@
     <description>Software notes by Mohamed Ali.</description>
     <language>en</language>
     <item>
+      <title>Running Elsa Workflows Through Aspire</title>
+      <link>https://mohdali.dev/posts/running-elsa-workflows-through-aspire</link>
+      <guid>https://mohdali.dev/posts/running-elsa-workflows-through-aspire</guid>
+      <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
+      <description>A practical look at running Elsa Workflows as an Aspire-modeled distributed app with Postgres, RabbitMQ, Keycloak, server replicas, observability, and Kubernetes publishing.</description>
+    </item>
+    <item>
       <title>The Blazor Blog, Three Years Later</title>
       <link>https://mohdali.dev/posts/blazor-blog-three-years-later</link>
       <guid>https://mohdali.dev/posts/blazor-blog-three-years-later</guid>
