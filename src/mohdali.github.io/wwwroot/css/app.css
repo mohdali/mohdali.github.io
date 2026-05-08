@@ -640,6 +640,51 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
     margin-bottom: 0.85rem;
     font-weight: 700;
     letter-spacing: 0;
+    scroll-margin-top: 5rem;
+}
+
+.content-page h1,
+.content-page h2,
+.content-page h3,
+.content-page h4,
+.content-page h5,
+.content-page h6,
+.archive-page .page-header h1,
+.archive-page .archive-year > h2 {
+    scroll-margin-top: 5rem;
+}
+
+.heading-anchor-target {
+    position: relative;
+}
+
+.heading-anchor {
+    position: absolute;
+    top: 50%;
+    left: -1.35rem;
+    display: inline-flex;
+    width: 1rem;
+    align-items: center;
+    justify-content: center;
+    color: var(--mud-palette-primary);
+    font-size: 0.78em;
+    line-height: 1;
+    opacity: 0;
+    text-decoration: none;
+    transform: translateY(-50%);
+    transition: opacity 120ms ease, color 120ms ease;
+}
+
+.heading-anchor-target:hover > .heading-anchor,
+.heading-anchor-target:focus-within > .heading-anchor,
+.heading-anchor:focus {
+    opacity: 1;
+}
+
+.heading-anchor:hover,
+.heading-anchor:focus {
+    color: var(--mud-palette-secondary);
+    outline: none;
 }
 
 .post-content h1 {
@@ -729,8 +774,114 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
     margin: 1.5rem 0;
 }
 
+.post-content img.enlargeable-image {
+    cursor: zoom-in;
+}
+
+.post-content img.enlargeable-image:focus {
+    outline: 3px solid var(--mud-palette-primary);
+    outline-offset: 4px;
+}
+
 .post-content figure img {
     margin: 0;
+}
+
+body.image-lightbox-open {
+    overflow: hidden;
+}
+
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+}
+
+.image-lightbox[hidden] {
+    display: none !important;
+}
+
+.image-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(9, 9, 11, 0.82);
+    backdrop-filter: blur(6px);
+}
+
+.image-lightbox-panel {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    max-width: min(96vw, 92rem);
+    max-height: 92vh;
+    gap: 0.75rem;
+    justify-items: center;
+}
+
+.image-lightbox-image {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: calc(92vh - 4rem);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+    object-fit: contain;
+}
+
+.image-lightbox-caption {
+    max-width: min(100%, var(--content-width));
+    margin: 0;
+    color: #f4f4f5;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.image-lightbox-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(244, 244, 245, 0.24);
+    border-radius: 999px;
+    background: rgba(9, 9, 11, 0.78);
+    color: #f4f4f5;
+    cursor: pointer;
+    font-size: 0;
+}
+
+.image-lightbox-close::before,
+.image-lightbox-close::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.15rem;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    content: "";
+}
+
+.image-lightbox-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.image-lightbox-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.image-lightbox-close:hover,
+.image-lightbox-close:focus {
+    border-color: var(--mud-palette-primary);
+    background: var(--mud-palette-primary);
+    color: var(--mud-palette-primary-text);
+    outline: none;
 }
 
 .post-content code {
@@ -1294,10 +1445,26 @@ pre code.hljs::-webkit-scrollbar-thumb {
         font-size: 1.45rem;
     }
 
+    .heading-anchor {
+        position: static;
+        transform: none;
+        width: auto;
+        margin-left: 0.45rem;
+        opacity: 0.72;
+    }
+
     .post-content pre,
     pre.code {
         margin-inline: -0.25rem;
         padding: 0.85rem;
+    }
+
+    .image-lightbox {
+        padding: 0.75rem;
+    }
+
+    .image-lightbox-image {
+        max-height: calc(92vh - 5rem);
     }
 
     .post-footer .d-flex,
