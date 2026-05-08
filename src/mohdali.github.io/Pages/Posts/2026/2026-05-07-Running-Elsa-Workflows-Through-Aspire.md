@@ -46,6 +46,11 @@ It runs:
 
 The point is not the "hello world" workflow. The point is the topology around it.
 
+<figure>
+  <img src="/images/posts/elsa-aspire/aspire-resources.png" alt="Aspire Dashboard resources table showing Keycloak, RabbitMQ, Postgres, the Elsa database, two Elsa Server replicas, and Elsa Studio running together." width="2542" height="592" loading="lazy">
+  <figcaption>The Aspire resources view makes the sample's runtime shape visible: infrastructure containers, the Elsa database, two server replicas, and Studio are all modeled as first-class resources.</figcaption>
+</figure>
+
 ## The AppHost Is The Center
 
 The AppHost is the most important file in the sample because it makes the application graph visible.
@@ -140,6 +145,11 @@ Every 15 seconds, the timer starts a workflow and writes:
 Hello World from the Elsa timer workflow.
 ```
 
+<figure>
+  <img src="/images/posts/elsa-aspire/aspire-console-logs.png" alt="Aspire Dashboard console logs showing Elsa Server waiting for dependencies, starting, registering endpoints, and writing repeated timer workflow output." width="2048" height="1645" loading="lazy">
+  <figcaption>The console logs show Aspire's startup ordering in action and confirm that the timer workflow is firing through the Elsa Server replica.</figcaption>
+</figure>
+
 That workflow is not the product story. It is a proof that the runtime is alive inside the distributed shape: two server replicas, shared persistence, messaging, scheduling, authentication, and a Studio frontend calling the backend through the configured topology.
 
 ## What Aspire Brings
@@ -156,19 +166,10 @@ Aspire Dashboard shows the resources those workflows depend on.
 
 That split is useful:
 
-```mermaid
-flowchart LR
-    Studio[Elsa Studio] --> Server[Elsa Server replicas]
-    Server --> Postgres[(PostgreSQL)]
-    Server --> Rabbit[(RabbitMQ)]
-    Studio --> Keycloak[Keycloak]
-    Server --> Keycloak
-    AppHost[Aspire AppHost] --> Studio
-    AppHost --> Server
-    AppHost --> Postgres
-    AppHost --> Rabbit
-    AppHost --> Keycloak
-```
+<figure>
+  <img src="/images/posts/elsa-aspire/aspire-resource-graph.png" alt="Aspire Dashboard graph showing Elsa Server replicas connected to Keycloak, RabbitMQ, the Elsa database, Postgres, and Elsa Studio." width="1996" height="1644" loading="lazy">
+  <figcaption>The dashboard graph turns the AppHost model into an inspectable service map, including the two Elsa Server replicas and their dependencies.</figcaption>
+</figure>
 
 The workflow designer is not being asked to explain the whole distributed system. The AppHost and dashboard carry that concern.
 

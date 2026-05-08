@@ -729,6 +729,10 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
     margin: 1.5rem 0;
 }
 
+.post-content figure img {
+    margin: 0;
+}
+
 .post-content code {
     border-radius: 5px;
     background: rgba(45, 212, 191, 0.12);
