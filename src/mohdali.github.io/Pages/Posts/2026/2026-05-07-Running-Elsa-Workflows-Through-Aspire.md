@@ -114,6 +114,11 @@ Aspire replaces that with a model. The model says what exists, what depends on w
 
 Elsa is the workflow layer.
 
+<figure>
+  <img src="/images/posts/elsa-aspire/elsa-studio-workflow-designer.png" alt="Elsa Studio workflow designer showing Workflow 1 with a Timer activity connected to a Write Line activity." width="2048" height="1080" loading="lazy">
+  <figcaption>Elsa Studio gives the workflow runtime a visual authoring surface. In this sample, the workflow is intentionally small: a Timer activity followed by Write Line.</figcaption>
+</figure>
+
 In this sample, Elsa Server configures management and runtime persistence through PostgreSQL. It uses Quartz for scheduling. It uses MassTransit over RabbitMQ for distributed runtime behavior and distributed cache messaging. It enables HTTP activities, JavaScript expressions, workflow API endpoints, and real-time workflow updates for Studio.
 
 The sample workflow is deliberately modest:
