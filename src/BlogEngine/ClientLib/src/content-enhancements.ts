@@ -4,15 +4,7 @@ const headingSelector = [
     '.post-content h3',
     '.post-content h4',
     '.post-content h5',
-    '.post-content h6',
-    '.content-page h1',
-    '.content-page h2',
-    '.content-page h3',
-    '.content-page h4',
-    '.content-page h5',
-    '.content-page h6',
-    '.archive-page .page-header h1',
-    '.archive-page .archive-year > h2'
+    '.post-content h6'
 ].join(',');
 
 const imageSelector = '.post-content img:not(.post-preview-image):not(.image-lightbox-image)';
