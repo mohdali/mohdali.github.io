@@ -49,7 +49,7 @@
                                         <div class="tag-list compact" aria-label="Post tags">
                                             @foreach (var tag in post.Tags)
                                             {
-                                                <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@tag</MudChip>
+                                                <TagLink Tag="@tag" />
                                             }
                                         </div>
                                     }

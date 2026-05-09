@@ -35,6 +35,72 @@ public class BlogPostService
             .ToList();
     }
 
+    public List<BlogPost> GetPublishedBlogPostsByTag(Assembly assembly, string tagSlug)
+    {
+        var normalizedSlug = NormalizeTagSlug(tagSlug);
+
+        if (string.IsNullOrWhiteSpace(normalizedSlug))
+        {
+            return new List<BlogPost>();
+        }
+
+        return GetPublishedBlogPosts(assembly)
+            .Where(post => post.Tags.Any(tag => string.Equals(GetTagSlug(tag), normalizedSlug, StringComparison.OrdinalIgnoreCase)))
+            .ToList();
+    }
+
+    public List<BlogTag> GetTags(Assembly assembly)
+    {
+        var tags = GetPublishedBlogPosts(assembly)
+            .SelectMany(post => post.Tags
+                .Where(tag => !string.IsNullOrWhiteSpace(tag))
+                .Select(tag => new { Post = post, Name = tag.Trim(), Slug = GetTagSlug(tag) }))
+            .Where(tag => !string.IsNullOrWhiteSpace(tag.Slug))
+            .GroupBy(tag => tag.Slug, StringComparer.OrdinalIgnoreCase)
+            .Select(group =>
+            {
+                var tagName = group
+                    .Select(tag => tag.Name)
+                    .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+                    .First();
+
+                var postCount = group
+                    .Select(tag => tag.Post.Url)
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .Count();
+
+                return new BlogTag(tagName, group.Key, postCount);
+            })
+            .OrderBy(tag => tag.Name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        return tags;
+    }
+
+    public BlogTag? GetTag(Assembly assembly, string tagSlug)
+    {
+        var normalizedSlug = NormalizeTagSlug(tagSlug);
+
+        return GetTags(assembly)
+            .FirstOrDefault(tag => string.Equals(tag.Slug, normalizedSlug, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public string GetTagUrl(string tag)
+    {
+        return $"/tags/{GetTagSlug(tag)}";
+    }
+
+    public string GetTagSlug(string tag)
+    {
+        if (string.IsNullOrWhiteSpace(tag))
+        {
+            return string.Empty;
+        }
+
+        var slug = Regex.Replace(tag.Trim().ToLowerInvariant(), @"[^a-z0-9]+", "-").Trim('-');
+        return string.IsNullOrWhiteSpace(slug) ? string.Empty : slug;
+    }
+
     public (BlogPost? Previous, BlogPost? Next) GetAdjacentPosts(Assembly assembly, BlogPost currentPost)
     {
         var posts = GetPublishedBlogPosts(assembly);
@@ -199,6 +265,11 @@ public class BlogPostService
     {
         return post.Timestamp != DateTime.MinValue &&
                post.Timestamp.Date <= DateTime.UtcNow.Date;
+    }
+
+    private string NormalizeTagSlug(string tagSlug)
+    {
+        return GetTagSlug(Uri.UnescapeDataString(tagSlug ?? string.Empty));
     }
 
     private static void ResolvePostImage(

@@ -14,3 +14,5 @@ public sealed record BlogPost(
     int? ImageHeight,
     string? CardImage,
     string? CardImageAlt);
+
+public sealed record BlogTag(string Name, string Slug, int PostCount);

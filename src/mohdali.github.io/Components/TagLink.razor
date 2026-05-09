@@ -1,0 +1,17 @@
+<MudChip T="string"
+         Size="Size.Small"
+         Variant="Variant.Outlined"
+         Color="Color.Primary"
+         Href="@TagUrl"
+         Class="@Class">
+    @Tag
+</MudChip>
+
+@code {
+    [Inject] private BlogPostService BlogPostService { get; set; } = default!;
+
+    [Parameter] public string Tag { get; set; } = string.Empty;
+    [Parameter] public string? Class { get; set; }
+
+    private string TagUrl => BlogPostService.GetTagUrl(Tag);
+}

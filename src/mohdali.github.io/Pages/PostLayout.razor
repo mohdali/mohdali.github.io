@@ -24,6 +24,15 @@
                     Published: @BlogPost?.Timestamp.ToString("dd MMMM yyyy")
                 </MudText>
                 <MudText Typo="Typo.h1" Class="post-detail-title">@BlogPost?.Title</MudText>
+                @if (BlogPost?.Tags.Length > 0)
+                {
+                    <div class="tag-list post-tag-list" aria-label="Post tags">
+                        @foreach (var tag in BlogPost.Tags)
+                        {
+                            <TagLink Tag="@tag" />
+                        }
+                    </div>
+                }
             </div>
             
             <PageTitle>@BlogPost?.Title - mohdali.dev</PageTitle>

@@ -155,6 +155,46 @@ function comparePosts(a, b) {
     (a.route || '').localeCompare(b.route || '');
 }
 
+function discoverTags(posts) {
+  const tagsBySlug = new Map();
+
+  for (const post of posts) {
+    for (const tagName of post.tags ?? []) {
+      const slug = slugify(tagName);
+
+      if (!slug) {
+        continue;
+      }
+
+      const current = tagsBySlug.get(slug) ?? {
+        name: tagName,
+        slug,
+        route: `/tags/${slug}`,
+        postRoutes: new Set(),
+        latestDate: ''
+      };
+
+      current.postRoutes.add(post.route);
+
+      if ((post.date || '') > current.latestDate) {
+        current.latestDate = post.date || '';
+      }
+
+      tagsBySlug.set(slug, current);
+    }
+  }
+
+  return Array.from(tagsBySlug.values())
+    .map(tag => ({
+      name: tag.name,
+      slug: tag.slug,
+      route: tag.route,
+      postCount: tag.postRoutes.size,
+      latestDate: tag.latestDate
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 function extractRazorStringProperty(content, propertyName) {
   const pattern = new RegExp(`public\\s+string\\s+${propertyName}\\s*\\{[^}]*\\}\\s*=\\s*\"([^\"]*)\"`, 'm');
   return content.match(pattern)?.[1] ?? '';
@@ -226,8 +266,14 @@ function discoverContent() {
     .filter(isPublished)
     .sort(comparePosts);
 
-  const routes = Array.from(new Set(['/', '/posts', '/about', ...posts.map(post => post.route)]));
-  return { posts, routes };
+  const tags = discoverTags(posts);
+  const routes = Array.from(new Set(['/', '/posts', '/about', ...tags.map(tag => tag.route), ...posts.map(post => post.route)]));
+  const routeLastModified = new Map([
+    ...posts.map(post => [post.route, post.date]),
+    ...tags.map(tag => [tag.route, tag.latestDate || publicationDate])
+  ]);
+
+  return { posts, routes, routeLastModified };
 }
 
 function xmlEscape(value) {
@@ -403,7 +449,7 @@ async function generateSocialCards(browser, posts) {
   }
 }
 
-function writeDiscoveryFiles(posts, routes) {
+function writeDiscoveryFiles(posts, routes, routeLastModified) {
   const rssItems = posts.map(post => `
     <item>
       <title>${xmlEscape(post.title)}</title>
@@ -425,8 +471,7 @@ function writeDiscoveryFiles(posts, routes) {
 `);
 
   const sitemapUrls = routes.map(route => {
-    const post = posts.find(candidate => candidate.route === route);
-    const lastmod = post?.date || publicationDate;
+    const lastmod = routeLastModified.get(route) || publicationDate;
 
     return `
   <url>
@@ -449,8 +494,8 @@ Sitemap: ${siteUrl}/sitemap.xml
 async function prerender() {
   console.log('Starting pre-rendering process...');
 
-  const { posts, routes } = discoverContent();
-  writeDiscoveryFiles(posts, routes);
+  const { posts, routes, routeLastModified } = discoverContent();
+  writeDiscoveryFiles(posts, routes, routeLastModified);
 
   await new Promise((resolve, reject) => {
     server.once('error', reject);

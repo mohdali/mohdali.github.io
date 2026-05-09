@@ -520,6 +520,19 @@ html[data-theme-option="light"] .theme-switcher .mud-icon-button-label::after {
     margin-top: 0.75rem;
 }
 
+.tag-list .mud-chip[href] {
+    text-decoration: none;
+}
+
+.tag-list .mud-chip[href]:focus-visible {
+    outline: 2px solid var(--mud-palette-primary);
+    outline-offset: 2px;
+}
+
+.post-tag-list {
+    margin-top: 1rem;
+}
+
 .read-more-btn {
     align-self: flex-start;
     margin-top: 0.5rem;

@@ -15,8 +15,8 @@
             </MudText>
         </div>
         <div class="intro-actions">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="#latest-posts" StartIcon="@Icons.Material.Filled.Article">
-                Latest Posts
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/posts" StartIcon="@Icons.Material.Filled.Article">
+                Browse Posts
             </MudButton>
             <MudButton Variant="Variant.Outlined" Color="Color.Primary" Href="/rss.xml" Target="_blank" StartIcon="@Icons.Material.Filled.RssFeed">
                 RSS
@@ -70,7 +70,7 @@
                             <div class="tag-list" aria-label="Post tags">
                                 @foreach (var tag in blogPost.Tags)
                                 {
-                                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary">@tag</MudChip>
+                                    <TagLink Tag="@tag" />
                                 }
                             </div>
                         }
