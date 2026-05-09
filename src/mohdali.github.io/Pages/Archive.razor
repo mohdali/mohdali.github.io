@@ -6,9 +6,17 @@
             Path="/posts" />
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="archive-page">
-    <header class="page-header">
-        <MudText Typo="Typo.h1" HtmlTag="h1">Posts</MudText>
-        <MudText Typo="Typo.body1">Everything published here, newest first.</MudText>
+    <header class="page-header page-header-with-actions">
+        <div>
+            <MudText Typo="Typo.h1" HtmlTag="h1">Posts</MudText>
+            <MudText Typo="Typo.body1">Everything published here, newest first.</MudText>
+        </div>
+        <MudButton Variant="Variant.Outlined"
+                   Color="Color.Primary"
+                   Href="/tags"
+                   StartIcon="@Icons.Material.Filled.LocalOffer">
+            Tags
+        </MudButton>
     </header>
 
     @if (Posts.Count == 0)

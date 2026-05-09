@@ -1,0 +1,60 @@
+@page "/tags"
+
+<PageTitle>Tags - mohdali.dev</PageTitle>
+<SocialMeta Title="Tags - mohdali.dev"
+            Description="Browse mohdali.dev posts by topic."
+            Path="/tags" />
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="archive-page tag-index-page">
+    <header class="page-header page-header-with-actions">
+        <div>
+            <MudText Typo="Typo.h1" HtmlTag="h1">Tags</MudText>
+            <MudText Typo="Typo.body1">Browse posts by topic.</MudText>
+        </div>
+        <MudButton Variant="Variant.Outlined"
+                   Color="Color.Primary"
+                   Href="/posts"
+                   StartIcon="@Icons.Material.Filled.Article">
+            Posts
+        </MudButton>
+    </header>
+
+    @if (BlogTags.Count == 0)
+    {
+        <MudPaper Class="empty-state" Elevation="0">
+            <MudIcon Icon="@Icons.Material.Filled.LocalOffer" Size="Size.Large" Color="Color.Primary" />
+            <MudText Typo="Typo.h5">No tags yet</MudText>
+        </MudPaper>
+    }
+    else
+    {
+        <nav class="tag-index-list" aria-label="Post tags">
+            @foreach (var tag in BlogTags)
+            {
+                <MudLink Href="@($"/tags/{tag.Slug}")" Class="tag-index-item">
+                    <span>@tag.Name</span>
+                    <small>@tag.PostCount @Pluralize(tag.PostCount, "post")</small>
+                </MudLink>
+            }
+        </nav>
+    }
+</MudContainer>
+
+@code {
+    [Inject] private BlogPostService BlogPostService { get; set; } = default!;
+
+    private List<BlogTag> BlogTags { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        BlogTags = BlogPostService.GetTags(typeof(Program).Assembly)
+            .OrderByDescending(tag => tag.PostCount)
+            .ThenBy(tag => tag.Name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    private static string Pluralize(int count, string singular)
+    {
+        return count == 1 ? singular : $"{singular}s";
+    }
+}

@@ -267,8 +267,10 @@ function discoverContent() {
     .sort(comparePosts);
 
   const tags = discoverTags(posts);
-  const routes = Array.from(new Set(['/', '/posts', '/about', ...tags.map(tag => tag.route), ...posts.map(post => post.route)]));
+  const latestPostDate = posts[0]?.date || publicationDate;
+  const routes = Array.from(new Set(['/', '/posts', '/tags', '/about', ...tags.map(tag => tag.route), ...posts.map(post => post.route)]));
   const routeLastModified = new Map([
+    ['/tags', latestPostDate],
     ...posts.map(post => [post.route, post.date]),
     ...tags.map(tag => [tag.route, tag.latestDate || publicationDate])
   ]);
