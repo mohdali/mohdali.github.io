@@ -6,6 +6,13 @@
     <description>Software notes by Mohamed Ali.</description>
     <language>en</language>
     <item>
+      <title>My Personal Knowledge System Starts In Telegram, But Codex Keeps It Usable</title>
+      <link>https://mohdali.dev/posts/my-personal-knowledge-system-starts-in-telegram-but-codex-keeps-it-usable</link>
+      <guid>https://mohdali.dev/posts/my-personal-knowledge-system-starts-in-telegram-but-codex-keeps-it-usable</guid>
+      <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
+      <description>How Telegram, plain markdown, a Git-backed vault, Obsidian, and Codex automation workflows make capture and review easier without turning notes into filing.</description>
+    </item>
+    <item>
       <title>Running Elsa Workflows Through Aspire</title>
       <link>https://mohdali.dev/posts/running-elsa-workflows-through-aspire</link>
       <guid>https://mohdali.dev/posts/running-elsa-workflows-through-aspire</guid>
