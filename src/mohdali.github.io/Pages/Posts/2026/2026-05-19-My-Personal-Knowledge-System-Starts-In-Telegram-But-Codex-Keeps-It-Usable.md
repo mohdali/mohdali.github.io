@@ -27,6 +27,11 @@ But Telegram only solved the first half of the problem.
 
 The bigger change was adding Codex workflows around the vault. A one-off chat can help with a note, but a repeatable workflow can keep reviewing the same kind of mess every day without me redesigning the process each time.
 
+<figure>
+  <img src="/images/posts/personal-knowledge-system/codex-review-workflows.jpg" alt="Editorial illustration showing a phone capture surface connected to markdown notes and Codex review workflows." width="1731" height="909" loading="lazy">
+  <figcaption>The useful split is simple: capture quickly, keep the notes as files, and let Codex workflows make review less tedious.</figcaption>
+</figure>
+
 ## The Shape Of The System
 
 The current shape is roughly this:
