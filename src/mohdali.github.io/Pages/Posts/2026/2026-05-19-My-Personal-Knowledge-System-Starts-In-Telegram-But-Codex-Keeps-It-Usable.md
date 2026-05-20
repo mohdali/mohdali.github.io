@@ -3,6 +3,10 @@ title: My Personal Knowledge System Starts In Telegram, But Codex Keeps It Usabl
 date: 2026-05-19
 page: /posts/my-personal-knowledge-system-starts-in-telegram-but-codex-keeps-it-usable
 description: How Telegram, plain markdown, a Git-backed vault, Obsidian, and Codex automation workflows make capture and review easier without turning notes into filing.
+image: /images/posts/personal-knowledge-system/codex-review-workflows.jpg
+imageAlt: Editorial illustration showing a phone capture surface connected to markdown notes and Codex review workflows.
+imageWidth: 1731
+imageHeight: 909
 cardImage: /images/posts/personal-knowledge-system/codex-review-workflows.jpg
 cardImageAlt: Editorial illustration showing a phone capture surface connected to markdown notes and Codex review workflows.
 tags:
